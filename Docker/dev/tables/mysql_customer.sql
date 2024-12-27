@@ -1,6 +1,6 @@
 -- Create the customers table
 CREATE TABLE customers (
-    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -13,21 +13,47 @@ CREATE TABLE customers (
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create the sequence for customer_id
+CREATE SEQUENCE customer_seq
+START WITH 1
+INCREMENT BY 1;
+
+-- Create the trigger to auto-increment customer_id
+CREATE TRIGGER before_insert_customer
+BEFORE INSERT ON customers
+FOR EACH ROW
+BEGIN
+    SELECT customer_seq.NEXTVAL INTO :NEW.customer_id FROM dual;
+END;
+
 -- Create the customer_logs table
 CREATE TABLE customer_logs (
-    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    log_id INT PRIMARY KEY,
     customer_id INT,
     log_message VARCHAR(255),
     log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Create the sequence for log_id
+CREATE SEQUENCE log_seq
+START WITH 1
+INCREMENT BY 1;
+
+-- Create the trigger to auto-increment log_id
+CREATE TRIGGER before_insert_customer_log
+BEFORE INSERT ON customer_logs
+FOR EACH ROW
+BEGIN
+    SELECT log_seq.NEXTVAL INTO :NEW.log_id FROM dual;
+END;
 
 -- Create the after insert trigger to log customer additions
 CREATE TRIGGER after_insert_customer
 AFTER INSERT ON customers
 FOR EACH ROW
 BEGIN
-    INSERT INTO customer_logs (customer_id, log_message)
-    VALUES (NEW.customer_id, CONCAT('Customer ', NEW.first_name, ' ', NEW.last_name, ' added.'));
+    INSERT INTO customer_logs (log_id, customer_id, log_message)
+    VALUES (log_seq.NEXTVAL, :NEW.customer_id, CONCAT('Customer ', :NEW.first_name, ' ', :NEW.last_name, ' added.'));
 END;
 
 -- Insert sample data into the customers table
