@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: ../docker
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - postgres
+    volumes:
+      - ../:/app
+    environment:
+      - NODE_ENV=development
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: pgappd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ../init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    secrets:
+      - postgres_password
+
+secrets:
+  postgres_password:
+    file: ../secrets/postgres_password.txt
+
+volumes:
+  mongo-data:
+  postgres-data:
