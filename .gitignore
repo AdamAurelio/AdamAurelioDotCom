@@ -1,5 +1,31 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/staticfiles/
+/media/
+/logs/
+/backend/staticfiles/
+/backend/media/
+/backend/logs/
+
 # dependencies
 /node_modules
 /.pnp
@@ -7,12 +33,20 @@
 
 # testing
 /coverage
+.pytest_cache/
+.tox/
+htmlcov/
+.coverage
 
 # production
 /build
+/frontend/build/
+dist/
 
 # misc
 .DS_Store
+Thumbs.db
+desktop.ini
 .env.local
 .env.development.local
 .env.test.local
@@ -24,6 +58,10 @@ yarn-error.log*
 
 # Environment files
 .env
+.env.dev
+.env.qa
+.env.prod
+.env.*.local
 
 # Logs
 logs/
@@ -38,3 +76,35 @@ build/
 
 # Docker files
 docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Backup files
+*.bak
+*.backup
+backups/*.sql
+backups/*.sql.gz
+*.dump
+
+# Certificates & Keys
+*.pem
+*.key
+*.crt
+*.csr
+!*.pub
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Old files
+README_OLD.md
+*.old
