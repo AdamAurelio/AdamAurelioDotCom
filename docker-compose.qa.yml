@@ -1,5 +1,4 @@
 # QA Docker Compose Configuration (Synology NAS)
-version: '3.8'
 
 services:
   # PostgreSQL Database
@@ -11,7 +10,7 @@ services:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5433:5432"  # Different port to avoid conflicts on Synology
+      - "5433:5432" # Different port to avoid conflicts on Synology
     volumes:
       - postgres_qa_data:/var/lib/postgresql/data
     healthcheck:
