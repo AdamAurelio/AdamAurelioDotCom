@@ -1,5 +1,4 @@
 # Development Docker Compose Configuration
-version: '3.8'
 
 services:
   # PostgreSQL Database
@@ -14,7 +13,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
-      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
       interval: 10s
@@ -46,12 +44,12 @@ services:
   # React Frontend
   frontend:
     build:
-      context: ./frontend
+      context: ./adamaurelio
       dockerfile: Dockerfile.dev
     container_name: adamaurelio_dev_frontend
     command: npm start
     volumes:
-      - ./frontend:/app
+      - ./adamaurelio:/app
       - /app/node_modules
     ports:
       - "3000:3000"
