@@ -1,0 +1,312 @@
+<mxfile host="app.diagrams.net" modified="2026-01-22T00:00:00.000Z" agent="5.0" version="22.1.0" etag="architecture-diagram">
+  <diagram name="Project Architecture" id="project-architecture">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Title -->
+        <mxCell id="title" value="AdamAurelio.com - System Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="440" y="20" width="520" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Frontend Container -->
+        <mxCell id="frontend-container" value="Frontend Application" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="360" height="480" as="geometry"/>
+        </mxCell>
+        
+        <!-- React -->
+        <mxCell id="react" value="React 19" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" vertex="1" parent="frontend-container">
+          <mxGeometry x="20" y="40" width="320" height="50" as="geometry"/>
+        </mxCell>
+        
+        <!-- Tailwind CSS -->
+        <mxCell id="tailwind" value="Tailwind CSS 3+" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1" vertex="1" parent="frontend-container">
+          <mxGeometry x="20" y="100" width="320" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Pages -->
+        <mxCell id="pages-group" value="Pages" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="frontend-container">
+          <mxGeometry x="20" y="160" width="150" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-home" value="Home.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="pages-group">
+          <mxGeometry x="10" y="30" width="60" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-about" value="About.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="pages-group">
+          <mxGeometry x="75" y="30" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-resume" value="Resume.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="pages-group">
+          <mxGeometry x="10" y="60" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-services" value="Services.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="pages-group">
+          <mxGeometry x="75" y="60" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-contact" value="Contact.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="pages-group">
+          <mxGeometry x="10" y="90" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="page-admin" value="Admin.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="pages-group">
+          <mxGeometry x="75" y="90" width="65" height="25" as="geometry"/>
+        </mxCell>
+        
+        <!-- Components -->
+        <mxCell id="components-group" value="Components" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="frontend-container">
+          <mxGeometry x="190" y="160" width="150" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-header" value="Header.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-group">
+          <mxGeometry x="10" y="30" width="60" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-footer" value="Footer.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-group">
+          <mxGeometry x="75" y="30" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-blog" value="Blog.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-group">
+          <mxGeometry x="10" y="60" width="60" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-bloglist" value="BlogList.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-group">
+          <mxGeometry x="75" y="60" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-blogpost" value="BlogPost.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-group">
+          <mxGeometry x="10" y="90" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="comp-resume" value="Resume.js" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-group">
+          <mxGeometry x="75" y="90" width="65" height="25" as="geometry"/>
+        </mxCell>
+        
+        <!-- Config Files -->
+        <mxCell id="config-group" value="Configuration" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1" parent="frontend-container">
+          <mxGeometry x="20" y="330" width="320" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="config-tailwind" value="tailwind.config.js" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="config-group">
+          <mxGeometry x="10" y="30" width="95" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="config-postcss" value="postcss.config.js" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="config-group">
+          <mxGeometry x="115" y="30" width="95" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="config-package" value="package.json" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="config-group">
+          <mxGeometry x="220" y="30" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="config-dockerfile" value="Dockerfile" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="config-group">
+          <mxGeometry x="10" y="65" width="95" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="config-dockerfiledev" value="Dockerfile.dev" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="config-group">
+          <mxGeometry x="115" y="65" width="95" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="config-indexcss" value="index.css" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="config-group">
+          <mxGeometry x="220" y="65" width="90" height="25" as="geometry"/>
+        </mxCell>
+        
+        <!-- Backend Container -->
+        <mxCell id="backend-container" value="Backend API" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="480" y="100" width="360" height="480" as="geometry"/>
+        </mxCell>
+        
+        <!-- Django -->
+        <mxCell id="django" value="Django 4.2 + Django REST Framework" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" vertex="1" parent="backend-container">
+          <mxGeometry x="20" y="40" width="320" height="50" as="geometry"/>
+        </mxCell>
+        
+        <!-- Django Apps -->
+        <mxCell id="apps-group" value="Django Apps" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="backend-container">
+          <mxGeometry x="20" y="110" width="320" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="app-core" value="core/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="apps-group">
+          <mxGeometry x="20" y="40" width="80" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="app-blog" value="blog/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="apps-group">
+          <mxGeometry x="120" y="40" width="80" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="app-resume" value="resume/" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="apps-group">
+          <mxGeometry x="220" y="40" width="80" height="35" as="geometry"/>
+        </mxCell>
+        
+        <!-- API Endpoints -->
+        <mxCell id="api-group" value="REST API Endpoints" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1" parent="backend-container">
+          <mxGeometry x="20" y="230" width="320" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="api-posts" value="/api/posts/" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="api-group">
+          <mxGeometry x="20" y="35" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="api-resume" value="/api/resume/" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="api-group">
+          <mxGeometry x="120" y="35" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="api-contact" value="/api/contact/" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="api-group">
+          <mxGeometry x="220" y="35" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="api-admin" value="/admin/" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="api-group">
+          <mxGeometry x="70" y="65" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="api-health" value="/health/" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="api-group">
+          <mxGeometry x="170" y="65" width="80" height="25" as="geometry"/>
+        </mxCell>
+        
+        <!-- Backend Config -->
+        <mxCell id="backend-config" value="Configuration" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1" parent="backend-container">
+          <mxGeometry x="20" y="350" width="320" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="settings-dev" value="settings/dev.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="backend-config">
+          <mxGeometry x="10" y="30" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="settings-qa" value="settings/qa.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="backend-config">
+          <mxGeometry x="115" y="30" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="settings-prod" value="settings/prod.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="backend-config">
+          <mxGeometry x="220" y="30" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="requirements" value="requirements.txt" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="backend-config">
+          <mxGeometry x="10" y="65" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="managepy" value="manage.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="backend-config">
+          <mxGeometry x="115" y="65" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="dockerfile-backend" value="Dockerfile" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="backend-config">
+          <mxGeometry x="220" y="65" width="90" height="25" as="geometry"/>
+        </mxCell>
+        
+        <!-- Database Container -->
+        <mxCell id="database-container" value="Database" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="880" y="100" width="280" height="200" as="geometry"/>
+        </mxCell>
+        
+        <!-- PostgreSQL -->
+        <mxCell id="postgresql" value="PostgreSQL 15" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1" vertex="1" parent="database-container">
+          <mxGeometry x="20" y="40" width="240" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Tables -->
+        <mxCell id="tables-group" value="Tables" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="database-container">
+          <mxGeometry x="20" y="100" width="240" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="table-posts" value="blog_posts" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="tables-group">
+          <mxGeometry x="10" y="30" width="70" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="table-resume" value="resume_items" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="tables-group">
+          <mxGeometry x="90" y="30" width="70" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="table-users" value="auth_users" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="tables-group">
+          <mxGeometry x="170" y="30" width="60" height="25" as="geometry"/>
+        </mxCell>
+        
+        <!-- DevOps Container -->
+        <mxCell id="devops-container" value="DevOps &amp; Infrastructure" style="swimlane;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="880" y="340" width="280" height="240" as="geometry"/>
+        </mxCell>
+        
+        <!-- Docker -->
+        <mxCell id="docker" value="Docker Compose" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="devops-container">
+          <mxGeometry x="20" y="40" width="240" height="35" as="geometry"/>
+        </mxCell>
+        
+        <!-- Environments -->
+        <mxCell id="env-group" value="Environments" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="devops-container">
+          <mxGeometry x="20" y="90" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="env-dev" value="Development" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="env-group">
+          <mxGeometry x="10" y="25" width="65" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="env-qa" value="QA (NAS)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="env-group">
+          <mxGeometry x="90" y="25" width="60" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="env-prod" value="Production (AWS)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="env-group">
+          <mxGeometry x="160" y="25" width="70" height="25" as="geometry"/>
+        </mxCell>
+        
+        <!-- CI/CD -->
+        <mxCell id="cicd" value="GitHub Actions CI/CD" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1" vertex="1" parent="devops-container">
+          <mxGeometry x="20" y="165" width="240" height="35" as="geometry"/>
+        </mxCell>
+        
+        <!-- Cloudflare -->
+        <mxCell id="cloudflare" value="Cloudflare CDN/DNS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1" vertex="1" parent="devops-container">
+          <mxGeometry x="20" y="210" width="115" height="20" as="geometry"/>
+        </mxCell>
+        
+        <!-- Nginx -->
+        <mxCell id="nginx" value="Nginx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1" vertex="1" parent="devops-container">
+          <mxGeometry x="145" y="210" width="115" height="20" as="geometry"/>
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="conn-frontend-backend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="frontend-container" target="backend-container">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="conn-label1" value="REST API Calls" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1" vertex="1" connectable="0" parent="conn-frontend-backend">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="5" y="-9" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="conn-backend-db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;entryX=0;entryY=0.5;strokeWidth=2;endArrow=classic;endFill=1;" edge="1" parent="1" source="backend-container" target="database-container">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="conn-label2" value="SQL Queries" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1" vertex="1" connectable="0" parent="conn-backend-db">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint y="-9" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="conn-devops-all" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;entryX=0.5;entryY=1;strokeWidth=2;strokeColor=#9673a6;dashed=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="devops-container" target="frontend-container">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="460"/>
+              <mxPoint x="260" y="460"/>
+              <mxPoint x="260" y="620"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn-label3" value="Orchestration" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontStyle=1" vertex="1" connectable="0" parent="conn-devops-all">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry">
+            <mxPoint x="-50" y="15" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend-container" value="Legend" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="80" y="620" width="760" height="120" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-frontend" value="Frontend (React + Tailwind)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="20" y="35" width="140" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-backend" value="Backend (Django)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="180" y="35" width="140" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-database" value="Database (PostgreSQL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="340" y="35" width="140" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-devops" value="DevOps/Infrastructure" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="500" y="35" width="140" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-port3000" value="Port 3000: React Dev Server" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="20" y="75" width="160" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-port8000" value="Port 8000: Django API" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="200" y="75" width="140" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-port5432" value="Port 5432: PostgreSQL" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="360" y="75" width="140" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-production" value="Production: adamaurelio.com" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10" vertex="1" parent="legend-container">
+          <mxGeometry x="520" y="75" width="180" height="20" as="geometry"/>
+        </mxCell>
+        
+        <!-- Data Flow Labels -->
+        <mxCell id="flow-label1" value="1. User Request" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fillColor=#fff;strokeColor=#666;rounded=1" vertex="1" parent="1">
+          <mxGeometry x="30" y="330" width="100" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="flow-label2" value="2. API Request" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fillColor=#fff;strokeColor=#666;rounded=1" vertex="1" parent="1">
+          <mxGeometry x="380" y="250" width="90" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="flow-label3" value="3. DB Query" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fillColor=#fff;strokeColor=#666;rounded=1" vertex="1" parent="1">
+          <mxGeometry x="795" y="160" width="75" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="flow-label4" value="4. Response" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=1;fillColor=#fff;strokeColor=#666;rounded=1" vertex="1" parent="1">
+          <mxGeometry x="380" y="380" width="85" height="30" as="geometry"/>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
