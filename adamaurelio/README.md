@@ -1,70 +1,220 @@
-# Getting Started with Create React App
+# AdamAurelio.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal portfolio website showcasing software engineering expertise, professional experience, and personal interests.
+
+## Tech Stack
+
+- **React 19** - Modern React with hooks and functional components
+- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
+- **Create React App** - Build tooling and development environment
+
+## Features
+
+- 🎨 Modern, responsive design with Tailwind CSS
+- 📱 Mobile-first approach with responsive breakpoints
+- ✨ Smooth animations and hover effects
+- 🎯 Professional portfolio sections
+- 📝 Blog component structure
+- 🎓 Comprehensive resume/CV section
+- 🌐 Multiple content areas (Technology, Theology, Family & Coaching)
+
+## Project Structure
+
+```
+AdamAurelioDotCom/
+├── adamaurelio/               # React Frontend (Tailwind CSS)
+│   ├── src/
+│   │   ├── components/       # Reusable components
+│   │   │   ├── Header.js     # Navigation with Tailwind
+│   │   │   ├── Footer.js     # Footer component
+│   │   │   ├── Blog.js       # Blog container
+│   │   │   ├── BlogList.js   # Blog listing
+│   │   │   ├── BlogPost.js   # Blog post card
+│   │   │   └── Resume.js     # Resume component
+│   │   ├── pages/            # Page components
+│   │   │   ├── Home.js       # Landing page
+│   │   │   ├── About.js      # About page
+│   │   │   ├── Resume.js     # Full resume page
+│   │   │   ├── Services.js   # Services page
+│   │   │   ├── Contact.js    # Contact page
+│   │   │   └── Admin.js      # Admin dashboard
+│   │   ├── styles/
+│   │   │   └── index.css     # Tailwind directives
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── public/
+│   ├── tailwind.config.js    # Tailwind configuration
+│   ├── postcss.config.js     # PostCSS config
+│   ├── package.json
+│   ├── Dockerfile
+│   └── Dockerfile.dev
+├── backend/                   # Django Backend
+│   ├── apps/                 # Django applications
+│   │   ├── core/            # Core functionality
+│   │   ├── blog/            # Blog app
+│   │   └── resume/          # Resume/Portfolio
+│   ├── config/              # Django settings
+│   │   └── settings/        # Environment-specific settings
+│   ├── manage.py
+│   ├── requirements.txt
+│   └── Dockerfile
+├── scripts/                  # Setup and utility scripts
+│   ├── setup-dev.sh         # Bash setup script
+│   └── setup-dev.ps1        # PowerShell setup script
+├── nginx/                    # Nginx configuration
+│   └── conf.d/
+├── docs/                     # Documentation
+│   ├── AWS_LIGHTSAIL_SETUP.md
+│   ├── CLOUDFLARE_SETUP.md
+│   └── SYNOLOGY_SETUP.md
+├── .github/workflows/        # CI/CD pipelines
+│   ├── ci-dev.yml
+│   ├── deploy-qa.yml
+│   └── deploy-prod.yml
+├── docker-compose.dev.yml    # Development compose
+├── docker-compose.qa.yml     # QA compose
+├── docker-compose.prod.yml   # Production compose
+├── .env.dev.example         # Dev environment template
+├── .env.qa.example          # QA environment template
+├── .env.prod.example        # Prod environment template
+├── SETUP_GUIDE.md           # Complete setup guide
+├── QUICKSTART.md            # Quick start guide
+└── README.md                # This file
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/AdamAurelio/AdamAurelioDotCom.git
+cd AdamAurelioDotCom/adamaurelio
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Start the development server
+
+```bash
+npm start
+```
+
+The app will open at [http://localhost:3000](http://localhost:3000)
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode with hot reloading.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Optimizes React for production
+- Minifies code
+- Includes content hashes in filenames
+- Purges unused Tailwind CSS classes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Customizing Tailwind
 
-### `npm run eject`
+The Tailwind configuration is in `tailwind.config.js`. You can customize:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Color palette
+- Breakpoints
+- Spacing
+- Typography
+- And more
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          // Your custom colors
+        },
+      },
+    },
+  },
+};
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Deployment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Docker
 
-## Learn More
+The project includes Dockerfiles for containerized deployment:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Development
+docker build -f Dockerfile.dev -t adamaurelio-dev .
+docker run -p 3000:3000 adamaurelio-dev
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Production
+docker build -f Dockerfile -t adamaurelio-prod .
+docker run -p 80:80 adamaurelio-prod
+```
 
-### Code Splitting
+### Build for Production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm run build
+```
 
-### Analyzing the Bundle Size
+Deploy the `build` folder to your hosting service (Netlify, Vercel, AWS S3, etc.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Environment Variables
 
-### Making a Progressive Web App
+Create a `.env` file in the root directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```env
+REACT_APP_API_URL=your_api_url
+DB_USER=your_db_user
+DB_HOST=your_db_host
+DB_NAME=your_db_name
+DB_PASSWORD=your_db_password
+DB_PORT=your_db_port
+PORT=3000
+```
 
-### Advanced Configuration
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This project is private and proprietary.
 
-### `npm run build` fails to minify
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Adam Aurelio
+
+- GitHub: [@AdamAurelio](https://github.com/AdamAurelio)
+- LinkedIn: [Adam Aurelio](https://linkedin.com/in/adamaurelio)
+
+## Acknowledgments
+
+- Built with [Create React App](https://create-react-app.dev/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- Powered by [React](https://react.dev/)
