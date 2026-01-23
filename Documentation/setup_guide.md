@@ -10,14 +10,25 @@ This guide will walk you through setting up a complete DevOps pipeline with thre
 
 ## Tech Stack
 
-- **Frontend**: React
-- **Backend**: Django (Python)
-- **Database**: PostgreSQL
+- **Frontend**: React 19 with Tailwind CSS 3+
+- **Backend**: Django 4.2 (Python)
+- **Database**: PostgreSQL 15
+- **Styling**: Tailwind CSS, PostCSS, Autoprefixer
 - **Containerization**: Docker & Docker Compose
 - **CI/CD**: GitHub Actions
 - **Cloud Provider**: AWS Lightsail
 - **DNS/CDN**: Cloudflare
 - **HTTPS**: Let's Encrypt (via Certbot)
+
+## Frontend Architecture
+
+The React frontend uses modern best practices:
+
+- **Tailwind CSS**: Utility-first CSS framework for rapid development
+- **Component Structure**: Reusable components with proper separation
+- **Pages**: Home, About, Resume, Services, Contact, Admin
+- **Responsive Design**: Mobile-first with md: and lg: breakpoints
+- **Production Ready**: Optimized builds with CSS purging
 
 ## Table of Contents
 
@@ -162,11 +173,9 @@ git push origin feature/your-feature-name
 ### Step 1: Prepare Synology NAS
 
 1. **Enable SSH on Synology**:
-
    - Control Panel → Terminal & SNMP → Enable SSH service
 
 2. **Install Docker on Synology**:
-
    - Package Center → Search for "Docker" → Install
 
 3. **Create Project Directory**:
@@ -211,11 +220,9 @@ git push origin qa
 ### Step 1: Create AWS Lightsail Instance
 
 1. **Log in to AWS Lightsail Console**:
-
    - https://lightsail.aws.amazon.com/
 
 2. **Create Instance**:
-
    - Click "Create instance"
    - Platform: Linux/Unix
    - Blueprint: OS Only → Ubuntu 22.04 LTS
@@ -362,12 +369,10 @@ Create page rules for subdomains:
 The project includes three automated workflows:
 
 1. **Development** (`.github/workflows/dev.yml`)
-
    - Runs on: Pull requests to `main` or `qa`
    - Actions: Linting, testing, build verification
 
 2. **QA Deployment** (`.github/workflows/deploy-qa.yml`)
-
    - Runs on: Push to `qa` branch
    - Actions: Build, test, deploy to Synology NAS
 

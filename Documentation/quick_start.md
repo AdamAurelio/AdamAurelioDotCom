@@ -43,11 +43,36 @@ Copy-Item .env.dev.example .env.dev
 
 Open your browser and navigate to:
 
-- **Frontend**: http://localhost:3000
+- **Frontend (React + Tailwind)**: http://localhost:3000
 - **Backend API**: http://localhost:8000
 - **Admin Panel**: http://localhost:8000/admin
   - Username: `admin`
   - Password: `admin123`
+
+## Frontend Development (React + Tailwind)
+
+The frontend is a modern React application with Tailwind CSS:
+
+```powershell
+# Navigate to frontend directory
+cd adamaurelio
+
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+```
+
+### Frontend Structure
+
+- **Pages**: Home, About, Resume, Services, Contact, Admin
+- **Components**: Header, Footer, Blog, BlogList, BlogPost, Resume
+- **Styling**: Tailwind CSS utility classes
+- **Config**: tailwind.config.js, postcss.config.js
 
 ## What the Setup Script Does
 
@@ -215,6 +240,7 @@ For more detailed information, see:
 ### Docker Issues
 
 **Problem**: Docker containers won't start
+
 ```powershell
 # Clean up and restart
 docker-compose -f docker-compose.dev.yml down -v
@@ -222,6 +248,7 @@ docker-compose -f docker-compose.dev.yml up --build
 ```
 
 **Problem**: Port already in use
+
 ```powershell
 # Find process on port 3000
 netstat -ano | findstr :3000
@@ -232,6 +259,7 @@ taskkill /PID <PID> /F
 ### Database Issues
 
 **Problem**: Database migrations fail
+
 ```powershell
 # Reset database
 docker-compose -f docker-compose.dev.yml down -v
@@ -243,6 +271,7 @@ docker-compose -f docker-compose.dev.yml exec backend python manage.py migrate
 ### Frontend Issues
 
 **Problem**: React app won't start
+
 ```powershell
 # Clear node_modules and reinstall
 cd frontend
