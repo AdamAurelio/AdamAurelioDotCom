@@ -17,7 +17,7 @@ const BlogList = () => {
   ];
 
   return (
-    <div>
+    <div className="space-y-8">
       {posts.map((post) => (
         <BlogPost key={post.id} title={post.title} content={post.content} />
       ))}
