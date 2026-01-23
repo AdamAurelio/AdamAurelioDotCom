@@ -1,5 +1,4 @@
 import logo from "./logo.svg";
-import "./App.css";
 import express from "express";
 import { Pool } from "pg";
 import bodyParser from "body-parser";
@@ -40,7 +39,7 @@ app.post("/sample", function (req, res) {
       } else {
         res.status(201).send(result.rows[0]);
       }
-    }
+    },
   );
 });
 
@@ -51,20 +50,28 @@ app.listen(process.env.PORT || 3000, function () {
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <img
+            src={logo}
+            className="h-16 w-16 mx-auto animate-spin"
+            alt="logo"
+          />
+          <p className="mt-4 text-center text-gray-700">
+            Edit{" "}
+            <code className="bg-gray-100 px-2 py-1 rounded">src/App.js</code>{" "}
+            and save to reload.
+          </p>
+          <a
+            className="block text-center mt-4 text-blue-600 hover:text-blue-800 underline transition-colors"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </div>
       </header>
     </div>
   );

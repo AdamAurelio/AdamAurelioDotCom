@@ -55,7 +55,7 @@ For detailed instructions, see [QUICKSTART.md](QUICKSTART.md)
 
 ### Tech Stack
 
-- **Frontend**: React 18, React Router
+- **Frontend**: React 19, Tailwind CSS 3+, PostCSS
 - **Backend**: Django 4.2, Django REST Framework
 - **Database**: PostgreSQL 15
 - **Web Server**: Nginx
@@ -64,6 +64,14 @@ For detailed instructions, see [QUICKSTART.md](QUICKSTART.md)
 - **Cloud**: AWS Lightsail (Production)
 - **CDN/DNS**: Cloudflare
 - **SSL**: Let's Encrypt (Certbot)
+
+### Frontend Features
+
+- ✅ Tailwind CSS utility-first styling
+- ✅ Responsive design (mobile-first)
+- ✅ Modern component architecture
+- ✅ Optimized production builds
+- ✅ Hot module replacement (HMR)
 
 ### Environments
 
@@ -77,27 +85,45 @@ For detailed instructions, see [QUICKSTART.md](QUICKSTART.md)
 
 ```
 AdamAurelioDotCom/
-├── backend/                    # Django backend
-│   ├── apps/                  # Django applications
-│   │   ├── core/             # Core functionality
-│   │   ├── blog/             # Blog app
-│   │   └── resume/           # Resume/Portfolio
-│   ├── config/               # Django settings
-│   │   └── settings/         # Environment-specific settings
+├── adamaurelio/               # React Frontend (Tailwind CSS)
+│   ├── src/
+│   │   ├── components/       # Reusable components
+│   │   │   ├── Header.js     # Navigation with Tailwind
+│   │   │   ├── Footer.js     # Footer component
+│   │   │   ├── Blog.js       # Blog container
+│   │   │   ├── BlogList.js   # Blog listing
+│   │   │   ├── BlogPost.js   # Blog post card
+│   │   │   └── Resume.js     # Resume component
+│   │   ├── pages/            # Page components
+│   │   │   ├── Home.js       # Landing page
+│   │   │   ├── About.js      # About page
+│   │   │   ├── Resume.js     # Full resume page
+│   │   │   ├── Services.js   # Services page
+│   │   │   ├── Contact.js    # Contact page
+│   │   │   └── Admin.js      # Admin dashboard
+│   │   ├── styles/
+│   │   │   └── index.css     # Tailwind directives
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── public/
+│   ├── tailwind.config.js    # Tailwind configuration
+│   ├── postcss.config.js     # PostCSS config
+│   ├── package.json
+│   ├── Dockerfile
+│   └── Dockerfile.dev
+├── backend/                   # Django Backend
+│   ├── apps/                 # Django applications
+│   │   ├── core/            # Core functionality
+│   │   ├── blog/            # Blog app
+│   │   └── resume/          # Resume/Portfolio
+│   ├── config/              # Django settings
+│   │   └── settings/        # Environment-specific settings
 │   ├── manage.py
 │   ├── requirements.txt
 │   └── Dockerfile
-├── frontend/                  # React frontend
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── App.js
-│   ├── public/
-│   ├── package.json
-│   └── Dockerfile
-├── scripts/                   # Setup and utility scripts
-│   ├── setup-dev.sh          # Bash setup script
-│   └── setup-dev.ps1         # PowerShell setup script
+├── scripts/                  # Setup and utility scripts
+│   ├── setup-dev.sh         # Bash setup script
+│   └── setup-dev.ps1        # PowerShell setup script
 ├── nginx/                    # Nginx configuration
 │   └── conf.d/
 ├── docs/                     # Documentation
