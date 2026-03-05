@@ -77,7 +77,7 @@ const Resume = () => {
                 </h3>
                 <p className="text-gray-600">Des Moines, Iowa</p>
               </div>
-              <p className="text-gray-600 font-medium">2015 – 2023 (Present)</p>
+              <p className="text-gray-600 font-medium">2015 – Present</p>
             </div>
 
             <h4 className="text-xl font-semibold text-gray-800 mb-3">
@@ -252,7 +252,7 @@ const Resume = () => {
                   Lead
                 </h3>
               </div>
-              <p className="text-gray-600 font-medium">2010 – 2023 (Present)</p>
+              <p className="text-gray-600 font-medium">2010 – Present</p>
             </div>
             <ul className="space-y-2 text-gray-700 list-disc list-inside">
               <li>
