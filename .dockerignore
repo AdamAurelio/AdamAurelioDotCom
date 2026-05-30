@@ -1,3 +1,14 @@
 node_modules
+dist
+build
+.git
+.github
+.gitignore
+docs
+infra
 npm-debug.log
 .env
+.env.*
+.vscode
+.idea
+*.md

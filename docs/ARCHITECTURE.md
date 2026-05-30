@@ -1,225 +1,86 @@
-# System Architecture
+# Architecture
+
+AdamAurelio.com is a **static single-page application** — a React app compiled
+by Vite into plain HTML/CSS/JS. There is no server and no database. This makes
+it cheap, fast, and effectively infinitely scalable: a CDN serves files.
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                           DEVELOPMENT ENVIRONMENT                       │
-│                              (Local Machine)                            │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  ┌──────────────┐       ┌──────────────┐      ┌──────────────┐          │
-│  │   React      │       │   Django     │      │  PostgreSQL  │          │
-│  │  Frontend    │─────▶│   Backend    │─────▶│   Database   │          │
-│  │ :3000        │       │   :8000      │      │   :5432      │          │
-│  └──────────────┘       └──────────────┘      └──────────────┘          │
-│                                                                         │
-│  Access: http://localhost:3000                                          │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    │ git push origin qa
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        GITHUB ACTIONS CI/CD                             │
-│                                                                         │
-│  ┌────────────────────────────────────────────────────────────────┐     │
-│  │  1. Run Tests & Linting                                        │     │
-│  │  2. Build Docker Images                                        │     │
-│  │  3. Push to GitHub Container Registry                          │     │
-│  │  4. Deploy to Environment                                      │     │
-│  │  5. Run Migrations                                             │     │
-│  │  6. Health Checks                                              │     │
-│  └────────────────────────────────────────────────────────────────┘     │
-└─────────────────────────────────────────────────────────────────────────┘
-                │                                    │
-                │ Deploy on push to 'qa'             │ Deploy on push to 'main'
-                ▼                                    ▼
-┌───────────────────────────────────┐   ┌────────────────────────────────────┐
-│     QA ENVIRONMENT                │   │    PRODUCTION ENVIRONMENT          │
-│    (Synology NAS)                 │   │    (AWS Lightsail)                 │
-├───────────────────────────────────┤   ├────────────────────────────────────┤
-│                                   │   │                                    │
-│  ┌─────────────────────────────┐  │   │  ┌──────────────────────────────┐  │
-│  │  Docker Containers          │  │   │  │  Cloudflare CDN/DNS          │  │
-│  │  ┌────────┐  ┌────────┐     │  │   │  │  - DDoS Protection           │  │
-│  │  │ React  │  │Django  │     │  │   │  │  - SSL/TLS                   │  │
-│  │  │ :3001  │  │ :8001  │     │  │   │  │  - Caching                   │  │
-│  │  └────────┘  └────────┘     │  │   │  └──────────────────────────────┘  │
-│  │       │          │          │  │   │              │                     │
-│  │       └──────────┴─────┐    │  │   │              ▼                     │
-│  │  ┌────────────────────┐│    │  │   │  ┌──────────────────────────────┐  │
-│  │  │   PostgreSQL       ││    │  │   │  │  Nginx Reverse Proxy         │  │
-│  │  │   :5433            ││    │  │   │  │  - HTTPS (Let's Encrypt)     │  │
-│  │  └────────────────────┘     │  │   │  │  - Static file serving       │  │
-│  └─────────────────────────────┘  │   │  └──────────────────────────────┘  │
-│                                   │   │              │                     │
-│  Access:                          │   │              ▼                     │
-│  http://synology-ip:3001          │   │  ┌──────────────────────────────┐  │
-│                                   │   │  │  Docker Containers           │  │
-└───────────────────────────────────┘   │  │  ┌────────┐  ┌────────┐      │  │
-                                        │  │  │ React  │  │Django  │      │  │
-                                        │  │  │ :80    │  │ :8000  │      │  │
-                                        │  │  └────────┘  └────────┘      │  │
-                                        │  │       │          │           │  │
-                                        │  │       └──────────┴─────┐     │  │
-                                        │  │  ┌────────────────────┐│     │  │
-                                        │  │  │   PostgreSQL       ││     │  │
-                                        │  │  │                    ││     │  │
-                                        │  │  └────────────────────┘      │  │
-                                        │  └──────────────────────────────┘  │
-                                        │                                    │
-                                        │  Access:                           │
-                                        │  https://adamaurelio.com           │
-                                        │  https://api.adamaurelio.com       │
-                                        │                                    │
-                                        └────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         DATA FLOW                                       │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  User Request → Cloudflare → Nginx → Docker Containers                  │
-│                    │           │           │                            │
-│                    │           │           └──▶ Frontend (React)        │
-│                    │           │                      │                 │
-│                    │           │                      ▼                 │
-│                    │           └──────────────▶ Backend (Django)        │
-│                    │                                  │                 │
-│                    │                                  ▼                 │
-│                    │                           PostgreSQL DB            │
-│                    │                                                    │
-│                    └──▶ Static Assets (Cached)                          │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                      DEPLOYMENT WORKFLOW                                │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  1. Developer → Commits to feature branch                               │
-│                      │                                                  │
-│                      ▼                                                  │
-│  2. Creates PR → QA Branch                                              │
-│                      │                                                  │
-│                      ▼                                                  │
-│  3. GitHub Actions → Run Tests                                          │
-│                      │                                                  │
-│                      ▼                                                  │
-│  4. Merge to QA → Auto Deploy to Synology                               │
-│                      │                                                  │
-│                      ▼                                                  │
-│  5. QA Testing → Verify on Synology                                     │
-│                      │                                                  │
-│                      ▼                                                  │
-│  6. Create PR → Main Branch                                             │
-│                      │                                                  │
-│                      ▼                                                  │
-│  7. Merge to Main → Auto Deploy to AWS Lightsail                        │
-│                      │                                                  │
-│                      ▼                                                  │
-│  8. Production Live → https://adamaurelio.com                           │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    TECHNOLOGY STACK                                     │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  Frontend:        React 18, React Router                                │
-│  Backend:         Django 4.2, Django REST Framework                     │
-│  Database:        PostgreSQL 15                                         │
-│  Web Server:      Nginx, Gunicorn                                       │
-│  Containerization: Docker, Docker Compose                               │
-│  CI/CD:           GitHub Actions                                        │
-│  CDN/DNS:         Cloudflare                                            │
-│  SSL:             Let's Encrypt (Certbot)                               │
-│  Hosting:         AWS Lightsail (Prod), Synology NAS (QA)               │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        SECURITY LAYERS                                  │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  Layer 1: Cloudflare                                                    │
-│           - DDoS Protection                                             │
-│           - WAF (Web Application Firewall)                              │
-│           - Bot Management                                              │
-│           - SSL/TLS Encryption                                          │
-│                                                                         │
-│  Layer 2: Nginx                                                         │
-│           - Rate Limiting                                               │
-│           - Security Headers                                            │
-│           - Request Filtering                                           │
-│                                                                         │
-│  Layer 3: Django                                                        │
-│           - CSRF Protection                                             │
-│           - XSS Prevention                                              │
-│           - SQL Injection Prevention                                    │
-│           - Authentication & Authorization                              │
-│                                                                         │
-│  Layer 4: Database                                                      │
-│           - User Permissions                                            │
-│           - Encrypted Connections                                       │
-│           - Backup & Recovery                                           │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                      BACKUP STRATEGY                                    │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  Development:  Manual backups (as needed)                               │
-│  QA:           Daily automated backups (2 AM)                           │
-│                Retention: 14 days                                       │
-│  Production:   Daily automated backups (2 AM)                           │
-│                Retention: 7 days (local), 30 days (offsite)             │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                      COST BREAKDOWN                                     │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  Development:    $0/month (local)                                       │
-│  QA:             ~$2-5/month (Synology electricity)                     │
-│  Production:     $10-20/month (AWS Lightsail)                           │
-│  Cloudflare:     $0/month (Free plan)                                   │
-│  Domain:         ~$1/month ($12/year)                                   │
-│  ────────────────────────────────────────────                           │
-│  Total:          ~$13-26/month                                          │
-│                                                                         │
-│  One-time costs:                                                        │
-│  Synology NAS:   $300-$1000 (hardware)                                  │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+                       ┌──────────────────────────────────────────┐
+   git push dev        │  DEV  — local machine                    │
+   ───────────────────▶│  Vite dev server (npm run dev) :5173     │
+                       │  Instant hot-module reload               │
+                       └──────────────────────────────────────────┘
+                                        │ open PR / merge
+                                        ▼
+                       ┌──────────────────────────────────────────┐
+   GitHub Actions CI   │  CI (.github/workflows/ci.yml)           │
+   on PR / dev push    │  npm ci → npm run lint → npm run build    │
+                       └──────────────────────────────────────────┘
+                          │ merge to qa-test               │ merge to main
+                          ▼                                ▼
+   ┌─────────────────────────────────┐   ┌─────────────────────────────────────┐
+   │  QA — Synology NAS              │   │  PROD — AWS S3 + CloudFront         │
+   │  Docker: nginx serves /dist     │   │  S3 (private) ← OAC ← CloudFront CDN │
+   │  http://<nas-ip>:8080           │   │  ACM TLS · SPA 403/404 → index.html │
+   │  docker compose -f \            │   │  Auto-deploy via deploy-prod.yml     │
+   │    docker-compose.qa.yml up -d  │   │  https://adamaurelio.com            │
+   └─────────────────────────────────┘   └─────────────────────────────────────┘
 ```
 
-## Key Benefits
+## Stack
 
-### Professional Infrastructure
+| Layer        | Choice                          | Why |
+|--------------|---------------------------------|-----|
+| UI           | React 19 + react-router-dom 7   | Existing components; SPA routing |
+| Build        | Vite 6                          | Fast, maintained (CRA is EOL), small output |
+| Styling      | Tailwind CSS v3                 | Utility CSS already used throughout |
+| Dev serve    | Vite dev server                 | HMR, zero config |
+| QA serve     | nginx in Docker                 | Mirrors a real static host on the NAS |
+| Prod serve   | AWS S3 + CloudFront             | ~$0–2/mo, global CDN, scales automatically |
+| CI/CD        | GitHub Actions                  | Lint/build gate + deploy on merge to main |
 
-✅ Industry-standard DevOps practices  
-✅ Automated testing and deployment  
-✅ Multiple environments for safe testing  
-✅ Production-grade security
+## Repository layout
 
-### Cost-Effective
+```
+index.html              Vite HTML entry
+vite.config.js          Build config (outputs to dist/)
+tailwind.config.js      Tailwind v3 config
+src/
+  main.jsx              App bootstrap
+  App.jsx               Routes
+  components/           Layout, Header, Footer
+  pages/                Home, Resume, About, Services, Contact
+  styles/index.css      Tailwind entry
+public/                 Static assets copied as-is (favicon, manifest, robots)
+Dockerfile              QA: multi-stage build → nginx
+nginx.conf              QA: SPA fallback + caching + /health
+docker-compose.qa.yml   QA: one nginx service on :8080
+infra/README.md         One-time AWS provisioning
+.github/workflows/      ci.yml, deploy-prod.yml
+docs/                   This documentation
+```
 
-✅ Under $30/month operating cost  
-✅ Free CDN and DDoS protection  
-✅ No vendor lock-in  
-✅ Scalable as you grow
+## Why no backend right now
 
-### Developer-Friendly
+A resume is static content; it needs no runtime server or database. Removing the
+previously scaffolded Django/PostgreSQL/Express stack eliminated the only
+recurring cost driver (an always-on VM) and a large maintenance surface.
 
-✅ Hot reload in development  
-✅ Comprehensive documentation  
-✅ Automated setup scripts  
-✅ Easy to maintain and update
+## Adding dynamic features later
 
-### Production-Ready
+When a contact form, blog, or API is actually needed, add it **serverlessly** so
+the cost stays near zero and the static hosting is untouched:
 
-✅ HTTPS everywhere  
-✅ Cloudflare CDN  
-✅ Automated backups  
-✅ Health monitoring  
-✅ Zero-downtime deployments
+- **API Gateway + AWS Lambda** for endpoints (pay per request).
+- **DynamoDB** or **SES** (email) for storage/sending.
+- The React app calls the HTTPS API; `dist/` continues to ship to S3/CloudFront.
+
+This is the documented growth path — see `infra/README.md`.
+
+## Branch / deploy flow
+
+| Branch     | Environment | Trigger                                   |
+|------------|-------------|-------------------------------------------|
+| `dev`      | local + CI  | day-to-day work; CI lints & builds        |
+| `qa-test`  | Synology    | manual `docker compose` pull/up on the NAS|
+| `main`     | AWS prod    | push → `deploy-prod.yml` auto-deploys     |
