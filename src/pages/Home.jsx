@@ -2,18 +2,18 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white">
+    <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
       {/* Hero Section */}
       <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
               Adam Aurelio
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 font-medium">
+            <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-medium">
               Software Engineer | Full-Stack Developer | RPA Specialist
             </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
               Transforming complex challenges into elegant solutions through
               code, automation, and innovative thinking.
             </p>
@@ -26,61 +26,70 @@ const Home = () => {
               </Link>
               <Link
                 to="/about"
-                className="px-8 py-3 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+                className="px-8 py-3 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 Learn More
               </Link>
             </div>
           </div>
           <div className="flex justify-center">
-            <div className="w-64 h-64 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl transform hover:scale-105 transition-transform">
-              <div className="text-white text-7xl font-bold">
-                <span>{"< />"}</span>
-              </div>
+            <div className="relative">
+              {/* Decorative gradient glow behind the photo */}
+              <div
+                className="absolute -inset-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full blur-2xl opacity-30"
+                aria-hidden="true"
+              />
+              <img
+                src="/profile.jpg"
+                alt="Adam Aurelio"
+                width="288"
+                height="288"
+                className="relative w-72 h-72 object-cover rounded-full shadow-2xl ring-4 ring-white transform hover:scale-105 transition-transform"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Skills Highlight Section */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
+      <section className="py-20 px-4 md:px-8 bg-gray-50 dark:bg-gray-900 transition-colors">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">
             What I Do
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 Full-Stack Development
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 Building robust applications with Python, C#, .NET, and modern
                 web technologies. From database design to user interfaces.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 Process Automation
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 Designing and implementing RPA solutions with UiPath,
                 streamlining business processes and increasing efficiency.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 Database Solutions
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 Expert in Oracle PL/SQL and SQL Server, creating optimized
                 queries, stored procedures, and data architectures.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 DevOps & CI/CD
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 Implementing continuous integration and deployment pipelines
                 with Azure DevOps and Docker.
               </p>

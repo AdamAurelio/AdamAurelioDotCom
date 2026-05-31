@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-8 px-4">
+    <footer className="bg-gray-900 dark:bg-gray-950 dark:border-t dark:border-gray-800 text-white py-8 px-4 transition-colors">
       <div className="max-w-7xl mx-auto text-center space-y-4">
         <p className="text-gray-300">
           © {new Date().getFullYear()} Adam Aurelio. All rights reserved.

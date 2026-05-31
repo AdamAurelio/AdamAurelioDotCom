@@ -7,7 +7,9 @@
       "Bash(curl -sI https://adamaurelio.com1)",
       "Bash(curl -sSI -L --max-time 15 https://adamaurelio.com)",
       "Bash(echo \"EXIT=$?\")",
-      "Bash(npm audit *)"
+      "Bash(npm audit *)",
+      "Bash(ls -la docs/images)",
+      "Bash(find docs *)"
     ]
   }
 }
