@@ -94,6 +94,49 @@ Point the domain at the CloudFront distribution domain
 }
 ```
 
+## 7. Security headers (CloudFront Response Headers Policy)
+
+> **Why this is its own step:** production is S3 + CloudFront and **never uses
+> `nginx.conf`** — that file only applies to the QA Docker container. Security
+> headers in production must be attached at CloudFront via a **Response Headers
+> Policy**, or the live site ships none. This is the primary technical security
+> control for a static site, so don't skip it. The header values below must stay
+> in sync with `nginx.conf` (QA validates the same set).
+
+### Header set
+
+| Header | Value |
+|--------|-------|
+| `Content-Security-Policy` | `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests` |
+| `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload` |
+| `X-Frame-Options` | `DENY` |
+| `X-Content-Type-Options` | `nosniff` |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), interest-cohort=()` |
+
+> **`connect-src 'self'`** is correct while the site is purely static. When the
+> serverless API is added, widen it to the API origin (e.g.
+> `connect-src 'self' https://api.adamaurelio.com`).
+
+### Console steps
+1. CloudFront → **Policies** → **Response headers** → **Create response headers policy**.
+2. Under **Security headers**, enable Strict-Transport-Security (2 years,
+   includeSubDomains, preload), X-Content-Type-Options (nosniff),
+   X-Frame-Options (`DENY`), and Referrer-Policy (`strict-origin-when-cross-origin`).
+3. Under **Custom headers**, add `Content-Security-Policy` and
+   `Permissions-Policy` with the values above.
+4. Attach the policy to the distribution's **default behavior**
+   (Behaviors → Edit → Response headers policy).
+
+### CLI alternative
+```bash
+aws cloudfront create-response-headers-policy \
+  --response-headers-policy-config file://infra/response-headers-policy.json
+# then attach its Id to the distribution's default cache behavior
+# (ResponseHeadersPolicyId) via: aws cloudfront update-distribution ...
+```
+Verify after deploy: `curl -sI https://adamaurelio.com` should show every header above.
+
 ## 6. GitHub configuration
 
 In the repo: Settings → Secrets and variables → Actions.

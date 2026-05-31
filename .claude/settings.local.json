@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(npm run:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(git status *)",
+      "Bash(curl -sI https://adamaurelio.com1)",
+      "Bash(curl -sSI -L --max-time 15 https://adamaurelio.com)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(npm audit *)"
     ]
   }
 }
