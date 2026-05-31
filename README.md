@@ -35,6 +35,7 @@ npm run dev        # http://localhost:5173
 - [Prod setup (AWS)](docs/PROD_AWS_SETUP.md)
 - [Infra provisioning](infra/README.md) — one-time AWS S3 + CloudFront setup (incl. security-headers policy)
 - [Security policy & posture](SECURITY.md) — data classification, control mapping, vulnerability reporting
+- [Changelog](CHANGELOG.md) — notable changes over time
 
 ## Tech stack
 
