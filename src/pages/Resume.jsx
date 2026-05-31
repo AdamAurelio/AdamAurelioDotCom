@@ -1,60 +1,72 @@
 const Resume = () => {
   return (
-    <section id="resume" className="py-12 px-4 md:px-8 bg-gray-50 min-h-screen">
-      <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8 md:p-12">
-        <header className="mb-12 border-b border-gray-200 pb-8">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">Resume</h1>
-          <p className="text-lg text-gray-700 leading-relaxed">
-            Experienced IT professional with over seven years of expertise in
+    <section
+      id="resume"
+      className="py-12 px-4 md:px-8 bg-gray-50 dark:bg-gray-950 min-h-screen transition-colors"
+    >
+      <div className="max-w-5xl mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 md:p-12">
+        <header className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8 flex flex-col sm:flex-row items-center gap-8">
+          <img
+            src="/profile.jpg"
+            alt="Adam Aurelio"
+            width="128"
+            height="128"
+            className="w-32 h-32 object-cover rounded-full shadow-md ring-2 ring-gray-100 dark:ring-gray-700 shrink-0"
+          />
+          <div>
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">Resume</h1>
+            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              Experienced IT professional with over seven years of expertise in
             systems analysis, software development, and application support.
             Proven ability to implement and support critical business
             applications, integrate COTS solutions, and automate processes using
             advanced technologies. Seeking opportunities to contribute technical
             expertise and leadership in a dynamic IT environment.
-          </p>
+            </p>
+          </div>
         </header>
 
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Technical Skills
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 Programming Languages
               </h3>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Python, C#, VB.NET, SQL, PL/SQL, PowerShell
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 Tools
               </h3>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 UiPath, Docker, Azure DevOps, Oracle Apex, Microsoft Power
                 Platform
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 Methodologies
               </h3>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Agile, Scrum, CI/CD, DevOps, API Integrations
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 Database Technologies
               </h3>
-              <p className="text-gray-700">Oracle, Microsoft SQL Server</p>
+              <p className="text-gray-700 dark:text-gray-300">Oracle, Microsoft SQL Server</p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg md:col-span-2">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg md:col-span-2">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 Other Skills
               </h3>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Application integration, change and release management, system
                 analysis, and design
               </p>
@@ -63,27 +75,27 @@ const Resume = () => {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Professional Experience
           </h2>
 
-          <div className="mb-8 bg-white border-l-4 border-blue-600 pl-6 py-4">
+          <div className="mb-8 bg-white dark:bg-gray-800 border-l-4 border-blue-600 pl-6 py-4">
             <div className="flex flex-wrap justify-between items-start mb-4">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                   MidAmerican/Berkshire Hathaway Energy
                 </h3>
-                <p className="text-gray-600">Des Moines, Iowa</p>
+                <p className="text-gray-600 dark:text-gray-400">Des Moines, Iowa</p>
               </div>
-              <p className="text-gray-600 font-medium">2015 – Present</p>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">2015 – Present</p>
             </div>
 
-            <h4 className="text-xl font-semibold text-gray-800 mb-3">
+            <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
               Software Engineer / Oracle PLSQL Developer / Robotic Process
               Automation Developer
             </h4>
 
-            <ul className="space-y-2 text-gray-700 list-disc list-inside">
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
               <li>
                 Provided functional and technical support for critical business
                 applications, ensuring seamless operation and resolving complex
@@ -135,11 +147,11 @@ const Resume = () => {
               </li>
             </ul>
 
-            <h4 className="text-xl font-semibold text-gray-800 mb-3 mt-6">
+            <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 mt-6">
               Technology Resource Center Analyst I & II
             </h4>
 
-            <ul className="space-y-2 text-gray-700 list-disc list-inside">
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
               <li>
                 Enhanced proprietary VB.NET applications, optimizing internal
                 software solutions.
@@ -161,21 +173,21 @@ const Resume = () => {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Education & Technical Certifications
           </h2>
 
-          <div className="mb-6 bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-gray-900">Drake University</h3>
-            <p className="text-gray-600">Des Moines, Iowa</p>
-            <p className="text-gray-700">Bachelor of Arts and Sciences</p>
+          <div className="mb-6 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Drake University</h3>
+            <p className="text-gray-600 dark:text-gray-400">Des Moines, Iowa</p>
+            <p className="text-gray-700 dark:text-gray-300">Bachelor of Arts and Sciences</p>
           </div>
 
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               Certifications
             </h3>
-            <ul className="space-y-2 text-gray-700">
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300">
               <li>
                 <strong>CompTIA A+ Certified</strong> | Dec 2013 – 2026
               </li>
@@ -198,20 +210,20 @@ const Resume = () => {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Community Involvement
           </h2>
 
-          <div className="mb-6 bg-white border-l-4 border-green-600 pl-6 py-4">
+          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 pl-6 py-4">
             <div className="flex flex-wrap justify-between items-start mb-3">
               <div>
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                   Iowa United Head Coach Select 14UG
                 </h3>
               </div>
-              <p className="text-gray-600 font-medium">2023 - Present</p>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">2023 - Present</p>
             </div>
-            <ul className="space-y-2 text-gray-700 list-disc list-inside">
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
               <li>Certified USYS Grassroots coach.</li>
               <li>Led game management and assistant coach development.</li>
               <li>
@@ -224,33 +236,33 @@ const Resume = () => {
             </ul>
           </div>
 
-          <div className="mb-6 bg-white border-l-4 border-green-600 pl-6 py-4">
+          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 pl-6 py-4">
             <div className="flex flex-wrap justify-between items-start mb-3">
               <div>
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                   Iowa Asian Alliance Director of Volunteers
                 </h3>
               </div>
-              <p className="text-gray-600 font-medium">2018</p>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">2018</p>
             </div>
-            <ul className="space-y-2 text-gray-700 list-disc list-inside">
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
               <li>Recruit, manage committee members and volunteers</li>
               <li>Plan, organize, and lead respective committee meetings</li>
               <li>Set committee goals and timelines</li>
             </ul>
           </div>
 
-          <div className="mb-6 bg-white border-l-4 border-green-600 pl-6 py-4">
+          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 pl-6 py-4">
             <div className="flex flex-wrap justify-between items-start mb-3">
               <div>
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                   Walnut Creek Community Church Audio-Visual Technician and Team
                   Lead
                 </h3>
               </div>
-              <p className="text-gray-600 font-medium">2010 – Present</p>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">2010 – Present</p>
             </div>
-            <ul className="space-y-2 text-gray-700 list-disc list-inside">
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
               <li>
                 Set up and tear down of equipment to and from requested off-site
                 locations
