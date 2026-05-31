@@ -24,6 +24,19 @@ jobs:
       - run: npm run lint
       - run: npm run build
 
+      # Dependency vulnerability scan (security baseline §10.2 / OWASP A06).
+      # Fails the build on high/critical advisories; lower severities are
+      # surfaced but non-blocking.
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      # Secret scanning (security baseline §4.3) — ensures no credential is
+      # ever committed, even though .env* is gitignored.
+      - name: Scan for committed secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
