@@ -28,6 +28,7 @@ npm run dev        # http://localhost:5173
 
 ## Documentation
 
+- [**How to set up each environment**](docs/HOW_TO_SETUP.md) — guided, step-by-step walkthrough with explanations (start here to learn it end-to-end)
 - [Architecture](docs/ARCHITECTURE.md) — stack, layout, branch/deploy flow, growth path
 - [Dev setup](docs/DEV_SETUP.md)
 - [QA setup (Synology)](docs/QA_SYNOLOGY_SETUP.md)
