@@ -1,3 +1,6 @@
+import EmailLink from "../components/EmailLink";
+import Reveal from "../components/Reveal";
+
 const Resume = () => {
   return (
     <section
@@ -5,7 +8,7 @@ const Resume = () => {
       className="py-12 px-4 md:px-8 bg-gray-50 dark:bg-gray-950 min-h-screen transition-colors"
     >
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 md:p-12">
-        <header className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8 flex flex-col sm:flex-row items-center gap-8">
+        <Reveal as="header" className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8 flex flex-col sm:flex-row items-center gap-8">
           <img
             src="/profile.jpg"
             alt="Adam Aurelio"
@@ -14,267 +17,278 @@ const Resume = () => {
             className="w-32 h-32 object-cover rounded-full shadow-md ring-2 ring-gray-100 dark:ring-gray-700 shrink-0"
           />
           <div>
-            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">Resume</h1>
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-2">
+              Adam Aurelio
+            </h1>
+            <p className="text-xl font-semibold text-blue-700 dark:text-blue-400 mb-3">
+              Software Engineer
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Des Moines, IA area · <EmailLink /> ·{" "}
+              <a
+                href="https://linkedin.com/in/adamaurelio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                linkedin.com/in/adamaurelio
+              </a>
+            </p>
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              Experienced IT professional with over seven years of expertise in
-            systems analysis, software development, and application support.
-            Proven ability to implement and support critical business
-            applications, integrate COTS solutions, and automate processes using
-            advanced technologies. Seeking opportunities to contribute technical
-            expertise and leadership in a dynamic IT environment.
+              Software engineer with 10+ years building enterprise automation,
+              integrations, and resilient operations across Oracle, Python,
+              PL/SQL, and RPA platforms. Consistent track record delivering
+              secure, auditable workflows for access governance, CI/CD
+              pipelines, and operational process automation in regulated utility
+              environments.
             </p>
           </div>
-        </header>
+        </Reveal>
 
-        <section className="mb-12">
+        <Reveal as="section" className="mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Technical Skills
+            Core Skills
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Programming Languages
+                Languages
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Python, C#, VB.NET, SQL, PL/SQL, PowerShell
+                Python, C#, SQL/PL/SQL, PowerShell, VB.NET
               </p>
             </div>
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Tools
+                Platforms &amp; Tools
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                UiPath, Docker, Azure DevOps, Oracle Apex, Microsoft Power
-                Platform
+                Oracle APEX, Oracle Fusion, UiPath, Azure DevOps, Docker, AWS
               </p>
             </div>
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Methodologies
+                Automation
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Agile, Scrum, CI/CD, DevOps, API Integrations
+                CI/CD pipelines, API integrations, idempotent retry patterns,
+                RPA orchestration
               </p>
             </div>
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Database Technologies
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300">Oracle, Microsoft SQL Server</p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg md:col-span-2">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Other Skills
+                Databases &amp; Ops
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Application integration, change and release management, system
-                analysis, and design
+                Oracle, SQL Server, incident runbooks, operational monitoring
               </p>
             </div>
           </div>
-        </section>
+        </Reveal>
 
-        <section className="mb-12">
+        <Reveal as="section" className="mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Professional Experience
           </h2>
 
-          <div className="mb-8 bg-white dark:bg-gray-800 border-l-4 border-blue-600 pl-6 py-4">
+          <div className="mb-8 bg-white dark:bg-gray-800 border-l-4 border-blue-600 px-6 py-4 rounded-r-lg">
             <div className="flex flex-wrap justify-between items-start mb-4">
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  MidAmerican/Berkshire Hathaway Energy
+                  MidAmerican Energy / Berkshire Hathaway Energy
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">Des Moines, Iowa</p>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Des Moines, Iowa
+                </p>
               </div>
-              <p className="text-gray-600 dark:text-gray-400 font-medium">2015 – Present</p>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">
+                2015 – Present
+              </p>
             </div>
 
-            <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
-              Software Engineer / Oracle PLSQL Developer / Robotic Process
-              Automation Developer
+            <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+              Software Engineer II
             </h4>
 
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+            <h5 className="text-base font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-400 mb-2">
+              Access Governance &amp; Compliance Automation
+            </h5>
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside mb-5">
               <li>
-                Provided functional and technical support for critical business
-                applications, ensuring seamless operation and resolving complex
-                issues.
+                Automated ~80% of an enterprise role-provisioning workflow,
+                eliminating ~32 hours/week of manual effort across
+                access-governance operations.
               </li>
               <li>
-                Designed, coded, tested, and maintained moderate to highly
-                complex application programs and interfaces, including Oracle
-                PL/SQL and .NET-based solutions.
+                Compressed compliance-driven access approval cycles from 3 weeks
+                to under 5 days (~67% reduction), improving audit-trail
+                completeness and compliance posture.
               </li>
               <li>
-                Integrated Commercial off the Shelf (COTS) solutions within
-                environments with strong change and release management
-                processes.
+                Automated go-live access provisioning end-to-end, removing manual
+                tasks and after-hours support while adding built-in audit trails
+                for compliance.
               </li>
               <li>
-                Developed a full-stack application for tracking and managing
-                Oracle Fusion security access using Python APIs and Oracle SQL
-                automation.
-              </li>
-              <li>
-                Delivered advanced business process automation solutions as part
-                of the UiPath Center of Excellence.
-              </li>
-              <li>
-                Created and maintained PL/SQL web applications for monitoring
-                KPIs, managing employee performance, and supporting
-                environmental projects.
-              </li>
-              <li>
-                Built UiPath automations using VB.NET and C#, streamlining
-                processes for purchase orders, intercompany billings, and HR
-                functions.
-              </li>
-              <li>
-                Contributed to design and implementation of CI/CD workflows for
-                RPA automations using Azure DevOps, ensuring efficient
-                deployment processes.
-              </li>
-              <li>
-                Administered and enhanced Oracle Apex applications and
-                proprietary .NET applications, improving productivity and user
-                experience.
-              </li>
-              <li>
-                Consulted with application users to evaluate requests for new or
-                modified applications, determining feasibility, cost, and
-                compatibility with existing systems.
+                Architected a full-stack access-governance application using
+                Python APIs and Oracle SQL to automate enterprise security
+                provisioning and reduce manual risk.
               </li>
             </ul>
 
-            <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3 mt-6">
-              Technology Resource Center Analyst I & II
-            </h4>
+            <h5 className="text-base font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-400 mb-2">
+              Systems Design &amp; Integration
+            </h5>
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside mb-5">
+              <li>
+                Designed and maintained Azure DevOps CI/CD pipelines and Docker
+                developer tooling to improve deployment repeatability across
+                environments.
+              </li>
+              <li>
+                Built and maintained complex PL/SQL packages and .NET services
+                supporting mission-critical business processes including
+                purchase orders, intercompany billing, and HR workflows.
+              </li>
+              <li>
+                Implemented Oracle APEX dashboards and PL/SQL utilities for
+                operational KPI tracking and environmental compliance reporting.
+              </li>
+              <li>
+                Designed resilient UiPath automations with retry and idempotency
+                patterns, reducing production failure rates across automated
+                workflows.
+              </li>
+            </ul>
 
+            <h5 className="text-base font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-400 mb-2">
+              Technical Leadership
+            </h5>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
               <li>
-                Enhanced proprietary VB.NET applications, optimizing internal
-                software solutions.
+                Serve as team lead for 5 developers, running daily standups and
+                sprint planning to keep delivery on track and surface blockers
+                early.
               </li>
               <li>
-                Delivered Tier I and Tier II support for mission-critical
-                systems, ensuring timely issue resolution.
+                Stepped in as acting manager for one month during a leadership
+                transition, owning team coordination, stakeholder status
+                reporting, and developer support with no disruption to delivery.
               </li>
               <li>
-                Managed Identity and Access Management protocols within Active
-                Directory, improving security and accessibility.
+                Unblock developers through hands-on pairing and technical
+                troubleshooting, keeping in-flight work moving across the team.
               </li>
               <li>
-                Mentored new associates, providing guidance across diverse IT
-                landscapes.
+                Scope new projects and gather initial requirements from
+                stakeholders, translating business needs into actionable work.
+              </li>
+              <li>
+                Authored 30/60/90 onboarding plans to ramp new and transitioning
+                developers to productivity faster.
+              </li>
+              <li>
+                Act as a technical point of contact for customers, aligning
+                delivery with business expectations.
+              </li>
+              <li>
+                Mentored junior developers and conducted technical interviews.
+              </li>
+              <li>
+                Authored incident runbooks and playbooks; coordinated
+                cross-functional response for production incidents.
+              </li>
+              <li>
+                Participated in architecture discussions covering data modeling,
+                deployment strategies, and cross-application integration
+                patterns.
               </li>
             </ul>
           </div>
-        </section>
 
-        <section className="mb-12">
+          <div className="mb-8 bg-white dark:bg-gray-800 border-l-4 border-blue-600 px-6 py-4 rounded-r-lg">
+            <div className="flex flex-wrap justify-between items-start mb-4">
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Technology Resource Center
+                </h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">
+                Prior to 2015
+              </p>
+            </div>
+
+            <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+              Analyst I / II
+            </h4>
+
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+              <li>
+                Delivered Tier I/II support for enterprise systems, resolving
+                high-impact incidents.
+              </li>
+              <li>
+                Managed identity &amp; access management (IAM) and strengthened
+                internal access controls.
+              </li>
+              <li>
+                Built and maintained VB.NET utilities to improve reliability and
+                maintainability of internal tooling.
+              </li>
+            </ul>
+          </div>
+        </Reveal>
+
+        <Reveal as="section" className="mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Education & Technical Certifications
+            Education &amp; Certifications
           </h2>
 
           <div className="mb-6 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Drake University</h3>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              Drake University
+            </h3>
             <p className="text-gray-600 dark:text-gray-400">Des Moines, Iowa</p>
-            <p className="text-gray-700 dark:text-gray-300">Bachelor of Arts and Sciences</p>
+            <p className="text-gray-700 dark:text-gray-300">
+              Bachelor of Arts &amp; Sciences
+            </p>
           </div>
 
           <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               Certifications
             </h3>
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-              <li>
-                <strong>CompTIA A+ Certified</strong> | Dec 2013 – 2026
-              </li>
-              <li>
-                <strong>CompTIA Network+ Certified</strong> | May 2014 – 2026
-              </li>
-              <li>
-                <strong>CompTIA Security+ Certified</strong> | May 2017 – 2026
-              </li>
-              <li>
-                <strong>CompTIA Secure Infrastructure Specialist CSIS</strong> |
-                May 2017 – 2026
-              </li>
-              <li>
-                <strong>CompTIA IT Operations Specialist CIOS</strong> | May
-                2014 – 2026
-              </li>
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
+              <li>CompTIA Security+ (valid through 2029)</li>
+              <li>CompTIA Network+ (valid through 2029)</li>
+              <li>CompTIA A+ (valid through 2029)</li>
             </ul>
           </div>
-        </section>
+        </Reveal>
 
-        <section className="mb-12">
+        <Reveal as="section" className="mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            Community Involvement
+            Leadership &amp; Community
           </h2>
 
-          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 pl-6 py-4">
-            <div className="flex flex-wrap justify-between items-start mb-3">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Iowa United Head Coach Select 14UG
-                </h3>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 font-medium">2023 - Present</p>
-            </div>
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
-              <li>Certified USYS Grassroots coach.</li>
-              <li>Led game management and assistant coach development.</li>
-              <li>
-                Planned and conducted regular player training and matches.
-              </li>
-              <li>
-                Focused on technical, tactical, physical, and mental development
-                of players and the team.
-              </li>
-            </ul>
+          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              Iowa United — Head Coach, Select 14UG
+            </h3>
           </div>
 
-          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 pl-6 py-4">
-            <div className="flex flex-wrap justify-between items-start mb-3">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Iowa Asian Alliance Director of Volunteers
-                </h3>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 font-medium">2018</p>
-            </div>
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
-              <li>Recruit, manage committee members and volunteers</li>
-              <li>Plan, organize, and lead respective committee meetings</li>
-              <li>Set committee goals and timelines</li>
-            </ul>
+          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              Iowa Asian Alliance — Director of Volunteers
+            </h3>
           </div>
 
-          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 pl-6 py-4">
-            <div className="flex flex-wrap justify-between items-start mb-3">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Walnut Creek Community Church Audio-Visual Technician and Team
-                  Lead
-                </h3>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 font-medium">2010 – Present</p>
-            </div>
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside">
-              <li>
-                Set up and tear down of equipment to and from requested off-site
-                locations
-              </li>
-              <li>Installation, upgrade, and maintain equipment as needed</li>
-              <li>
-                Lead and train in audio production for service and special
-                events
-              </li>
-            </ul>
+          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              Walnut Creek Community Church — Audio-Visual Team Lead
+            </h3>
           </div>
-        </section>
+        </Reveal>
       </div>
     </section>
   );
