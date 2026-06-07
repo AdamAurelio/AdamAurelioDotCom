@@ -23,6 +23,14 @@ in **[`infra/README.md`](../infra/README.md)**. Do that once. Summary:
 5. An IAM role for GitHub OIDC with permission to write the bucket and create
    CloudFront invalidations.
 
+> **Why ACM and not Let's Encrypt?** CloudFront only serves certificates that
+> live in **ACM (us-east-1)** — you can't point it at a Let's Encrypt cert. You
+> *can* import an external cert into ACM, but **ACM can't auto-renew imported
+> certs**, so you'd have to manually re-import every ~60–90 days. The ACM-issued
+> public cert above is free and auto-renews on its own, as long as its DNS
+> validation CNAME stays in place. (QA on the Synology NAS is the opposite case —
+> there Let's Encrypt *is* the right tool; see `QA_SYNOLOGY_SETUP.md`.)
+
 ## GitHub configuration
 
 Settings → Secrets and variables → Actions:
