@@ -115,6 +115,48 @@ it. Use the **Apache** backend so SPA routing works via `.htaccess`.
 re-copy `dist/*`). Unlike Docker there's no `--build` one-liner, and there's no
 `/health` endpoint (that was only for the container — not needed here).
 
+## Updating QA with one command (`scripts/qa-update.sh`)
+
+The everyday refresh — pull the QA branch, rebuild, restart nginx — is wrapped in
+`scripts/qa-update.sh` so you don't have to remember the flags. It's
+**change-aware**: it only rebuilds when the branch actually moved (or the
+container isn't running, or you pass `--force`), so the same script is safe to
+run by hand *or* on a timer.
+
+```bash
+# On the NAS, from the repo root:
+./scripts/qa-update.sh           # rebuild only if the QA branch moved
+./scripts/qa-update.sh --force   # rebuild regardless
+
+# The script tracks the `qa` branch by default; override per-run:
+QA_BRANCH=dev ./scripts/qa-update.sh
+```
+
+> The NAS checkout is a **serving mirror** — never commit or edit on it. The
+> script hard-resets to `origin/<QA_BRANCH>` so an unattended run can't get stuck
+> on a conflict.
+
+### Optional: auto-pull on a timer (the "pull agent")
+
+To make QA update itself, run that same script on a schedule — no inbound ports,
+no GitHub runner, nothing reaching *into* your network. **Control Panel → Task
+Scheduler → Create → Scheduled Task → User-defined script**:
+
+- **User:** `root` (so it can drive Docker)
+- **Schedule:** every 5–10 minutes
+- **Run command:**
+  ```
+  /volume1/path/to/AdamAurelioDotCom/scripts/qa-update.sh >> /var/log/qa-update.log 2>&1
+  ```
+
+Because the script is change-aware, most ticks do nothing (and cost nothing); it
+only rebuilds after you push to the QA branch. Tail `/var/log/qa-update.log` to
+see what each run did.
+
+> Trade-off: a timer gives you hands-off freshness but gives up QA's "I test
+> exactly the build I choose, when I choose" control. If you prefer deliberate
+> promotion, just run the script by hand and skip the scheduled task.
+
 ## Accessing from your network
 
 - Local: `http://<nas-ip>:8080`.
