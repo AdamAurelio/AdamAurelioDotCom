@@ -33,6 +33,7 @@ npm run dev        # http://localhost:5173
 - [Dev setup](docs/DEV_SETUP.md)
 - [QA setup (Synology)](docs/QA_SYNOLOGY_SETUP.md)
 - [Prod setup (AWS)](docs/PROD_AWS_SETUP.md)
+- [On-prem data tier (optional)](docs/PROD_NAS_DATA_TIER.md) — give prod a NAS-hosted API + PostgreSQL so your data stays local (DB never exposed; HTTPS API via reverse proxy)
 - [Infra provisioning](infra/README.md) — one-time AWS S3 + CloudFront setup (incl. security-headers policy)
 - [Security policy & posture](SECURITY.md) — data classification, control mapping, vulnerability reporting
 - [Changelog](CHANGELOG.md) — notable changes over time

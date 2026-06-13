@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > work before commit — per the ADAM model's AI-assistant standard._
 
 ### Added
+- **Optional on-prem data tier** docs — [`docs/PROD_NAS_DATA_TIER.md`](docs/PROD_NAS_DATA_TIER.md)
+  and [ADR-0006](docs/adr/0006-optional-on-prem-data-tier.md): run an API +
+  PostgreSQL on the Synology NAS so prod's data stays local. Covers the
+  reverse-proxy setup, DNS-01 TLS, SPA wiring, CSP `connect-src` change, auth/CORS,
+  graceful degradation, and backups. Opt-in; the static site is unchanged when off.
 - **Automated tests** — Vitest (unit/component, incl. an `ErrorBoundary` and a
   layout-landmarks smoke test) and Playwright (E2E route smoke, SPA deep-link
   refresh, and an axe accessibility scan). Both wired into `ci.yml` as merge
