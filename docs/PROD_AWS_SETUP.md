@@ -9,8 +9,11 @@ $0.50/mo per hosted zone.)
 
 ## One-time provisioning
 
-The full step-by-step (bucket, ACM cert, CloudFront, OAC, IAM/OIDC role) lives
-in **[`infra/README.md`](../infra/README.md)**. Do that once. Summary:
+You can provision this **automatically with Terraform** —
+[`infra/terraform/`](../infra/terraform/) codifies the whole stack, so it's one
+`terraform apply` instead of the console walkthrough. The manual step-by-step
+(bucket, ACM cert, CloudFront, OAC, IAM/OIDC role) lives in
+**[`infra/README.md`](../infra/README.md)**. Either way, do it once. Summary:
 
 1. Private S3 bucket (e.g. `adamaurelio-com-prod`), public access blocked.
 2. ACM certificate in **us-east-1** for `adamaurelio.com` + `www`.

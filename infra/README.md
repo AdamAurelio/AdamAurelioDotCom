@@ -4,6 +4,12 @@ One-time provisioning for the cheapest viable production hosting of a static
 site. After this is set up, every push to `main` auto-deploys via
 `.github/workflows/deploy-prod.yml`.
 
+> **Automated path (recommended):** everything below is codified as Terraform in
+> [`terraform/`](terraform/) — one `terraform apply` provisions the whole stack
+> (and can even set the GitHub Actions secret/variables). Use the manual console
+> steps below only if you prefer clicking through, or to understand what each
+> resource is. The two produce the same result.
+
 **Expected cost:** ~$0.50–2/month for a personal-traffic resume site. The S3
 storage is a few MB; CloudFront's first 1 TB/month of transfer is in the
 perpetual free tier. The only guaranteed charge is the Route 53 hosted zone
