@@ -77,6 +77,13 @@ the cost stays near zero and the static hosting is untouched:
 
 This is the documented growth path — see `infra/README.md`.
 
+**On-prem alternative — keep the data at home.** If you'd rather your data live on
+the Synology NAS than in the cloud, run an API + PostgreSQL on the NAS and expose
+only the API over HTTPS via a reverse proxy (the DB port is never exposed). The
+static site is unchanged; it just calls `https://api.adamaurelio.com`. Opt-in and
+fully reversible — see [`PROD_NAS_DATA_TIER.md`](PROD_NAS_DATA_TIER.md) and
+[ADR-0006](adr/0006-optional-on-prem-data-tier.md).
+
 ## Branch / deploy flow
 
 | Branch     | Environment | Trigger                                   |

@@ -82,6 +82,14 @@ they should be designed in from the first endpoint — not retrofitted:
 - **`connect-src`** in the CSP widened to the API origin only
 - Run the full security review checklist against the new tier before launch.
 
+One concrete realization of this is the **optional on-prem data tier** (NAS-hosted
+API + PostgreSQL) in [`docs/PROD_NAS_DATA_TIER.md`](docs/PROD_NAS_DATA_TIER.md) /
+[ADR-0006](docs/adr/0006-optional-on-prem-data-tier.md). Enabling it changes the
+data classification beyond **PUBLIC** and re-activates the controls above. Two
+caveats specific to it: the database port is **never exposed** (only an HTTPS API
+via reverse proxy), and **an API key shipped in the public SPA is not secret** —
+private data requires real user auth (OIDC), not a browser-embedded key.
+
 ---
 
 ## Reporting a vulnerability

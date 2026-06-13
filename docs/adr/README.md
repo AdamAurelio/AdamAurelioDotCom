@@ -21,3 +21,4 @@ Development Standards §4.
 | [0003](0003-acm-not-lets-encrypt-for-prod.md) | ACM (not Let's Encrypt) for the production cert | Accepted |
 | [0004](0004-terraform-for-provisioning.md) | Terraform for production provisioning | Accepted |
 | [0005](0005-qa-on-synology-pull-based.md) | QA on Synology, pull-based (not a push pipeline) | Accepted |
+| [0006](0006-optional-on-prem-data-tier.md) | Optional on-prem data tier (NAS API + database) | Accepted |

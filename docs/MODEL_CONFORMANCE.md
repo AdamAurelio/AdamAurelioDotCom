@@ -51,6 +51,12 @@ Legend: 🟢 strong · 🟡 partial · 🔴 gap · ⚪ N/A-by-design · ✅ done
 | Closing the loop / monitoring (`closing-the-loop.md`) | 🔴 | [#MONITOR](#monitor) |
 | AI-usage recorded in CHANGELOG (`security-checklist.md`) | 🟡 | [#AI](#ai) |
 
+> **If the optional on-prem data tier is enabled**
+> ([`PROD_NAS_DATA_TIER.md`](PROD_NAS_DATA_TIER.md) / [ADR-0006](adr/0006-optional-on-prem-data-tier.md)),
+> Frontend §7 (centralized typed API client), §8 (error handling), and §1
+> (graceful degradation) move from N/A to **applicable** — the guide builds them
+> in (`src/lib/api.js`, the error boundary, loading/offline states).
+
 ---
 
 ## Action items
