@@ -24,11 +24,18 @@ jobs:
       - run: npm run lint
       - run: npm run build
 
+      # Unit/component tests (Vitest). Merge gate — Frontend Standards §12.
+      - run: npm run test:unit
+
       # Dependency vulnerability scan (security baseline §10.2 / OWASP A06).
-      # Fails the build on high/critical advisories; lower severities are
-      # surfaced but non-blocking.
-      - name: Audit dependencies
-        run: npm audit --audit-level=high
+      # Blocking on PRODUCTION deps — that's what ships to users. Build/test
+      # tooling (vite→esbuild, vitest) is audited too but non-blocking: those
+      # advisories are dev/build-time only and the sole "fix" is a breaking Vite
+      # major bump. See docs/MODEL_CONFORMANCE.md (#ARTIFACT note).
+      - name: Audit production dependencies (blocking)
+        run: npm audit --omit=dev --audit-level=high
+      - name: Audit all dependencies (informational)
+        run: npm audit --audit-level=high || true
 
       # Secret scanning (security baseline §4.3) — ensures no credential is
       # ever committed, even though .env* is gitignored.
@@ -42,4 +49,32 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 7
+
+  # End-to-end smoke + accessibility (Playwright). Builds, serves via vite
+  # preview, and drives a real browser. Frontend Standards §12 (E2E gate).
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      # test:e2e builds the site, then runs Playwright against `vite preview`.
+      - run: npm run test:e2e
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
           retention-days: 7
