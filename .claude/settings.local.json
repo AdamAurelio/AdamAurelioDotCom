@@ -10,7 +10,11 @@
       "Bash(npm audit *)",
       "Bash(ls -la docs/images)",
       "Bash(find docs *)",
-      "PowerShell(& \"C:\\\\Users\\\\adama\\\\OneDrive\\\\Apps\\\\Developer\\\\Web\\\\Personal Apps\\\\AdamAurelioDotCom\\\\scripts\\\\qa-parity-check.ps1\" -QaUrl https://adamaurelio.com -ProdUrl https://adamaurelio.com)"
+      "PowerShell(& \"C:\\\\Users\\\\adama\\\\OneDrive\\\\Apps\\\\Developer\\\\Web\\\\Personal Apps\\\\AdamAurelioDotCom\\\\scripts\\\\qa-parity-check.ps1\" -QaUrl https://adamaurelio.com -ProdUrl https://adamaurelio.com)",
+      "Bash(terraform version *)",
+      "Bash(terraform fmt *)",
+      "Bash(terraform init *)",
+      "Bash(terraform validate *)"
     ]
   }
 }

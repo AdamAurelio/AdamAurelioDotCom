@@ -1,0 +1,23 @@
+# Copy to terraform.tfvars and adjust. terraform.tfvars is gitignored.
+# Every value below already has a sensible default in variables.tf — you can
+# delete any line you don't need to override.
+
+domain_name = "adamaurelio.com"
+bucket_name = "adamaurelio-com-prod"
+aws_region  = "us-east-1"
+
+github_repo   = "AdamAurelio/AdamAurelioDotCom"
+github_branch = "main"
+
+# CloudFront edge coverage. PriceClass_100 = NA + Europe (cheapest).
+# Use "PriceClass_All" for full global coverage.
+price_class = "PriceClass_100"
+
+# Set false if a GitHub OIDC provider already exists in this AWS account
+# (only one is allowed per account), and supply its ARN:
+# create_oidc_provider       = false
+# existing_oidc_provider_arn = "arn:aws:iam::123456789012:oidc-provider/token.actions.githubusercontent.com"
+
+# Set true to have Terraform write the repo's Actions secret/variables for you.
+# Requires a GITHUB_TOKEN (repo scope) in the environment when you apply.
+# manage_github_actions_config = true

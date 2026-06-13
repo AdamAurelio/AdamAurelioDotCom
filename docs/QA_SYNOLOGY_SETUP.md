@@ -160,7 +160,58 @@ by hitting the NAS over the public internet:
 > reachable.
 
 > **Prod uses a different mechanism — not Let's Encrypt.** CloudFront only serves
-> certs from AWS Certificate Manager (ACM); see `PROD_AWS_SETUP.md`.
+> certs from AWS Certificate Manager (ACM); see `PROD_AWS_SETUP.md`. The ACM cert
+> auto-renews on its own — Let's Encrypt is a **QA-only** concern.
+
+### Automating renewal (and the Namecheap angle)
+
+There are two validation methods, and they fail differently:
+
+- **HTTP-01 (DSM's built-in flow, above).** DSM auto-renews ~30 days before
+  expiry, but **every renewal re-hits the NAS on port 80 from the internet.** If
+  your home IP changes, DDNS lapses, or the port-80 forward breaks, renewals
+  fail silently and the cert eventually expires. Fine for a low-stakes QA box you
+  keep an eye on.
+- **DNS-01 (recommended for hands-off).** Proves domain control by writing a TXT
+  record instead of answering on port 80, so **the NAS needs no inbound ports
+  open at all.** This is the robust path.
+
+**Where DNS-01 writes the record depends on who hosts your DNS — not who you
+registered with.** Your domain is registered at **Namecheap**, but prod
+delegates DNS to **Route 53**. That delegation is what you should lean on:
+
+| DNS host | DNS-01 via | Notes |
+|----------|-----------|-------|
+| **Route 53** (recommended — you're already using it for prod) | `acme.sh --dns dns_aws` | One DNS provider for both certs; clean IAM scoping. |
+| Namecheap | `acme.sh --dns dns_namecheap` | Works, **but** Namecheap's API is gated: your account must have 20+ domains, **or** $50+ balance, **or** $50+ spent in 2 years, **and** you must allowlist your public IP. Many personal accounts don't qualify. |
+
+So: keep DNS on Route 53 and use the AWS path. acme.sh runs on the NAS, renews
+unattended via cron, and installs the renewed cert into DSM so the reverse proxy
+picks it up.
+
+**One-time setup (SSH on the NAS):**
+
+```bash
+# 1. Install acme.sh
+curl https://get.acme.sh | sh -s email=adam.aurelio@gmail.com
+
+# 2. Give it a least-privilege AWS key scoped to ONLY this hosted zone's records
+#    (route53:ListHostedZones, GetChange, ChangeResourceRecordSets). Do NOT reuse
+#    the deploy role from infra/terraform — that one can't touch DNS by design.
+export AWS_ACCESS_KEY_ID="AKIA..."
+export AWS_SECRET_ACCESS_KEY="..."
+
+# 3. Issue via DNS-01 (no open ports needed)
+~/.acme.sh/acme.sh --issue --dns dns_aws -d qa.adamaurelio.com
+
+# 4. Deploy into DSM so the reverse proxy uses it, and auto-redeploy on renewal
+export SYNO_Username="admin-user"; export SYNO_Password="..."
+~/.acme.sh/acme.sh --deploy -d qa.adamaurelio.com --deploy-hook synology_dsm
+```
+
+acme.sh adds its own cron entry, so renewal (~every 60 days) and the DSM
+redeploy are automatic from here. Verify the renewal path without waiting two
+months: `~/.acme.sh/acme.sh --renew -d qa.adamaurelio.com --force`.
 
 ## Verifying a QA build
 
