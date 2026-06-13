@@ -133,7 +133,7 @@ const Home = () => {
             </div>
             <div className="space-y-2">
               <h3 className="text-5xl md:text-6xl font-bold">
-                <CountUp end={5} />
+                <CountUp end={3} />
               </h3>
               <p className="text-lg md:text-xl opacity-90">
                 CompTIA Certifications
@@ -143,7 +143,9 @@ const Home = () => {
               <h3 className="text-5xl md:text-6xl font-bold">
                 <CountUp end={100} suffix="+" />
               </h3>
-              <p className="text-lg md:text-xl opacity-90">Projects Delivered</p>
+              <p className="text-lg md:text-xl opacity-90">
+                Projects Delivered
+              </p>
             </div>
             <div className="space-y-2">
               <h3 className="text-5xl md:text-6xl font-bold">∞</h3>

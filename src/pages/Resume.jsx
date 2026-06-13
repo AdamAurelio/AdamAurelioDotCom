@@ -8,7 +8,10 @@ const Resume = () => {
       className="py-12 px-4 md:px-8 bg-gray-50 dark:bg-gray-950 min-h-screen transition-colors"
     >
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 md:p-12">
-        <Reveal as="header" className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8 flex flex-col sm:flex-row items-center gap-8">
+        <Reveal
+          as="header"
+          className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8 flex flex-col sm:flex-row items-center gap-8"
+        >
           <img
             src="/profile.jpg"
             alt="Adam Aurelio"
@@ -35,7 +38,7 @@ const Resume = () => {
               </a>
             </p>
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              Software engineer with 10+ years building enterprise automation,
+              Software engineer with 7+ years building enterprise automation,
               integrations, and resilient operations across Oracle, Python,
               PL/SQL, and RPA platforms. Consistent track record delivering
               secure, auditable workflows for access governance, CI/CD
@@ -125,9 +128,9 @@ const Resume = () => {
                 completeness and compliance posture.
               </li>
               <li>
-                Automated go-live access provisioning end-to-end, removing manual
-                tasks and after-hours support while adding built-in audit trails
-                for compliance.
+                Automated go-live access provisioning end-to-end, removing
+                manual tasks and after-hours support while adding built-in audit
+                trails for compliance.
               </li>
               <li>
                 Architected a full-stack access-governance application using
@@ -273,19 +276,19 @@ const Resume = () => {
 
           <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-              Iowa United — Head Coach, Select 14UG
+              Iowa United — Coach, Select 14UG
             </h3>
           </div>
 
           <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-              Iowa Asian Alliance — Director of Volunteers
+              Prior Iowa Asian Alliance — Director of Volunteers
             </h3>
           </div>
 
           <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-              Walnut Creek Community Church — Audio-Visual Team Lead
+              Prior Walnut Creek Community Church — Audio-Visual Team Lead
             </h3>
           </div>
         </Reveal>
