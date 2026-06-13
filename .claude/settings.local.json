@@ -14,7 +14,10 @@
       "Bash(terraform version *)",
       "Bash(terraform fmt *)",
       "Bash(terraform init *)",
-      "Bash(terraform validate *)"
+      "Bash(terraform validate *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git config *)",
+      "Bash(npx playwright *)"
     ]
   }
 }

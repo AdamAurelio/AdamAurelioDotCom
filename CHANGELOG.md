@@ -13,7 +13,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+> _Developed with AI coding assistance (Anthropic Claude / Claude Code). All
+> AI-generated code and docs are reviewed to the same standard as hand-written
+> work before commit — per the ADAM model's AI-assistant standard._
+
 ### Added
+- **Automated tests** — Vitest (unit/component, incl. an `ErrorBoundary` and a
+  layout-landmarks smoke test) and Playwright (E2E route smoke, SPA deep-link
+  refresh, and an axe accessibility scan). Both wired into `ci.yml` as merge
+  gates (Frontend Standards §12).
+- **Top-level React error boundary** (`ErrorBoundary`) with a safe, recoverable
+  fallback — no stack trace shown to users (Frontend Standards §8).
+- **Pre-commit hook** — husky + lint-staged run ESLint on staged files before
+  every commit.
+- **`docs/MODEL_CONFORMANCE.md`** — living gap analysis against the ADAM agentic
+  development model, plus **`docs/adr/`** Architecture Decision Records for the
+  foundational decisions (static SPA, S3+CloudFront, ACM, Terraform, QA branch).
+- **`.github/PULL_REQUEST_TEMPLATE.md`** — frontend-adapted review checklist.
 - **Subtle motion** — scroll/entrance reveals (`Reveal`) and an animated stats
   count-up (`CountUp`) on Home, section reveals on Resume, and an animated nav
   underline. CSS/IntersectionObserver only (no animation library, ~0.5 KB),

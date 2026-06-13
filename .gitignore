@@ -7,6 +7,19 @@ node_modules/
 dist/
 build/
 
+# Test output
+coverage/
+playwright-report/
+test-results/
+/blob-report/
+/playwright/.cache/
+
+# Husky internals (generated)
+.husky/_/
+
+# qa-update.sh single-instance lock (created on the NAS)
+.qa-update.lock/
+
 # Logs
 logs/
 *.log
