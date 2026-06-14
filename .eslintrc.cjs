@@ -17,6 +17,8 @@ module.exports = {
     "coverage",
     "playwright-report",
     "test-results",
+    // Separate sub-project with its own deps/runtime (runs on the NAS, not the SPA).
+    "nas_data_tier",
   ],
   rules: {
     "react-refresh/only-export-components": [
