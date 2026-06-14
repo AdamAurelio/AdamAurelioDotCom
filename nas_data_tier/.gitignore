@@ -1,0 +1,11 @@
+# Secrets — never commit. Keep .env.example only.
+.env
+.env.*
+!.env.example
+
+# Node deps (if you run the API outside Docker)
+node_modules/
+
+# Local DB dumps
+*.dump
+*.sql.gz
