@@ -18,6 +18,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > work before commit — per the ADAM model's AI-assistant standard._
 
 ### Added
+- **Full-stack automation & self-setup CI/CD** across all three environments
+  ([ADR-0007](docs/adr/0007-ci-driven-gated-provisioning.md),
+  [`docs/AUTOMATION.md`](docs/AUTOMATION.md)):
+  - **Prod** now provisions from CI — remote S3 Terraform state (native locking)
+    + `infra/scripts/bootstrap-state.sh`, a dedicated environment-scoped
+    *provision* OIDC role (deploy role stays least-privilege), and
+    [`infra.yml`](.github/workflows/infra.yml) running a **gated, idempotent**
+    `terraform apply` behind the `production` reviewer. Terraform self-writes the
+    deploy Variables; `deploy-prod.yml` fails fast if infra is unprovisioned.
+  - **QA + data tier (NAS)** — one-command `scripts/nas-bootstrap.sh` (generates
+    data-tier secrets, brings up both stacks), the previously-missing
+    `scripts/data-tier-update.sh` change-aware agent, and shared
+    `scripts/lib/refresh-common.sh`. Reproducible API image (`package-lock.json`
+    + `npm ci`). Stays pull-based (ADR-0005).
+  - **Dev** — `docker-compose.dev.yml` for a one-command Vite HMR container.
+  - **CI** — new data-tier job (API build + compose validation); npm script
+    aliases; Terraform-aware `.gitignore`.
+- **Operator setup guide** — [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md):
+  what only you can provide and the one-time bootstrap order.
+- **Editable architecture diagrams** — [`docs/diagrams/`](docs/diagrams/)
+  (`dev`, `qa`, `prod` as drawio), reversing the earlier decision to ship
+  ASCII-only.
 - **Optional on-prem data tier** docs — [`docs/PROD_NAS_DATA_TIER.md`](docs/PROD_NAS_DATA_TIER.md)
   and [ADR-0006](docs/adr/0006-optional-on-prem-data-tier.md): run an API +
   PostgreSQL on the Synology NAS so prod's data stays local. Covers the
