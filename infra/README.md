@@ -6,9 +6,14 @@ site. After this is set up, every push to `main` auto-deploys via
 
 > **Automated path (recommended):** everything below is codified as Terraform in
 > [`terraform/`](terraform/) — one `terraform apply` provisions the whole stack
-> (and can even set the GitHub Actions secret/variables). Use the manual console
-> steps below only if you prefer clicking through, or to understand what each
-> resource is. The two produce the same result.
+> (and can even set the GitHub Actions variables). State lives in a remote S3
+> backend created once by [`scripts/bootstrap-state.sh`](scripts/bootstrap-state.sh),
+> and after a one-time bootstrap, `apply` runs in a **gated CI workflow**
+> (`.github/workflows/infra.yml`). The full lifecycle is in
+> [`../docs/AUTOMATION.md`](../docs/AUTOMATION.md); the decision in
+> [ADR-0007](../docs/adr/0007-ci-driven-gated-provisioning.md). Use the manual
+> console steps below only if you prefer clicking through, or to understand what
+> each resource is. The two produce the same result.
 
 **Expected cost:** ~$0.50–2/month for a personal-traffic resume site. The S3
 storage is a few MB; CloudFront's first 1 TB/month of transfer is in the
@@ -148,19 +153,21 @@ Verify after deploy: `curl -sI https://adamaurelio.com` should show every header
 In the repo: Settings → Secrets and variables → Actions.
 
 **Secrets:**
-| Name           | Value                                              |
-|----------------|----------------------------------------------------|
-| `AWS_ROLE_ARN` | ARN of the IAM role from step 5                    |
+| Name                 | Value                                                     |
+|----------------------|-----------------------------------------------------------|
+| `GH_PROVISION_TOKEN` | Fine-grained PAT (*Variables: read/write*) for `infra.yml`|
 
-**Variables:**
+**Variables:** (role ARNs are not secrets)
 | Name                        | Value                                  |
 |-----------------------------|----------------------------------------|
 | `AWS_REGION`                | Bucket region, e.g. `us-east-1`        |
 | `S3_BUCKET`                 | `adamaurelio-com-prod`                  |
 | `CLOUDFRONT_DISTRIBUTION_ID`| `EXXXXXXXXXXXXX`                        |
+| `AWS_DEPLOY_ROLE_ARN`       | Deploy role ARN (from step 5)          |
+| `AWS_PROVISION_ROLE_ARN`    | Provision role ARN (gated apply)       |
 
-Then create the `production` environment (Settings → Environments) so the
-deploy job can attach to it.
+Then create the `production` environment (Settings → Environments) with yourself
+as a **required reviewer** — that approval gates the Infra workflow's apply.
 
 ---
 

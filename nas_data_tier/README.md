@@ -13,6 +13,19 @@ in [ADR-0006](../docs/adr/0006-optional-on-prem-data-tier.md).
 
 ## Quick start (on the NAS)
 
+Fastest path — from the **repo root**, one command brings up this tier (and the
+website) and generates the `.env` secrets for you:
+
+```bash
+./scripts/nas-bootstrap.sh
+```
+
+To keep it current automatically, schedule the change-aware agent
+[`scripts/data-tier-update.sh`](../scripts/data-tier-update.sh) (it rebuilds only
+when `nas_data_tier/` changes). See [`../docs/AUTOMATION.md`](../docs/AUTOMATION.md).
+
+Or do it by hand, from this directory:
+
 ```bash
 cp .env.example .env          # then set strong secrets (openssl rand -base64 32)
 sudo docker compose -f docker-compose.data.yml up -d --build
@@ -85,6 +98,7 @@ nas_data_tier/
 └── api/
     ├── server.js             Express API: auth, CORS, rate-limit, pg, safe errors
     ├── package.json
+    ├── package-lock.json     committed; image builds with `npm ci` (reproducible)
     ├── Dockerfile
     └── .dockerignore
 ```

@@ -12,7 +12,9 @@ Legend: `[ ]` todo · `[x]` done · ⚠️ gotcha worth reading before you start
 
 - [ ] AWS account with admin-capable credentials available locally
       (`aws configure` or `AWS_PROFILE`). Needed once for `terraform apply`.
-- [ ] Terraform ≥ 1.5 and AWS CLI installed (`terraform version`, `aws --version`).
+- [ ] Terraform ≥ 1.10 and AWS CLI installed (`terraform version`, `aws --version`).
+- [ ] A fine-grained GitHub **PAT** with *Variables: read/write* on this repo,
+      for `GH_PROVISION_TOKEN` (lets Terraform write the deploy Variables).
 - [ ] Decide DNS host. **Recommended: delegate `adamaurelio.com` DNS to Route 53**
       (the domain stays registered at Namecheap). This makes prod's ACM cert and
       QA's Let's Encrypt cert both validate/renew through one provider.
@@ -38,23 +40,24 @@ Legend: `[ ]` todo · `[x]` done · ⚠️ gotcha worth reading before you start
 - [ ] ⚠️ Check whether a GitHub OIDC provider already exists in the AWS account
       (only one per account is allowed). If yes, set `create_oidc_provider = false`
       and `existing_oidc_provider_arn` in `terraform.tfvars`.
+- [ ] `./infra/scripts/bootstrap-state.sh` — create the remote-state S3 bucket
+      (once, admin creds; the S3 backend needs it before `init`).
 - [ ] `cd infra/terraform && cp terraform.tfvars.example terraform.tfvars`
-      (defaults already match this repo — edit only if needed).
-- [ ] `terraform init`
+      (defaults already match this repo; set `manage_github_actions_config = true`).
+- [ ] `terraform init` (wires the S3 backend)
 - [ ] `terraform plan` — review the resources.
-- [ ] `terraform apply` — provisions bucket, ACM cert (+ DNS validation),
-      CloudFront, OAC, security-headers policy, IAM OIDC role, alias records.
-- [ ] Wire GitHub Actions config (pick one):
-  - [ ] **Automatic:** set `manage_github_actions_config = true`,
-        `export GITHUB_TOKEN=...` (repo scope), re-`apply`.
-  - [ ] **Manual:** run `terraform output github_actions_config` and add in
-        repo **Settings → Secrets and variables → Actions**:
-        secret `AWS_ROLE_ARN`; variables `AWS_REGION`, `S3_BUCKET`,
-        `CLOUDFRONT_DISTRIBUTION_ID`.
-- [ ] Create the `production` GitHub **Environment** (Settings → Environments).
-      Add a manual approval gate here if you want one.
+- [ ] `export GITHUB_TOKEN=<GH_PROVISION_TOKEN PAT>` then `terraform apply` —
+      provisions bucket, ACM cert (+ DNS validation), CloudFront, OAC,
+      security-headers policy, IAM OIDC roles (deploy + provision), alias records,
+      and writes the deploy Variables back to the repo.
+- [ ] Create the `production` GitHub **Environment** (Settings → Environments)
+      with yourself as a **required reviewer** — gates the `infra.yml` apply.
+- [ ] Add the **secret** `GH_PROVISION_TOKEN` (the PAT) in Settings → Secrets.
+- [ ] Confirm the Variables exist: `S3_BUCKET`, `CLOUDFRONT_DISTRIBUTION_ID`,
+      `AWS_DEPLOY_ROLE_ARN`, `AWS_PROVISION_ROLE_ARN`, `AWS_REGION`.
 - [ ] Trigger the first deploy: merge to `main`, or run **Deploy to Production**
-      from the Actions tab (`workflow_dispatch`).
+      from the Actions tab (`workflow_dispatch`). Thereafter provisioning runs
+      from `infra.yml` (gated) and deploys from `deploy-prod.yml`.
 - [ ] Verify prod:
   - [ ] `https://adamaurelio.com` loads; HTTP redirects to HTTPS; cert valid.
   - [ ] Deep-link refresh on `/resume` works (403/404 → index.html).
@@ -70,11 +73,16 @@ Route 53 validation record stays in place. ✅
 
 - [ ] Install **Container Manager** (Package Center); enable SSH if using the CLI.
 - [ ] Get the repo onto the NAS (Git Server clone or copy the folder).
-- [ ] `sudo docker compose -f docker-compose.qa.yml up -d --build`
+- [ ] `./scripts/nas-bootstrap.sh` — one command: generates the data-tier `.env`
+      secrets, brings up the website (:8080) **and** the data tier (:3001), and
+      health-checks both. (Or `sudo docker compose -f docker-compose.qa.yml up -d --build` for website-only.)
 - [ ] Verify the HTTP build:
   - [ ] `http://<nas-ip>:8080` — all 5 routes load.
   - [ ] Deep-link refresh on `/resume` works.
   - [ ] `curl http://localhost:8080/health` → `healthy`.
+- [ ] Add Task Scheduler timers (user `root`, every 5–10 min) for
+      `scripts/qa-update.sh` and `scripts/data-tier-update.sh` so the NAS
+      self-updates (both change-aware). See `docs/QA_SYNOLOGY_SETUP.md`.
 
 ### QA HTTPS + automated cert renewal
 
@@ -111,6 +119,5 @@ Route 53 validation record stays in place. ✅
       `cloudfront.tf` policy), `nginx.conf` (QA Docker), and the Web Station
       `.htaccess` if used.
 - [ ] Commit the new `infra/terraform/` module + doc updates.
-- [ ] (Optional) Migrate Terraform state to an S3 backend if more than one person
-      will run it — uncomment the `backend "s3"` block in
-      `infra/terraform/versions.tf`.
+- [x] Terraform state is in a remote, locked S3 backend by default (created by
+      `infra/scripts/bootstrap-state.sh`) — shared by local runs and CI. ✅

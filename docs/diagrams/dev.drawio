@@ -1,0 +1,46 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="dev-env" name="Dev">
+    <mxGraphModel dx="900" dy="640" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="560" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Dev environment — local machine (no accounts, no secrets)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="640" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="machine" value="Your machine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontStyle=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="560" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="src" value="src/*.jsx&#10;(source you edit)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="70" y="230" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="native" value="Native (recommended)&#10;npm run dev&#10;Vite dev server — builds in RAM, HMR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="270" y="110" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="container" value="Container (parity / no local Node)&#10;docker compose -f docker-compose.dev.yml up&#10;node:20-alpine · Vite --host 0.0.0.0&#10;VITE_DOCKER=1 → HMR via watch polling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="270" y="230" width="290" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="datatier" value="Optional local data tier&#10;cd nas_data_tier &amp;&amp; docker compose -f docker-compose.data.yml up&#10;Postgres + API (:3001)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="380" width="290" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="browser" value="Browser&#10;http://localhost:5173" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="160" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e_src_native" value="" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="src" target="native">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_src_container" value="bind mount" style="endArrow=block;html=1;rounded=0;dashed=1;" edge="1" parent="1" source="src" target="container">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_native_browser" value="HMR" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="native" target="browser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_container_browser" value=":5173" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="container" target="browser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_browser_data" value="fetch (optional)" style="endArrow=block;startArrow=none;html=1;rounded=0;dashed=1;" edge="1" parent="1" source="browser" target="datatier">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

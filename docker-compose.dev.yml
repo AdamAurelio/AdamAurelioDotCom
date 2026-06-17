@@ -1,0 +1,32 @@
+# Local development in a container — Vite dev server with HMR, no local Node
+# install required. Native `npm run dev` is still the fastest path; this exists
+# for parity and zero-setup onboarding.
+#
+#   docker compose -f docker-compose.dev.yml up      # then open http://localhost:5173
+#
+# This serves the WEBSITE only. To also develop against the on-prem data tier
+# (Postgres + API), run it from its own directory where its .env and relative
+# build paths resolve correctly:
+#   cd nas_data_tier && docker compose -f docker-compose.data.yml up -d
+# (generate nas_data_tier/.env first via ../scripts/nas-bootstrap.sh).
+name: adamaurelio-dev
+
+services:
+  web-dev:
+    image: node:20-alpine
+    working_dir: /app
+    environment:
+      VITE_DOCKER: "1" # enables HMR polling in vite.config.js
+    # install deps (fast no-op once the named volume is populated), then run
+    # Vite bound to all interfaces so the host can reach it, without auto-open.
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --no-open"
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      # Keep the container's node_modules separate from the host's — Windows/
+      # macOS native binaries are not Linux-compatible.
+      - dev_node_modules:/app/node_modules
+
+volumes:
+  dev_node_modules:
