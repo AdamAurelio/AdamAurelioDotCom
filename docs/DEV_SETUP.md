@@ -27,6 +27,17 @@ hot-module reload — edits to anything under `src/` show instantly.
 
 Routes to try: `/`, `/resume`, `/about`, `/services`, `/contact`.
 
+### Or run it in a container (no local Node)
+
+```bash
+docker compose -f docker-compose.dev.yml up      # http://localhost:5173, HMR on
+# or: npm run docker:dev
+```
+
+Native `npm run dev` stays the fastest path; the container is for parity and
+zero-setup onboarding. See [`AUTOMATION.md`](AUTOMATION.md) for the full
+per-environment command map.
+
 ## Useful commands
 
 | Command           | What it does                                          |

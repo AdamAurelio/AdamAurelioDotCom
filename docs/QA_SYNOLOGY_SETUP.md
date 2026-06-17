@@ -18,6 +18,20 @@ the exact static output that goes to AWS, behind nginx — a realistic QA mirror
 `docker-compose.qa.yml` builds the `Dockerfile` (Node builds the site → nginx
 serves `dist/`) and publishes it on host port **8080**.
 
+## Fastest path — one-command bootstrap
+
+```bash
+# On the NAS, from the repo root:
+./scripts/nas-bootstrap.sh
+```
+
+This brings up **both** the website (`:8080`) and the on-prem data tier
+(`:3001`), generating `nas_data_tier/.env` with fresh secrets on first run, and
+health-checks them. To keep them current automatically, schedule
+`scripts/qa-update.sh` and `scripts/data-tier-update.sh` (see *Updating QA* below
+and [`AUTOMATION.md`](AUTOMATION.md)). The manual steps below remain valid if you
+prefer to do it by hand.
+
 ## Option A — SSH / command line (recommended)
 
 ```bash
@@ -152,6 +166,17 @@ Scheduler → Create → Scheduled Task → User-defined script**:
 Because the script is change-aware, most ticks do nothing (and cost nothing); it
 only rebuilds after you push to the QA branch. Tail `/var/log/qa-update.log` to
 see what each run did.
+
+**Data tier:** the on-prem API + Postgres has its own change-aware agent,
+`scripts/data-tier-update.sh` — add a second scheduled task for it. It rebuilds
+only when something under `nas_data_tier/` actually changes, so the database and
+its volume aren't churned on every website change:
+```
+/volume1/path/to/AdamAurelioDotCom/scripts/data-tier-update.sh >> /var/log/data-tier-update.log 2>&1
+```
+> Give the data tier its **own checkout** if it tracks a different branch than
+> the website mirror (`main` vs `qa`) — two agents on one checkout fight over the
+> working tree.
 
 > Trade-off: a timer gives you hands-off freshness but gives up QA's "I test
 > exactly the build I choose, when I choose" control. If you prefer deliberate

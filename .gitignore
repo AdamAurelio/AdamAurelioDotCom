@@ -17,8 +17,9 @@ test-results/
 # Husky internals (generated)
 .husky/_/
 
-# qa-update.sh single-instance lock (created on the NAS)
+# Self-update agent single-instance locks (created on the NAS)
 .qa-update.lock/
+.data-tier-update.lock/
 
 # Logs
 logs/
@@ -32,6 +33,20 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+
+# Terraform — never commit state (may contain secrets) or the local provider
+# cache. The .terraform.lock.hcl (provider hash pins) IS committed on purpose.
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+!*.tfvars.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
 
 # Editors / IDEs
 .vscode/

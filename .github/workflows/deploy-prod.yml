@@ -24,6 +24,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Fail fast (and clearly) if production infra hasn't been provisioned yet.
+      # These Variables are written by the Infra workflow's apply (Terraform's
+      # manage_github_actions_config). Empty == run Actions -> Infra first.
+      - name: Verify infra is provisioned
+        run: |
+          missing=()
+          [ -n "${{ vars.S3_BUCKET }}" ] || missing+=("S3_BUCKET")
+          [ -n "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" ] || missing+=("CLOUDFRONT_DISTRIBUTION_ID")
+          [ -n "${{ vars.AWS_DEPLOY_ROLE_ARN }}" ] || missing+=("AWS_DEPLOY_ROLE_ARN")
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "::error::Production infra not provisioned — missing repo Variables: ${missing[*]}."
+            echo "::error::Run Actions -> Infra (Terraform provisioning) -> Run workflow, then re-run this deploy."
+            exit 1
+          fi
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -35,7 +50,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Sync static assets to S3
