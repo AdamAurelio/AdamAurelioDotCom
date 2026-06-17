@@ -1,0 +1,87 @@
+name: Infra (Terraform provisioning)
+
+# Provisions / reconciles the production AWS stack (S3 + CloudFront + ACM +
+# Route 53 + IAM). `terraform apply` is idempotent, so this is also the
+# "auto-setup if missing": re-running recreates anything that was deleted.
+#
+# - PRs touching infra/terraform/** get static validation (no AWS, no gate).
+# - Pushes to main touching infra/terraform/**, or a manual run, perform a
+#   gated apply behind the `production` Environment's required reviewer.
+#
+# One-time bootstrap (admin creds, see docs/AUTOMATION.md) must happen first:
+# the state bucket and the provision role do not exist until then.
+on:
+  pull_request:
+    branches: [main]
+    paths: ["infra/terraform/**"]
+  push:
+    branches: [main]
+    paths: ["infra/terraform/**"]
+  workflow_dispatch:
+
+permissions:
+  id-token: write # OIDC -> AWS
+  contents: read
+
+concurrency:
+  group: infra-prod
+  cancel-in-progress: false # never interrupt an in-flight apply
+
+env:
+  TF_VERSION: "1.10.5"
+
+jobs:
+  # PR safety net — catches HCL/config errors without needing AWS credentials.
+  # init -backend=false skips the S3 backend, so no bucket/creds are required.
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false -input=false
+      - run: terraform validate
+
+  # Gated apply — runs only after the production Environment's reviewer approves.
+  # The provision role's trust is scoped to environment:production, so it can be
+  # assumed only from this job.
+  apply:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: infra/terraform
+    env:
+      # Lets Terraform's github provider write the deploy Variables back to the
+      # repo (manage_github_actions_config). Fine-grained PAT, Variables: RW.
+      GITHUB_TOKEN: ${{ secrets.GH_PROVISION_TOKEN }}
+      TF_VAR_manage_github_actions_config: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - name: Configure AWS credentials (OIDC, provision role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_PROVISION_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - run: terraform init -input=false
+      - name: Plan
+        run: terraform plan -input=false -no-color | tee plan.txt
+      - name: Write plan to job summary
+        run: |
+          {
+            echo '### Terraform plan'
+            echo '```'
+            cat plan.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - run: terraform apply -input=false -auto-approve

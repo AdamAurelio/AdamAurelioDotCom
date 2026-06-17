@@ -1,0 +1,41 @@
+# On-prem data tier: Postgres (private) + API (host-local, behind the DSM proxy).
+#   sudo docker compose -f docker-compose.data.yml up -d --build
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: adamaurelio_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: adamaurelio
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    # NOTE: no `ports:` — Postgres is reachable only on the internal network.
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Runs only on first init (empty data dir). Seeds the example schema.
+      - ./db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d adamaurelio"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./api
+    container_name: adamaurelio_api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://app:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/adamaurelio
+      API_KEY: ${API_KEY:?set API_KEY in .env}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN:-https://adamaurelio.com}
+      PORT: "3001"
+    # Bind to 127.0.0.1 only: the DSM reverse proxy reaches it on localhost,
+    # but it is NOT on the LAN or the internet.
+    ports:
+      - "127.0.0.1:3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:

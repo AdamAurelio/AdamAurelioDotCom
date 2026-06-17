@@ -1,139 +1,70 @@
-name: Deploy to Production (AWS Lightsail)
+name: Deploy to Production (AWS S3 + CloudFront)
 
+# Builds the static site and publishes it to S3, then invalidates CloudFront.
+# Triggered on every push to main. See docs/PROD_AWS_SETUP.md and infra/README.md
+# for the one-time AWS setup and the required secrets/variables.
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+# Required for OIDC auth to AWS (no long-lived access keys).
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
-    name: Build and Deploy to Production
+  deploy:
     runs-on: ubuntu-latest
     environment: production
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push Backend image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./backend
-          file: ./backend/Dockerfile
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/adamaurelio-backend:latest
-            ghcr.io/${{ github.repository_owner }}/adamaurelio-backend:${{ github.sha }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/adamaurelio-backend:latest
-          cache-to: type=inline
-
-      - name: Build and push Frontend image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/adamaurelio-frontend:latest
-            ghcr.io/${{ github.repository_owner }}/adamaurelio-frontend:${{ github.sha }}
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/adamaurelio-frontend:latest
-          cache-to: type=inline
-
-      - name: Deploy to AWS Lightsail
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.AWS_HOST }}
-          username: ${{ secrets.AWS_USER }}
-          key: ${{ secrets.AWS_SSH_KEY }}
-          script: |
-            # Navigate to project directory
-            cd /opt/adamaurelio
-
-            # Create backup of current deployment
-            timestamp=$(date +%Y%m%d_%H%M%S)
-            docker-compose -f docker-compose.prod.yml exec -T db pg_dump -U ${{ secrets.PROD_DB_USER }} ${{ secrets.PROD_DB_NAME }} > /opt/backups/backup_${timestamp}.sql
-
-            # Create .env.prod file
-            echo "${{ secrets.PROD_ENV_FILE }}" > .env.prod
-
-            # Pull latest images
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-            docker-compose -f docker-compose.prod.yml pull
-
-            # Stop and remove old containers (except database)
-            docker-compose -f docker-compose.prod.yml stop backend nginx
-            docker-compose -f docker-compose.prod.yml rm -f backend nginx
-
-            # Start new containers
-            docker-compose -f docker-compose.prod.yml up -d
-
-            # Wait for backend to be ready
-            sleep 30
-
-            # Run database migrations
-            docker-compose -f docker-compose.prod.yml exec -T backend python manage.py migrate
-
-            # Collect static files
-            docker-compose -f docker-compose.prod.yml exec -T backend python manage.py collectstatic --noinput
-
-            # Clean up old images (keep last 3)
-            docker image prune -f
-
-      - name: Health Check
+      # Fail fast (and clearly) if production infra hasn't been provisioned yet.
+      # These Variables are written by the Infra workflow's apply (Terraform's
+      # manage_github_actions_config). Empty == run Actions -> Infra first.
+      - name: Verify infra is provisioned
         run: |
-          sleep 30
-          curl -f https://adamaurelio.com/health/ || exit 1
-          curl -f https://api.adamaurelio.com/health/ || exit 1
+          missing=()
+          [ -n "${{ vars.S3_BUCKET }}" ] || missing+=("S3_BUCKET")
+          [ -n "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" ] || missing+=("CLOUDFRONT_DISTRIBUTION_ID")
+          [ -n "${{ vars.AWS_DEPLOY_ROLE_ARN }}" ] || missing+=("AWS_DEPLOY_ROLE_ARN")
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "::error::Production infra not provisioned — missing repo Variables: ${missing[*]}."
+            echo "::error::Run Actions -> Infra (Terraform provisioning) -> Run workflow, then re-run this deploy."
+            exit 1
+          fi
 
-      - name: Run smoke tests
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Sync static assets to S3
         run: |
-          curl -f https://adamaurelio.com/ || exit 1
-          curl -f https://api.adamaurelio.com/api/ || exit 1
+          # Long-cache the fingerprinted assets, never cache index.html.
+          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}" \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable" \
+            --exclude "index.html"
+          aws s3 cp dist/index.html "s3://${{ vars.S3_BUCKET }}/index.html" \
+            --cache-control "no-cache, no-store, must-revalidate"
 
-      - name: Rollback on failure
-        if: failure()
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.AWS_HOST }}
-          username: ${{ secrets.AWS_USER }}
-          key: ${{ secrets.AWS_SSH_KEY }}
-          script: |
-            cd /opt/adamaurelio
-            docker-compose -f docker-compose.prod.yml down
-            # Restore from backup if needed
-            echo "Deployment failed. Manual rollback may be required."
-
-      - name: Notify deployment status
-        if: always()
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          text: 'Production Deployment ${{ job.status }}'
-          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-
-      - name: Create release
-        if: success()
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release v${{ github.run_number }}
-          body: |
-            Production deployment successful
-            Commit: ${{ github.sha }}
-            Deployed by: ${{ github.actor }}
-          draft: false
-          prerelease: false
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"

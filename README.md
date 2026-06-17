@@ -1,108 +1,47 @@
-# AdamAurelioDotCom
+# AdamAurelio.com
 
-The plan is to build this out using React, Python, and Postgres.
+Personal website and resume for Adam Aurelio — a static React single-page app
+built with Vite and Tailwind CSS. No server, no database: it compiles to plain
+static files served from a CDN, so it's fast, cheap, and scales automatically.
 
-## File Structure
+## Quick start
 
-```
-AdamAurelioDotCom/
-├── public/
-│   ├── index.html
-│   └── favicon.ico
-├── src/
-│   ├── assets/
-│   │   └── images/
-│   ├── components/
-│   │   ├── Header.js
-│   │   ├── Footer.js
-│   │   ├── Resume.js
-│   │   ├── Blog.js
-│   │   ├── BlogPost.js
-│   │   └── BlogList.js
-│   ├── pages/
-│   │   ├── Home.js
-│   │   ├── About.js
-│   │   ├── Theology.js
-│   │   ├── Technology.js
-│   │   └── Family.js
-│   ├── App.js
-│   ├── index.js
-│   └── styles/
-│       └── main.css
-├── docker/
-│   ├── Dockerfile
-│   └── docker-compose.yml
-├── Docker/
-│   ├── dev/
-│   │   ├── Build/
-│   │   │   └── docker-compose_adamaurelio.yml
-├── package.json
-├── README.md
-└── .gitignore
+```bash
+npm install
+npm run dev        # http://localhost:5173
 ```
 
-## Components
+| Command           | Purpose                                  |
+|-------------------|------------------------------------------|
+| `npm run dev`     | Local dev server with hot reload          |
+| `npm run build`   | Production build → `dist/`                |
+| `npm run preview` | Preview the built output locally          |
+| `npm run lint`    | ESLint (same gate CI enforces)            |
 
-- **Header.js**: Navigation bar with links to different sections.
-- **Footer.js**: Footer with contact information and social media links.
-- **Resume.js**: Section displaying resume information.
-- **Blog.js**: Main blog component that includes BlogList and BlogPost.
-- **BlogList.js**: Component to list all blog posts.
-- **BlogPost.js**: Component to display a single blog post.
+## Environments
 
-## Pages
+| Env  | Where            | How                                                    |
+|------|------------------|--------------------------------------------------------|
+| Dev  | Local machine    | `npm run dev` — see [docs/DEV_SETUP.md](docs/DEV_SETUP.md) |
+| QA   | Synology NAS     | Docker + nginx — see [docs/QA_SYNOLOGY_SETUP.md](docs/QA_SYNOLOGY_SETUP.md) |
+| Prod | AWS S3+CloudFront| Auto-deploy on `main` — see [docs/PROD_AWS_SETUP.md](docs/PROD_AWS_SETUP.md) |
 
-- **Home.js**: Main landing page with a brief introduction and links to resume and blog sections.
-- **About.js**: Page with detailed information about you.
-- **Theology.js**: Blog section for theology-related posts.
-- **Technology.js**: Blog section for technology-related posts.
-- **Family.js**: Blog section for family-related posts.
+## Documentation
 
-## Docker Setup
+- [**Getting started**](docs/GETTING_STARTED.md) — what *you* must provide (accounts, creds, secrets) and the one-time bootstrap, in order (start here to set it up)
+- [**How to set up each environment**](docs/HOW_TO_SETUP.md) — guided, step-by-step walkthrough with explanations (read this to learn it end-to-end)
+- [Automation & CI/CD runbook](docs/AUTOMATION.md) — how each environment self-provisions and stays current, plus the repo Variables/Secrets reference
+- [Architecture](docs/ARCHITECTURE.md) — stack, layout, branch/deploy flow, growth path
+- [Diagrams](docs/diagrams/) — editable drawio per environment (`dev`, `qa`, `prod`)
+- [Dev setup](docs/DEV_SETUP.md)
+- [QA setup (Synology)](docs/QA_SYNOLOGY_SETUP.md)
+- [Prod setup (AWS)](docs/PROD_AWS_SETUP.md)
+- [On-prem data tier (optional)](docs/PROD_NAS_DATA_TIER.md) — give prod a NAS-hosted API + PostgreSQL so your data stays local (DB never exposed; HTTPS API via reverse proxy)
+- [Infra provisioning](infra/README.md) — one-time AWS S3 + CloudFront setup (incl. security-headers policy)
+- [Security policy & posture](SECURITY.md) — data classification, control mapping, vulnerability reporting
+- [Changelog](CHANGELOG.md) — notable changes over time
 
-1. Create a `Dockerfile` in the `docker/` directory:
+## Tech stack
 
-   ```Dockerfile
-   // filepath: /c:/Users/adama/OneDrive/Apps/Developer/Web/Personal Apps/AdamAurelioDotCom/docker/Dockerfile
-   FROM node:14
-
-   WORKDIR /app
-
-   COPY package.json ./
-   RUN npm install
-
-   COPY . ./
-
-   EXPOSE 3000
-   CMD ["npm", "start"]
-   ```
-
-2. Create a `docker-compose.yml` file in the `docker/` directory:
-
-   ```yaml
-   // filepath: /c:/Users/adama/OneDrive/Apps/Developer/Web/Personal Apps/AdamAurelioDotCom/docker/docker-compose.yml
-   version: "3"
-   services:
-     web:
-       build: .
-       ports:
-         - "3000:3000"
-       volumes:
-         - .:/app
-       command: npm start
-   ```
-
-3. Build and run the Docker container:
-   ```sh
-   docker-compose up --build
-   ```
-
-## Development Plan
-
-1. **Set up the project structure**: Create the necessary directories and files as outlined above.
-2. **Develop the components**: Start with the Header, Footer, and Resume components.
-3. **Create the pages**: Develop the Home, About, Theology, Technology, and Family pages.
-4. **Integrate the blog**: Create the Blog, BlogList, and BlogPost components and integrate them into the respective pages.
-5. **Style the application**: Use CSS to style the components and pages.
-6. **Set up Docker**: Create the Dockerfile and docker-compose.yml to containerize the application.
-7. **Deploy the application**: Deploy the application to a hosting service.
+React 19 · React Router 7 · Vite 6 · Tailwind CSS v3 · nginx (QA) · AWS S3 +
+CloudFront (prod) · GitHub Actions (CI/CD).

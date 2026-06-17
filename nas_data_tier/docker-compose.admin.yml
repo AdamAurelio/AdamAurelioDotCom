@@ -1,0 +1,14 @@
+# Admin override — expose Postgres on the NAS LOOPBACK ONLY (127.0.0.1) so a SQL
+# client can reach it through an SSH tunnel. This is NOT on the LAN or internet:
+# 127.0.0.1 means "only processes on the NAS host", and the only way in from
+# elsewhere is an SSH session to the NAS.
+#
+# Use ALONGSIDE the base file (the override just adds the port):
+#   sudo docker compose -f docker-compose.data.yml -f docker-compose.admin.yml up -d
+#
+# Drop it again (back to no published port) with the base file alone:
+#   sudo docker compose -f docker-compose.data.yml up -d
+services:
+  postgres:
+    ports:
+      - "127.0.0.1:5432:5432"

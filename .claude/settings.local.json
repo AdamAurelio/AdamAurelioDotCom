@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(git status *)",
+      "Bash(curl -sI https://adamaurelio.com1)",
+      "Bash(curl -sSI -L --max-time 15 https://adamaurelio.com)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(npm audit *)",
+      "Bash(ls -la docs/images)",
+      "Bash(find docs *)",
+      "PowerShell(& \"C:\\\\Users\\\\adama\\\\OneDrive\\\\Apps\\\\Developer\\\\Web\\\\Personal Apps\\\\AdamAurelioDotCom\\\\scripts\\\\qa-parity-check.ps1\" -QaUrl https://adamaurelio.com -ProdUrl https://adamaurelio.com)",
+      "Bash(terraform version *)",
+      "Bash(terraform fmt *)",
+      "Bash(terraform init *)",
+      "Bash(terraform validate *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git config *)",
+      "Bash(npx playwright *)",
+      "Bash(ls -la api)",
+      "Bash(ls -la db)",
+      "Bash(docker --version)",
+      "Bash(docker compose *)",
+      "Bash(docker build *)",
+      "Bash(docker rm *)",
+      "Bash(docker run *)",
+      "Bash(curl -s http://localhost:8081/health)",
+      "Bash(curl -s http://localhost:8081/)",
+      "Bash(curl -sI http://localhost:8081/)",
+      "Bash(docker rmi *)"
+    ]
+  }
+}
