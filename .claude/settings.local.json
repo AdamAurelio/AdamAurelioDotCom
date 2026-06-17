@@ -17,7 +17,18 @@
       "Bash(terraform validate *)",
       "Bash(echo \"exit: $?\")",
       "Bash(git config *)",
-      "Bash(npx playwright *)"
+      "Bash(npx playwright *)",
+      "Bash(ls -la api)",
+      "Bash(ls -la db)",
+      "Bash(docker --version)",
+      "Bash(docker compose *)",
+      "Bash(docker build *)",
+      "Bash(docker rm *)",
+      "Bash(docker run *)",
+      "Bash(curl -s http://localhost:8081/health)",
+      "Bash(curl -s http://localhost:8081/)",
+      "Bash(curl -sI http://localhost:8081/)",
+      "Bash(docker rmi *)"
     ]
   }
 }
