@@ -226,6 +226,14 @@ sudo docker compose -f docker-compose.qa.yml down
 CDN, that **deploys itself** every time you merge to `main`. After the one-time
 setup below, you never touch AWS by hand again.
 
+> **Provisioning is now automated.** The fastest, current path is
+> [`GETTING_STARTED.md`](GETTING_STARTED.md): `bootstrap-state.sh` + one local
+> `terraform apply`, after which provisioning runs in a **gated CI workflow**
+> (`infra.yml`) and deploys run on merge. The console walkthrough in **Part A**
+> below is now the *manual fallback / explanation* of what those resources are —
+> Terraform ([`infra/terraform/`](../infra/terraform/)) creates them for you.
+> See [ADR-0007](adr/0007-ci-driven-gated-provisioning.md).
+
 ### The mental model
 ```
 Browser ──HTTPS──▶ CloudFront (CDN + TLS cert) ──OAC──▶ S3 bucket (private files)
@@ -295,22 +303,26 @@ transfer is free tier. The only guaranteed charge is a Route 53 hosted zone
 
 ### Part B — Wire GitHub to AWS
 
-In the repo: **Settings → Secrets and variables → Actions**.
+In the repo: **Settings → Secrets and variables → Actions**. With Terraform's
+`manage_github_actions_config = true` (see `GETTING_STARTED.md` Step 2), the
+**Variables** below are written for you — you only add the one secret by hand.
 
 **Secret:**
-| Name           | Value                            |
-|----------------|----------------------------------|
-| `AWS_ROLE_ARN` | the IAM role ARN from step A5    |
+| Name                 | Value                                                     |
+|----------------------|-----------------------------------------------------------|
+| `GH_PROVISION_TOKEN` | Fine-grained PAT (*Variables: read/write*) for `infra.yml`|
 
-**Variables:**
+**Variables** (role ARNs are not secrets, so they're Variables):
 | Name                         | Value (example)         |
 |------------------------------|-------------------------|
 | `AWS_REGION`                 | `us-east-1`             |
 | `S3_BUCKET`                  | `adamaurelio-com-prod`  |
 | `CLOUDFRONT_DISTRIBUTION_ID` | `EXXXXXXXXXXXXX`        |
+| `AWS_DEPLOY_ROLE_ARN`        | deploy role ARN (OIDC)  |
+| `AWS_PROVISION_ROLE_ARN`     | provision role ARN (OIDC) |
 
-Then **Settings → Environments → create `production`** (you can add a manual
-approval gate here later if you want a human to confirm each deploy).
+Then **Settings → Environments → create `production`** and add **yourself as a
+required reviewer** — that approval gates the Infra workflow's `terraform apply`.
 
 ### Part C — Deploying (the everyday flow)
 
