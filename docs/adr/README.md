@@ -22,3 +22,4 @@ Development Standards §4.
 | [0004](0004-terraform-for-provisioning.md) | Terraform for production provisioning | Accepted |
 | [0005](0005-qa-on-synology-pull-based.md) | QA on Synology, pull-based (not a push pipeline) | Accepted |
 | [0006](0006-optional-on-prem-data-tier.md) | Optional on-prem data tier (NAS API + database) | Accepted |
+| [0007](0007-ci-driven-gated-provisioning.md) | CI-driven, gated production provisioning with remote state | Accepted |

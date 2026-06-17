@@ -10,6 +10,15 @@ amended by [ADR-0006](adr/0006-optional-on-prem-data-tier.md)).
 
 **Chosen setup:** PostgreSQL (Docker) · Synology reverse proxy on 443 · API-key auth.
 
+> **A runnable version already lives in this repo** at
+> [`../nas_data_tier/`](../nas_data_tier/) (compose files, a hardened Express API,
+> schema seed). The fastest way to stand it up on the NAS is
+> [`../scripts/nas-bootstrap.sh`](../scripts/nas-bootstrap.sh) (generates the
+> `.env` secrets + brings it up), and [`../scripts/data-tier-update.sh`](../scripts/data-tier-update.sh)
+> keeps it current — see [`AUTOMATION.md`](AUTOMATION.md). This document is the
+> **from-scratch walkthrough** that explains *why* each piece looks the way it
+> does; it also doubles as the guide if you lift the data tier into its own repo.
+
 ---
 
 ## Why it has to look like this
@@ -166,8 +175,8 @@ ALLOWED_ORIGIN=https://adamaurelio.com
 ```dockerfile
 FROM node:20-alpine
 WORKDIR /app
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev          # reproducible; commit package-lock.json
 COPY . .
 EXPOSE 3001
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \

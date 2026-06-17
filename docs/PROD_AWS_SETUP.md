@@ -7,12 +7,21 @@ cheapest way to host a resume site on AWS while keeping room to grow.
 first 1 TB/month transfer is free tier. (Route 53, if used for DNS, adds
 $0.50/mo per hosted zone.)
 
+> **Now provisioned from CI.** After a one-time bootstrap, Terraform runs in a
+> **gated GitHub Actions workflow** (`infra.yml`) — `terraform apply` is
+> idempotent, so it both provisions and self-heals. The full lifecycle and the
+> one-time bootstrap steps are in **[`AUTOMATION.md`](AUTOMATION.md)**; the
+> decision is [ADR-0007](adr/0007-ci-driven-gated-provisioning.md). The manual
+> path below remains valid for the first local apply or as a fallback.
+
 ## One-time provisioning
 
 You can provision this **automatically with Terraform** —
 [`infra/terraform/`](../infra/terraform/) codifies the whole stack, so it's one
-`terraform apply` instead of the console walkthrough. The manual step-by-step
-(bucket, ACM cert, CloudFront, OAC, IAM/OIDC role) lives in
+`terraform apply` instead of the console walkthrough. State is in a remote S3
+backend; create the state bucket first with
+[`infra/scripts/bootstrap-state.sh`](../infra/scripts/bootstrap-state.sh). The
+manual step-by-step (bucket, ACM cert, CloudFront, OAC, IAM/OIDC role) lives in
 **[`infra/README.md`](../infra/README.md)**. Either way, do it once. Summary:
 
 1. Private S3 bucket (e.g. `adamaurelio-com-prod`), public access blocked.
@@ -36,18 +45,23 @@ You can provision this **automatically with Terraform** —
 
 ## GitHub configuration
 
-Settings → Secrets and variables → Actions:
+Settings → Secrets and variables → Actions. With `manage_github_actions_config =
+true`, Terraform writes the **Variables** for you; otherwise set them by hand.
 
 **Secret**
-- `AWS_ROLE_ARN` — the OIDC IAM role ARN.
+- `GH_PROVISION_TOKEN` — fine-grained PAT (*Variables: read/write*) the Infra
+  workflow uses to write the Variables below.
 
-**Variables**
+**Variables** (role ARNs are not secrets)
 - `AWS_REGION` — e.g. `us-east-1`
 - `S3_BUCKET` — e.g. `adamaurelio-com-prod`
 - `CLOUDFRONT_DISTRIBUTION_ID` — e.g. `EXXXXXXXXXXXXX`
+- `AWS_DEPLOY_ROLE_ARN` — role the deploy job assumes (OIDC)
+- `AWS_PROVISION_ROLE_ARN` — role the gated apply job assumes (OIDC)
 
-Then create a **`production`** environment (Settings → Environments) — optional
-approvals can be added here.
+Then create the **`production`** environment (Settings → Environments) and add
+**yourself as a required reviewer** — that approval is the gate on the Infra
+workflow's `terraform apply`. See [`AUTOMATION.md`](AUTOMATION.md).
 
 ## Deploying
 

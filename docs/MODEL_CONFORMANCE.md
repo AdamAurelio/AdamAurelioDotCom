@@ -8,8 +8,9 @@ produces: each applicable standard, its status, and the action to close it.
 **Stack is intentionally unchanged** (React + Vite + Tailwind → S3/CloudFront).
 This tracks *process/quality* conformance, not a stack rewrite.
 
-**Last reviewed:** 2026-06-13 · **Review cycle:** on significant architecture
-change, otherwise quarterly.
+**Last reviewed:** 2026-06-16 · **Review cycle:** on significant architecture
+change, otherwise quarterly. _(2026-06-16: CI-driven gated provisioning + remote
+state, NAS self-update agents, dev container, drawio diagram set.)_
 
 ---
 
@@ -36,8 +37,8 @@ Legend: 🟢 strong · 🟡 partial · 🔴 gap · ⚪ N/A-by-design · ✅ done
 |---|---|---|
 | Security posture & OWASP/ISO mapping (`security-checklist.md`) | 🟢 | — |
 | Header/config parity + automated validation (Dev Std §6) | 🟢 | — |
-| IaC / reproducibility (ISO A.12.3) | 🟢 | — |
-| Env separation DEV→QA→PROD | 🟢 | — |
+| IaC / reproducibility (ISO A.12.3) | 🟢 | — (remote-state Terraform; gated CI apply, ADR-0007) |
+| Env separation DEV→QA→PROD | 🟢 | — (each self-provisions; diagrams in `docs/diagrams/`) |
 | Accessibility — WCAG 2.1 AA (Frontend §9) | 🟡 | [#A11Y](#a11y) |
 | Frontend error handling / observability (Frontend §8) | 🟡 | [#OBS](#obs) |
 | Performance — splitting/assets (Frontend §11) | 🟡 | [#PERF](#perf) |
@@ -100,6 +101,7 @@ Good baseline already (semantic landmarks, `aria-*`, alt text).
 ### <a id="adr"></a>ADR — Decision records (Dev Std §4)
 - [x] `docs/adr/` created with template + records for the foundational
       decisions (no-backend, S3+CloudFront, ACM, Terraform, qa branch) ✅
+- [x] ADR-0007 added for CI-driven gated provisioning + remote state ✅
 - [ ] Add an ADR for each future significant decision
 
 ### <a id="precommit"></a>PRECOMMIT — Local validation (Dev Std §6)
@@ -112,6 +114,8 @@ Good baseline already (semantic landmarks, `aria-*`, alt text).
 Two-person/CAB approval is impractical solo; the realization is a CI gate.
 - [ ] Branch protection on `main` requiring the CI check before merge/deploy
 - [x] PR flow is the gate; CHANGELOG records changes ✅
+- [x] **Infra changes are gated** — the `production` GitHub Environment requires a
+      reviewer before `infra.yml` runs `terraform apply` (ADR-0007) ✅
 
 ### <a id="ai"></a>AI — Assistant usage record (`security-checklist.md`)
 - [x] CHANGELOG notes that the project is developed with AI assistance ✅
@@ -127,6 +131,5 @@ The model mandates a typed language. Deferred for now (owner decision,
 
 Recorded as decisions, not oversights:
 - Formal requirements & design documents, separate test-report docs.
-- Draw.io diagram set — the ASCII diagrams in `ARCHITECTURE.md` suffice.
 - Two-person / CAB production approval (impossible solo; see GATES).
 - Operations runbook — covered by the `docs/*_SETUP.md` guides.

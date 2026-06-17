@@ -2,9 +2,11 @@
 FROM node:20-alpine
 WORKDIR /app
 
-# Install production deps first for better layer caching.
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
+# Install production deps first for better layer caching. `npm ci` needs the
+# committed package-lock.json and gives a reproducible install (matches the web
+# tier and CI).
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 COPY . .
 

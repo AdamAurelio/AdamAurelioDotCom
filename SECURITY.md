@@ -9,8 +9,9 @@ development process stays consistent with it.
 > applies that same engineering discipline voluntarily; it is not a formal
 > compliance attestation.
 
-**Last reviewed:** 2026-05-31 · **Review cycle:** on each significant
+**Last reviewed:** 2026-06-16 · **Review cycle:** on each significant
 architecture change (e.g. adding a backend/database), otherwise annually.
+_(2026-06-16: CI-driven gated provisioning — two-role OIDC + remote state.)_
 
 ---
 
@@ -46,10 +47,10 @@ strategy is *minimized attack surface*: there is nothing server-side to attack.
 | A05 Security Misconfiguration | Applies | Security headers (CSP, HSTS, X-Frame-Options `DENY`, nosniff, Referrer-Policy, Permissions-Policy) — prod via CloudFront Response Headers Policy, QA via `nginx.conf` |
 | A06 Vulnerable/Outdated Components | Applies | `npm audit --audit-level=high` in CI |
 | A07 Identification/Auth Failures | N/A | No authentication |
-| A08 Software/Data Integrity | Applies | All code in Git; PR-reviewed; CI gate; deploy via **GitHub OIDC** (no stored AWS keys); secret scanning (gitleaks) in CI |
+| A08 Software/Data Integrity | Applies | All code in Git; PR-reviewed; CI gate; **GitHub OIDC, no stored AWS keys** — a least-privilege *deploy* role and a separate *provision* role usable only behind the `production` required-reviewer gate (ADR-0007); secret scanning (gitleaks) in CI |
 | A09 Logging/Monitoring | Partial | Low risk (static/public). Optional: enable CloudFront access logs + an AWS Budgets alert |
 | A10 SSRF | N/A | No server-side request issuance |
-| ISO A.12.3 Backup/Recovery | Applies | Fully reproducible from Git; S3 versioning optional |
+| ISO A.12.3 Backup/Recovery | Applies | Fully reproducible from Git; Terraform remote state in a private, **encrypted, versioned** S3 bucket; S3 site-bucket versioning optional |
 | ISO A.14 Secure Development | Applies | `.env*` gitignored; secret + dependency scanning in CI; documented SDLC in `docs/` |
 | ISO 5.x Information Classification | Applies | Classified **PUBLIC** (this document) |
 
