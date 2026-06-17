@@ -1,110 +1,66 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# Python
-*.pyc
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Django
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-/staticfiles/
-/media/
-/logs/
-/backend/staticfiles/
-/backend/media/
-/backend/logs/
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-.pytest_cache/
-.tox/
-htmlcov/
-.coverage
-
-# production
-/build
-/frontend/build/
-dist/
-
-# misc
-.DS_Store
-Thumbs.db
-desktop.ini
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environment files
-.env
-.env.dev
-.env.qa
-.env.prod
-.env.*.local
-
-# Logs
-logs/
-*.log
-
-# Node modules
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
 
 # Build output
 dist/
 build/
 
-# Docker files
-docker-compose.override.yml
+# Test output
+coverage/
+playwright-report/
+test-results/
+/blob-report/
+/playwright/.cache/
 
-# IDEs
+# Husky internals (generated)
+.husky/_/
+
+# Self-update agent single-instance locks (created on the NAS)
+.qa-update.lock/
+.data-tier-update.lock/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files (never commit secrets; commit a *.example instead)
+.env
+.env.*
+!.env.example
+
+# Terraform — never commit state (may contain secrets) or the local provider
+# cache. The .terraform.lock.hcl (provider hash pins) IS committed on purpose.
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+!*.tfvars.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Editors / IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-*.sublime-project
-*.sublime-workspace
 
-# Backup files
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Misc
 *.bak
-*.backup
-backups/*.sql
-backups/*.sql.gz
-*.dump
-
-# Certificates & Keys
-*.pem
-*.key
-*.crt
-*.csr
-!*.pub
-
-# Temporary files
 *.tmp
-*.temp
-~$*
-
-# Old files
-README_OLD.md
 *.old

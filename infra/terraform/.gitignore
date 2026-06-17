@@ -1,0 +1,18 @@
+# Terraform working files — never commit state (it can contain secrets) or
+# local var files. The lock file (.terraform.lock.hcl) SHOULD be committed.
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Local variable values
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# CLI override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json

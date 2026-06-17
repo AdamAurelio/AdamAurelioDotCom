@@ -1,72 +1,18 @@
-# QA Docker Compose Configuration (Synology NAS)
-version: '3.8'
-
+# QA environment — runs on the Synology NAS (Container Manager).
+# Build + serve the static site behind nginx on port 8080.
+#   docker compose -f docker-compose.qa.yml up -d --build
 services:
-  # PostgreSQL Database
-  db:
-    image: postgres:15-alpine
-    container_name: adamaurelio_qa_db
-    environment:
-      POSTGRES_DB: ${DB_NAME:-adamaurelio_qa}
-      POSTGRES_USER: ${DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: adamaurelio-web:qa
+    container_name: adamaurelio_qa
     ports:
-      - "5433:5432"  # Different port to avoid conflicts on Synology
-    volumes:
-      - postgres_qa_data:/var/lib/postgresql/data
+      - "8080:80"
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
-      interval: 10s
+      test: ["CMD", "wget", "-qO-", "http://localhost/health"]
+      interval: 30s
       timeout: 5s
-      retries: 5
-    restart: unless-stopped
-
-  # Django Backend
-  backend:
-    image: ghcr.io/yourusername/adamaurelio-backend:qa
-    container_name: adamaurelio_qa_backend
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3
-    volumes:
-      - backend_static:/app/staticfiles
-      - backend_media:/app/media
-      - backend_logs:/app/logs
-    ports:
-      - "8001:8000"
-    env_file:
-      - .env.qa
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      - DJANGO_ENV=qa
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
-      interval: 30s
-      timeout: 10s
       retries: 3
-
-  # React Frontend (built as static files, served by Nginx)
-  frontend:
-    image: ghcr.io/yourusername/adamaurelio-frontend:qa
-    container_name: adamaurelio_qa_frontend
-    ports:
-      - "3001:80"
-    depends_on:
-      - backend
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-volumes:
-  postgres_qa_data:
-  backend_static:
-  backend_media:
-  backend_logs:
-
-networks:
-  default:
-    name: adamaurelio_qa_network

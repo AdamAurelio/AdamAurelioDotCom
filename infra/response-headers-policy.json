@@ -1,0 +1,38 @@
+{
+  "Name": "adamaurelio-security-headers",
+  "Comment": "Security headers for the static site. Keep in sync with nginx.conf (QA).",
+  "SecurityHeadersConfig": {
+    "StrictTransportSecurity": {
+      "Override": true,
+      "IncludeSubdomains": true,
+      "Preload": true,
+      "AccessControlMaxAgeSec": 63072000
+    },
+    "ContentTypeOptions": {
+      "Override": true
+    },
+    "FrameOptions": {
+      "Override": true,
+      "FrameOption": "DENY"
+    },
+    "ReferrerPolicy": {
+      "Override": true,
+      "ReferrerPolicy": "strict-origin-when-cross-origin"
+    }
+  },
+  "CustomHeadersConfig": {
+    "Quantity": 2,
+    "Items": [
+      {
+        "Header": "Content-Security-Policy",
+        "Value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+        "Override": true
+      },
+      {
+        "Header": "Permissions-Policy",
+        "Value": "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+        "Override": true
+      }
+    ]
+  }
+}
