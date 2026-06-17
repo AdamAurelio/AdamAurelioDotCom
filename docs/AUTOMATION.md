@@ -14,7 +14,10 @@ everything that ships.
 
 See the decisions behind this: [ADR-0004](adr/0004-terraform-for-provisioning.md),
 [ADR-0005](adr/0005-qa-on-synology-pull-based.md),
-[ADR-0007](adr/0007-ci-driven-gated-provisioning.md).
+[ADR-0007](adr/0007-ci-driven-gated-provisioning.md). Editable per-environment
+diagrams: [`diagrams/dev.drawio`](diagrams/dev.drawio),
+[`diagrams/qa.drawio`](diagrams/qa.drawio),
+[`diagrams/prod.drawio`](diagrams/prod.drawio).
 
 ---
 
