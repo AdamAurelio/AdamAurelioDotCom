@@ -15,7 +15,6 @@
 # Config (env overrides):
 #   QA_BRANCH      branch QA tracks            (default: qa)
 #   COMPOSE_FILE   compose file to use         (default: docker-compose.qa.yml)
-#
 set -euo pipefail
 
 QA_BRANCH="${QA_BRANCH:-qa}"
@@ -29,64 +28,26 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$REPO_DIR"
 
-log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
+# shellcheck source=scripts/lib/refresh-common.sh
+. "$SCRIPT_DIR/lib/refresh-common.sh"
 
-# Single-instance lock (atomic mkdir) so an overlapping timer tick can't collide
-# with an in-progress build. Released on any exit.
-LOCK_DIR="$REPO_DIR/.qa-update.lock"
-if ! mkdir "$LOCK_DIR" 2>/dev/null; then
-  log "Another qa-update run is in progress (lock: $LOCK_DIR). Exiting."
-  exit 0
-fi
-trap 'rmdir "$LOCK_DIR" 2>/dev/null || true' EXIT
-
-# Compose v2 ("docker compose") vs legacy v1 ("docker-compose").
-if docker compose version >/dev/null 2>&1; then
-  COMPOSE="docker compose"
-elif command -v docker-compose >/dev/null 2>&1; then
-  COMPOSE="docker-compose"
-else
-  log "ERROR: neither 'docker compose' nor 'docker-compose' is available."
-  exit 1
-fi
-
-# True if at least one service container is running. On any uncertainty returns
-# true, so a flaky status check can never trigger a needless rebuild loop.
-qa_running() {
-  local ids
-  ids="$($COMPOSE -f "$COMPOSE_FILE" ps -q 2>/dev/null)" || return 0
-  [ -z "$ids" ] && return 1   # nothing created => definitely not running
-  docker inspect -f '{{.State.Running}}' $ids 2>/dev/null | grep -q true && return 0
-  return 1
-}
-
-log "Checking origin/$QA_BRANCH for updates..."
-git fetch --quiet origin "$QA_BRANCH"
-
-LOCAL="$(git rev-parse HEAD)"
-REMOTE="$(git rev-parse "origin/$QA_BRANCH")"
+rc_acquire_lock "$REPO_DIR/.qa-update.lock"
+rc_detect_compose || exit 1
+rc_fetch "$QA_BRANCH"
 
 # Decide whether to rebuild, and why.
 if [ "$FORCE" -eq 1 ]; then
-  log "--force given. Rebuilding ${LOCAL:0:7}."
-elif [ "$LOCAL" != "$REMOTE" ]; then
-  log "Update found: ${LOCAL:0:7} -> ${REMOTE:0:7}. Syncing checkout."
-  # The NAS checkout is a serving mirror — never hand-edited — so hard-reset to
-  # match remote exactly. This keeps an unattended run from ever getting stuck.
-  git checkout --quiet "$QA_BRANCH"
-  git reset --hard --quiet "origin/$QA_BRANCH"
-elif ! qa_running; then
-  log "Container not running. Rebuilding current commit ${LOCAL:0:7} (self-heal)."
+  rc_log "--force given. Rebuilding ${RC_LOCAL:0:7}."
+elif [ "$RC_LOCAL" != "$RC_REMOTE" ]; then
+  rc_log "Update found: ${RC_LOCAL:0:7} -> ${RC_REMOTE:0:7}. Syncing checkout."
+  rc_sync_checkout "$QA_BRANCH"
+elif ! rc_compose_running "$COMPOSE_FILE"; then
+  rc_log "Container not running. Rebuilding current commit ${RC_LOCAL:0:7} (self-heal)."
 else
-  log "Already up to date (${LOCAL:0:7}) and container running. Nothing to do."
+  rc_log "Already up to date (${RC_LOCAL:0:7}) and container running. Nothing to do."
   exit 0
 fi
 
-log "Building and (re)starting the QA container..."
-$COMPOSE -f "$COMPOSE_FILE" up -d --build
-
-# Drop dangling images left by the rebuild so they don't accumulate on the NAS.
-docker image prune -f >/dev/null 2>&1 || true
-
-log "QA updated — nginx serving on :8080."
-$COMPOSE -f "$COMPOSE_FILE" ps 2>/dev/null || true
+rc_compose_up "$COMPOSE_FILE"
+rc_log "QA updated — nginx serving on :8080."
+$RC_COMPOSE -f "$COMPOSE_FILE" ps 2>/dev/null || true

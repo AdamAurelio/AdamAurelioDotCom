@@ -29,9 +29,21 @@ variable "github_branch" {
 }
 
 variable "iam_role_name" {
-  description = "Name of the IAM role GitHub Actions assumes."
+  description = "Name of the IAM role GitHub Actions assumes to DEPLOY (least-privilege)."
   type        = string
   default     = "github-actions-adamaurelio-deploy"
+}
+
+variable "provision_iam_role_name" {
+  description = "Name of the IAM role the gated Infra workflow assumes to PROVISION the stack."
+  type        = string
+  default     = "github-actions-adamaurelio-provision"
+}
+
+variable "tf_state_bucket_arn" {
+  description = "ARN of the S3 bucket holding Terraform remote state (created by infra/scripts/bootstrap-state.sh). The provision role gets read/write on it."
+  type        = string
+  default     = "arn:aws:s3:::adamaurelio-tfstate"
 }
 
 variable "price_class" {

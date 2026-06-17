@@ -13,6 +13,11 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true,
+    // In a Docker bind mount (especially on Windows/macOS) native filesystem
+    // events don't reach the container, so HMR needs polling. Enabled only
+    // inside the dev container — docker-compose.dev.yml sets VITE_DOCKER=1 —
+    // so native `npm run dev` is unaffected.
+    watch: process.env.VITE_DOCKER ? { usePolling: true } : undefined,
   },
   // Unit/component tests (Vitest). E2E lives in e2e/ and runs via Playwright.
   test: {
