@@ -25,7 +25,7 @@ npm run dev
 Vite serves the app at **http://localhost:5173** (it opens automatically) with
 hot-module reload — edits to anything under `src/` show instantly.
 
-Routes to try: `/`, `/resume`, `/about`, `/services`, `/contact`.
+Routes to try: `/`, `/resume`, `/projects`, `/about`, `/contact`.
 
 ### Or run it in a container (no local Node)
 

@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
 import CountUp from "../components/CountUp";
+import Seo from "../components/Seo";
 
 const Home = () => {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <Seo
+        path="/"
+        description="Adam Aurelio — Software Engineer with 7+ years building enterprise automation, integrations, and resilient operations across Oracle, Python, PL/SQL, and RPA platforms."
+      />
       {/* Hero Section */}
       <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -36,16 +41,16 @@ const Home = () => {
             </Reveal>
             <Reveal delay={210} className="flex flex-wrap gap-4 pt-4">
               <Link
-                to="/services"
+                to="/resume"
                 className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
               >
-                View Services
+                View Résumé
               </Link>
               <Link
-                to="/about"
+                to="/projects"
                 className="px-8 py-3 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
-                Learn More
+                View Projects
               </Link>
             </Reveal>
           </div>
@@ -173,10 +178,10 @@ const Home = () => {
               Get In Touch
             </Link>
             <Link
-              to="/services"
+              to="/resume"
               className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors"
             >
-              View Services
+              View Résumé
             </Link>
           </div>
         </Reveal>

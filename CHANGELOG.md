@@ -18,6 +18,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > work before commit — per the ADAM model's AI-assistant standard._
 
 ### Added
+- **Résumé & site content pass** — turned the site into a résumé-first personal
+  site that can grow:
+  - **Résumé** — a *Print / Save PDF* button with dedicated `@media print` styles
+    (single-column, ink-friendly, reveal-animations forced visible); a *Selected
+    Projects* section; skills rendered as scannable tag chips; and
+    `Person` **JSON-LD** structured data for recruiters/search (email omitted so
+    it stays out of a harvestable literal, per `EmailLink`).
+  - **Per-route SEO** — new `Seo` component sets a distinct `<title>`,
+    `<meta name="description">`, canonical URL, and Open Graph / Twitter tags per
+    page via React 19 metadata hoisting; static `og:*` remain in `index.html` as
+    the no-JS unfurl fallback.
+  - **Real pages** — replaced the About / Services / Contact placeholder stubs:
+    **About** (bio grounded in the résumé), **Contact** (email · LinkedIn ·
+    location cards), and **Projects** (recast from *Services* — a work showcase).
+  - **Navigation** — résumé-forward nav order; Home hero primary CTA now points
+    to the résumé; footer gains an email + section links.
+  - **404** — catch-all route with a friendly Not Found page.
 - **Full-stack automation & self-setup CI/CD** across all three environments
   ([ADR-0007](docs/adr/0007-ci-driven-gated-provisioning.md),
   [`docs/AUTOMATION.md`](docs/AUTOMATION.md)):
@@ -111,7 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Baseline after migrating to a static single-page application.
 
 ### Added
-- React Router routes (`/`, `/resume`, `/about`, `/services`, `/contact`).
+- React Router routes (`/`, `/resume`, `/projects`, `/about`, `/contact`).
 - QA environment: Docker multi-stage build serving the static `dist/` behind
   nginx (`Dockerfile`, `nginx.conf`, `docker-compose.qa.yml`).
 - Production environment: AWS S3 + CloudFront with auto-deploy on push to `main`
