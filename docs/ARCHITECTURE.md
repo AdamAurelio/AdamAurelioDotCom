@@ -57,7 +57,7 @@ src/
   main.jsx              App bootstrap
   App.jsx               Routes
   components/           Layout, Header, Footer
-  pages/                Home, Resume, About, Services, Contact
+  pages/                Home, Resume, Projects, About, Contact
   styles/index.css      Tailwind entry
 public/                 Static assets copied as-is (favicon, manifest, robots)
 Dockerfile              QA: multi-stage build → nginx

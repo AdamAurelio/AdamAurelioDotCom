@@ -94,7 +94,7 @@ That's why edits appear in well under a second.
    feedback *is* the dev environment.
 
 ### Try these routes
-`/`, `/resume`, `/about`, `/services`, `/contact` — these are defined in
+`/`, `/resume`, `/projects`, `/about`, `/contact` — these are defined in
 `src/App.jsx`.
 
 ### Commands you'll actually use
