@@ -1,5 +1,137 @@
+/* eslint-disable react/prop-types */
 import EmailLink from "../components/EmailLink";
 import Reveal from "../components/Reveal";
+import Seo from "../components/Seo";
+
+const skillGroups = [
+  {
+    title: "Languages",
+    items: ["Python", "C#", "SQL / PL/SQL", "PowerShell", "VB.NET"],
+  },
+  {
+    title: "Platforms & Tools",
+    items: [
+      "Oracle APEX",
+      "Oracle Fusion",
+      "UiPath",
+      "Power Platform",
+      "Azure DevOps",
+      "Docker",
+      "AWS",
+    ],
+  },
+  {
+    title: "Automation",
+    items: [
+      "CI/CD pipelines",
+      "API integrations",
+      "Idempotent retry patterns",
+      "RPA orchestration",
+    ],
+  },
+  {
+    title: "Databases & Ops",
+    items: [
+      "Oracle",
+      "SQL Server",
+      "Incident runbooks",
+      "Operational monitoring",
+    ],
+  },
+];
+
+const projects = [
+  {
+    name: "Enterprise Access-Governance Platform",
+    stack: "Python · Oracle SQL · REST APIs",
+    blurb:
+      "Full-stack application that automates security provisioning to Oracle Fusion — compressing a 3-week approval cycle to under 5 days with built-in audit trails.",
+  },
+  {
+    name: "UiPath Center of Excellence",
+    stack: "UiPath · .NET (C# / VB) · Azure DevOps · Docker",
+    blurb:
+      "Established the organization's RPA practice: reusable automation frameworks plus retry/idempotency patterns and CI/CD pipelines for resilient, auditable bots.",
+  },
+  {
+    name: "Operational KPI Web Application",
+    stack: "Oracle APEX · PL/SQL",
+    blurb:
+      "Full-stack PL/SQL application and dashboards for operational KPI tracking and environmental-compliance reporting.",
+  },
+  {
+    name: "adamaurelio.com",
+    stack: "React 19 · Vite · Tailwind · AWS S3 + CloudFront · Terraform · GitHub Actions",
+    blurb:
+      "This site — a static SPA with automated multi-environment CI/CD (dev / QA / prod), infrastructure-as-code, and hardened security headers.",
+  },
+];
+
+// Person / résumé structured data for search engines and recruiters. The email
+// is intentionally omitted here so it stays out of a machine-harvestable literal
+// (see EmailLink for the on-page obfuscation rationale).
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Adam Aurelio",
+  jobTitle: "Software Engineer",
+  description:
+    "Software Engineer with 7+ years building enterprise automation, integrations, and resilient operations across Oracle, Python, PL/SQL, and RPA platforms.",
+  url: "https://adamaurelio.com",
+  image: "https://adamaurelio.com/profile.jpg",
+  sameAs: ["https://linkedin.com/in/adamaurelio"],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "West Des Moines",
+    addressRegion: "IA",
+    addressCountry: "US",
+  },
+  worksFor: {
+    "@type": "Organization",
+    name: "MidAmerican Energy / Berkshire Hathaway Energy",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Drake University",
+  },
+  knowsAbout: [
+    "Python",
+    "C#",
+    "SQL",
+    "PL/SQL",
+    "Oracle APEX",
+    "Oracle Fusion",
+    "UiPath",
+    "RPA",
+    "Azure DevOps",
+    "Docker",
+    "AWS",
+    "CI/CD",
+  ],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certification",
+      name: "CompTIA Security+",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certification",
+      name: "CompTIA Network+",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "certification",
+      name: "CompTIA A+",
+    },
+  ],
+};
+
+const Tag = ({ children }) => (
+  <span className="inline-block rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-sm font-medium px-3 py-1">
+    {children}
+  </span>
+);
 
 const Resume = () => {
   return (
@@ -7,7 +139,39 @@ const Resume = () => {
       id="resume"
       className="py-12 px-4 md:px-8 bg-gray-50 dark:bg-gray-950 min-h-screen transition-colors"
     >
+      <Seo
+        title="Résumé"
+        path="/resume"
+        description="Résumé of Adam Aurelio — Software Engineer with 7+ years in enterprise automation, full-stack development, Oracle PL/SQL, and RPA."
+        jsonLd={personJsonLd}
+      />
+
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 md:p-12">
+        {/* Actions — hidden when printing. */}
+        <div className="no-print flex justify-end mb-6">
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <path d="M6 14h12v8H6z" />
+            </svg>
+            Print / Save PDF
+          </button>
+        </div>
+
         <Reveal
           as="header"
           className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8 flex flex-col sm:flex-row items-center gap-8"
@@ -27,7 +191,7 @@ const Resume = () => {
               Software Engineer
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              Des Moines, IA area · <EmailLink /> ·{" "}
+              West Des Moines, IA · <EmailLink /> ·{" "}
               <a
                 href="https://linkedin.com/in/adamaurelio"
                 target="_blank"
@@ -53,39 +217,21 @@ const Resume = () => {
             Core Skills
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Languages
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                Python, C#, SQL/PL/SQL, PowerShell, VB.NET
-              </p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Platforms &amp; Tools
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                Oracle APEX, Oracle Fusion, UiPath, Azure DevOps, Docker, AWS
-              </p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Automation
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                CI/CD pipelines, API integrations, idempotent retry patterns,
-                RPA orchestration
-              </p>
-            </div>
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                Databases &amp; Ops
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                Oracle, SQL Server, incident runbooks, operational monitoring
-              </p>
-            </div>
+            {skillGroups.map((group) => (
+              <div
+                key={group.title}
+                className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg"
+              >
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                  {group.title}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <Tag key={item}>{item}</Tag>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </Reveal>
 
@@ -144,6 +290,11 @@ const Resume = () => {
             </h5>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300 list-disc list-inside mb-5">
               <li>
+                Established the organization&apos;s UiPath Center of Excellence,
+                standardizing RPA development practices and reusable automation
+                frameworks across teams.
+              </li>
+              <li>
                 Designed and maintained Azure DevOps CI/CD pipelines and Docker
                 developer tooling to improve deployment repeatability across
                 environments.
@@ -156,6 +307,10 @@ const Resume = () => {
               <li>
                 Implemented Oracle APEX dashboards and PL/SQL utilities for
                 operational KPI tracking and environmental compliance reporting.
+              </li>
+              <li>
+                Built a Microsoft Power Platform application that streamlined
+                request tracking for the environmental team.
               </li>
               <li>
                 Designed resilient UiPath automations with retry and idempotency
@@ -217,7 +372,7 @@ const Resume = () => {
                 </h3>
               </div>
               <p className="text-gray-600 dark:text-gray-400 font-medium">
-                Prior to 2015
+                2013 – 2015
               </p>
             </div>
 
@@ -231,14 +386,38 @@ const Resume = () => {
                 high-impact incidents.
               </li>
               <li>
-                Managed identity &amp; access management (IAM) and strengthened
-                internal access controls.
+                Managed identity &amp; access management (IAM) in Active
+                Directory and strengthened internal access controls.
               </li>
               <li>
                 Built and maintained VB.NET utilities to improve reliability and
                 maintainability of internal tooling.
               </li>
             </ul>
+          </div>
+        </Reveal>
+
+        <Reveal as="section" className="mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Selected Projects
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {projects.map((project) => (
+              <div
+                key={project.name}
+                className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg"
+              >
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  {project.name}
+                </h3>
+                <p className="text-xs uppercase tracking-wide text-blue-700 dark:text-blue-400 font-semibold mt-1 mb-2">
+                  {project.stack}
+                </p>
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {project.blurb}
+                </p>
+              </div>
+            ))}
           </div>
         </Reveal>
 
@@ -269,7 +448,7 @@ const Resume = () => {
           </div>
         </Reveal>
 
-        <Reveal as="section" className="mb-12">
+        <Reveal as="section">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
             Leadership &amp; Community
           </h2>
@@ -286,7 +465,7 @@ const Resume = () => {
             </h3>
           </div>
 
-          <div className="mb-6 bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
+          <div className="bg-white dark:bg-gray-800 border-l-4 border-green-600 px-6 py-4 rounded-r-lg">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
               Prior Walnut Creek Community Church — Audio-Visual Team Lead
             </h3>

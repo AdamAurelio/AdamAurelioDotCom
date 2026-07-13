@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
+  { to: "/resume", label: "Résumé" },
+  { to: "/projects", label: "Projects" },
   { to: "/about", label: "About" },
-  { to: "/resume", label: "Resume" },
-  { to: "/services", label: "Services" },
   { to: "/contact", label: "Contact" },
 ];
 

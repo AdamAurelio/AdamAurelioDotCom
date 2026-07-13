@@ -5,10 +5,20 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0284c7" />
+    <!-- Per-route <title> / <meta name="description"> / <link rel="canonical">
+         are set at runtime by src/components/Seo.jsx (React 19 hoists them into
+         <head>). The static og:* tags below are the no-JS fallback for social
+         link-unfurlers, which don't execute JavaScript. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Adam Aurelio" />
+    <meta property="og:title" content="Adam Aurelio · Software Engineer" />
     <meta
-      name="description"
-      content="Adam Aurelio — Software Engineer, Full-Stack Developer, and RPA Specialist. Resume and portfolio."
+      property="og:description"
+      content="Software Engineer specializing in enterprise automation, full-stack development, and Oracle PL/SQL."
     />
+    <meta property="og:url" content="https://adamaurelio.com/" />
+    <meta property="og:image" content="https://adamaurelio.com/profile.jpg" />
+    <meta name="twitter:card" content="summary" />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>Adam Aurelio — Software Engineer</title>

@@ -282,7 +282,7 @@ months: `~/.acme.sh/acme.sh --renew -d qa.adamaurelio.com --force`.
 
 ## Verifying a QA build
 
-- All routes load: `/`, `/resume`, `/about`, `/services`, `/contact`.
+- All routes load: `/`, `/resume`, `/projects`, `/about`, `/contact`.
 - **Refresh on a deep link** (e.g. reload while on `/resume`) still works — this
   confirms the nginx SPA history fallback is correct.
 - `/health` returns `healthy`.

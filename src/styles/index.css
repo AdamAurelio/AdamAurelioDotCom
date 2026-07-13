@@ -22,3 +22,66 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Print / "Save as PDF": produce a clean, single-column, ink-friendly résumé.
+   Chrome/Safari/Firefox all route "Save as PDF" through print styles. */
+@media print {
+  /* Force all scroll-reveal content visible — otherwise elements that never
+     scrolled into view stay at opacity:0 and would print blank. */
+  *,
+  *::before,
+  *::after {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+    color: #111 !important;
+    background: transparent !important;
+  }
+
+  /* Chrome/Safari: honor the rules above and render backgrounds off. */
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* Keep links black but retain the URL cue only where useful. */
+  a {
+    text-decoration: none !important;
+  }
+
+  /* Chrome uses this to preserve intentional backgrounds if ever needed. */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide site chrome and any element explicitly marked no-print. */
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Let the résumé fill the page without the card/rounded-shell padding. */
+  main,
+  #resume {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+  }
+
+  /* Avoid awkward mid-item page breaks. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    break-after: avoid;
+  }
+  li,
+  section {
+    break-inside: avoid;
+  }
+}
