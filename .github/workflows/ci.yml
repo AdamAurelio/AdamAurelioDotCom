@@ -20,7 +20,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Full history (not the default depth-1 shallow clone) so the gitleaks
+      # step can resolve the PR's commit range (parent..head) when it diffs.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
