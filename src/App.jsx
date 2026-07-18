@@ -3,8 +3,9 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Resume from "./pages/Resume";
 import About from "./pages/About";
-import Services from "./pages/Services";
+import HowIWork from "./pages/HowIWork";
 import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path="resume" element={<Resume />} />
           <Route path="about" element={<About />} />
-          <Route path="services" element={<Services />} />
+          <Route path="how-i-work" element={<HowIWork />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

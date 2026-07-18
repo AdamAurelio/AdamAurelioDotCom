@@ -11,7 +11,7 @@ const EmailLink = () => {
   return (
     <a
       href={`mailto:${address}`}
-      className="text-blue-600 dark:text-blue-400 hover:underline"
+      className="text-teal-700 dark:text-teal-300 hover:underline"
     >
       {address}
     </a>
