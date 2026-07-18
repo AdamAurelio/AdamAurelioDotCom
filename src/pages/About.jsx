@@ -86,8 +86,11 @@ const About = () => {
               processes, Oracle APEX applications, resilient RPA automations, and
               the access-governance workflows that keep a regulated utility
               compliant. Lately I&apos;ve been pushing into full-stack React,
-              Databricks, cloud, and AI-assisted development — and helping my
-              team adopt those the right way, not just the fast way.
+              Databricks, and cloud — and helping build our company&apos;s
+              spec-driven, AI-assisted development practice from the inside:
+              the specs, standards, and delivery paths that my team and
+              engineers across the enterprise now use. Adopting AI the right
+              way, not just the fast way.
             </p>
             <p>
               Somewhere in there I became the person others come to when

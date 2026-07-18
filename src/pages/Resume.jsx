@@ -20,8 +20,8 @@ const skills = [
     body: "UiPath, CI/CD pipelines, API integrations, idempotent retry patterns, service accounts",
   },
   {
-    title: "AI & Agentic Engineering",
-    body: "GitHub Copilot, Copilot Studio, spec-driven development, multi-agent orchestration, human-in-the-loop review",
+    title: "Spec-Driven & AI-Assisted Engineering",
+    body: "Spec-driven development (OpenSpec, SpecKit), source-controlled specs, GitHub Copilot, Copilot Studio, multi-agent orchestration, human-in-the-loop review",
   },
   {
     title: "DevOps & Delivery",
@@ -94,9 +94,11 @@ const Resume = () => {
               enterprise applications, automation, and integrations across
               Oracle, Python, PL/SQL, and cloud data platforms. Proven record of
               secure, auditable workflows for access governance and CI/CD in
-              regulated utility environments — now leading AI-assisted
-              software-delivery standards, reusable requirements-engineering
-              frameworks, and full-stack React/Databricks delivery.
+              regulated utility environments — now a central builder of the
+              company&apos;s spec-driven, AI-assisted software-delivery
+              practice: the standards, source-controlled specs, and reusable
+              frameworks that my team and engineers across the enterprise ship
+              with.
             </p>
           </div>
         </Reveal>
@@ -155,12 +157,12 @@ const Resume = () => {
             />
 
             <ExperienceGroup
-              title="AI-Assisted Engineering & Solution Design"
+              title="Spec-Driven Development & AI-Assisted Engineering"
               bullets={[
-                "Co-developed an enterprise AI/agent-assisted software-delivery model spanning Oracle APEX, Databricks, and standard application stacks, standardizing reusable prompts, coding standards, and documentation so stack-specific work reuses a shared delivery pipeline.",
+                "Central builder of the company's spec-driven development practice: co-developed the enterprise agent-assisted delivery model spanning Oracle APEX, Databricks, and standard application stacks, and shaped the reusable specs, prompts, standards, and documentation adopted by my team and engineers across the enterprise.",
+                "Championed source-controlled specifications as the foundation of delivery — evaluating OpenSpec, SpecKit, and Superpowers and driving the lightweight, source-controlled default recommendation adopted for enterprise use.",
                 "Designed and demonstrated a reusable requirements-engineering framework that converts business needs into requirements, solution-design and architecture artifacts, diagrams, and an Azure DevOps-ready backlog, reducing rework from incomplete requirements.",
                 "Built and demonstrated a React application on Databricks Apps for safety-incident reporting, resolving integration issues across authentication, SQL warehouses, catalog/table permissions, and storage access.",
-                "Evaluated spec-driven development frameworks (OpenSpec, SpecKit, Superpowers) and drove a lightweight, source-controlled default recommendation for enterprise adoption.",
               ]}
             />
 

@@ -23,8 +23,8 @@ const whatIDo = [
     body: "Provisioning, approvals, and audit trails for regulated environments — where getting access right is a compliance requirement, not a nicety.",
   },
   {
-    title: "AI-Assisted Engineering",
-    body: "Spec-driven development and agent-assisted delivery — standardizing how a team ships so quality scales past any one person.",
+    title: "Spec-Driven Development",
+    body: "A central builder of my company's spec-driven, AI-assisted delivery practice — source-controlled specs and shared standards that my team and engineers across the enterprise ship with.",
   },
 ];
 
