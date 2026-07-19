@@ -16,3 +16,7 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# Saved plan files (consumed by apply; may embed resolved values)
+tfplan
+*.tfplan
