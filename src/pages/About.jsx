@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
+import Seo from "../components/Seo";
 
 const values = [
   {
@@ -46,6 +47,11 @@ const About = () => {
   return (
     <div className="py-16 px-4 md:px-8">
       <div className="max-w-3xl mx-auto">
+        <Seo
+          title="About"
+          path="/about"
+          description="Engineer, leader, coach. Adam Aurelio's story — from help desk to shipping enterprise platforms, and the values behind the work."
+        />
         {/* Intro */}
         <Reveal as="header" className="mb-16 flex flex-col sm:flex-row items-center gap-8">
           <img

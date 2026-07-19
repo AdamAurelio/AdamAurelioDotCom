@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
 import CountUp from "../components/CountUp";
+import Seo from "../components/Seo";
 
 const roles = [
   "Software Engineer",
@@ -31,6 +32,7 @@ const whatIDo = [
 const Home = () => {
   return (
     <div>
+      <Seo path="/" />
       {/* Hero */}
       <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">

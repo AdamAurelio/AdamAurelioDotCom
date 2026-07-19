@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import EmailLink from "../components/EmailLink";
 import Reveal from "../components/Reveal";
+import Seo from "../components/Seo";
 
 const skills = [
   {
@@ -48,6 +49,27 @@ const Resume = () => {
       id="resume"
       className="py-12 px-4 md:px-8 bg-navy-100 dark:bg-navy-950 min-h-screen transition-colors"
     >
+      <Seo
+        title="Résumé"
+        path="/resume"
+        description="Résumé of Adam Aurelio — 7+ years of enterprise applications, automation, access governance, and spec-driven AI-assisted software delivery."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Adam Aurelio",
+          jobTitle: "Software Engineer",
+          url: "https://adamaurelio.com/resume",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Des Moines",
+            addressRegion: "IA",
+          },
+          sameAs: [
+            "https://linkedin.com/in/adamaurelio",
+            "https://github.com/AdamAurelio",
+          ],
+        }}
+      />
       <div className="max-w-5xl mx-auto bg-white dark:bg-navy-900 shadow-lg rounded-lg p-8 md:p-12 print:shadow-none print:p-0">
         <Reveal
           as="header"

@@ -1,5 +1,6 @@
 import Reveal from "../components/Reveal";
 import EmailLink from "../components/EmailLink";
+import Seo from "../components/Seo";
 
 // NOTE: verify this GitHub username before shipping.
 const GITHUB_URL = "https://github.com/adamaurelio";
@@ -45,6 +46,11 @@ const Contact = () => {
   return (
     <div className="py-16 px-4 md:px-8">
       <div className="max-w-2xl mx-auto">
+        <Seo
+          title="Contact"
+          path="/contact"
+          description="Get in touch with Adam Aurelio — software engineer in the Des Moines, Iowa area. Email, LinkedIn, or GitHub."
+        />
         <Reveal as="header" className="mb-12 text-center">
           <p className="kicker mb-2">Contact</p>
           <h1 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4">

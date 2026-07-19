@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
+import Seo from "../components/Seo";
 
 const principles = [
   {
@@ -38,6 +39,11 @@ const HowIWork = () => {
   return (
     <div className="py-16 px-4 md:px-8">
       <div className="max-w-3xl mx-auto">
+        <Seo
+          title="How I Work"
+          path="/how-i-work"
+          description="The engineering principles behind Adam Aurelio's work: reliability by design, observability, source-controlled specs, and honest status."
+        />
         <Reveal as="header" className="mb-14">
           <p className="kicker mb-2">How I work</p>
           <h1 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4">

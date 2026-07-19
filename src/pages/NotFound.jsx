@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import Seo from "../components/Seo";
 
 const NotFound = () => {
   return (
     <section className="min-h-[60vh] flex items-center justify-center px-4 py-20 text-center">
       <div className="max-w-md">
+        <Seo title="Page not found" />
         <p className="kicker mb-3">Error 404</p>
         <h1 className="text-6xl font-bold text-navy-900 dark:text-white mb-4">
           Lost the trail.
