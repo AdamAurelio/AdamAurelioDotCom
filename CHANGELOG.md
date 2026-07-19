@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > AI-generated code and docs are reviewed to the same standard as hand-written
 > work before commit — per the ADAM model's AI-assistant standard._
 
+### Fixed
+- **CI secret-scanning step** — added a least-privilege `permissions:` block
+  (`contents: read`, `pull-requests: read`) to `.github/workflows/ci.yml`.
+  Without it, `gitleaks-action` 403'd on `GET /pulls/{n}/commits` when
+  enumerating a PR's commits, failing the `build` job on every pull request.
+
 ### Added
 - **Résumé & site content pass** — turned the site into a résumé-first personal
   site that can grow:
