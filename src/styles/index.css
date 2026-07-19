@@ -4,10 +4,40 @@
 
 @layer base {
   body {
-    @apply bg-white text-gray-900 transition-colors duration-300;
+    @apply bg-navy-50 text-navy-900 font-sans transition-colors duration-300;
+    /* A whisper of paper grain so large surfaces never read as flat/sterile. */
+    background-image: radial-gradient(
+      rgba(82, 106, 140, 0.05) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
   }
   .dark body {
-    @apply bg-gray-950 text-gray-100;
+    @apply bg-navy-950 text-navy-100;
+    background-image: radial-gradient(
+      rgba(220, 232, 250, 0.03) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+
+  /* Editorial serif headings by default — the warm, human voice of the site. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif;
+  }
+
+  ::selection {
+    background-color: rgba(197, 139, 42, 0.25); /* gold */
+  }
+}
+
+@layer components {
+  /* Small mono kicker above section titles — a quiet engineer's fingerprint. */
+  .kicker {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-gold-700 dark:text-gold-300;
   }
 }
 

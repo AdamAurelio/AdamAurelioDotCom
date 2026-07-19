@@ -64,3 +64,7 @@ desktop.ini
 *.bak
 *.tmp
 *.old
+
+# Personal/career documents — local working files, never for the (public) repo
+docs/brag_doc*.md
+docs/PORTFOLIO_ROADMAP.md

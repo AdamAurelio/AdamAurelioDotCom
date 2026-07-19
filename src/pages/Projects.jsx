@@ -12,6 +12,13 @@ const projects = [
     tags: ["Automation", "Security", "Full-stack"],
   },
   {
+    name: "Spec-Driven Development Practice",
+    stack: ["OpenSpec", "SpecKit", "GitHub Copilot", "Copilot Studio"],
+    blurb:
+      "Co-built my company's spec-driven, AI-assisted delivery practice: source-controlled specifications, reusable prompts and standards, and delivery paths spanning Oracle APEX, Databricks, and conventional stacks — adopted by my team and engineers across the enterprise.",
+    tags: ["AI", "Process", "Enablement"],
+  },
+  {
     name: "UiPath Center of Excellence",
     stack: ["UiPath", ".NET (C# / VB)", "Azure DevOps", "Docker"],
     blurb:
@@ -38,26 +45,28 @@ const projects = [
     blurb:
       "This website. A static React SPA with a fully automated, multi-environment CI/CD pipeline (dev / QA / prod), infrastructure defined as code with Terraform, and hardened security headers. Fast, cheap to run, and self-deploying.",
     tags: ["Web", "IaC", "CI/CD"],
+    href: "https://github.com/AdamAurelio/AdamAurelioDotCom",
+    hrefLabel: "View source",
   },
 ];
 
 const Card = ({ project }) => {
   return (
-    <article className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow p-8 flex flex-col">
-      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+    <article className="bg-navy-50 dark:bg-navy-800 border border-navy-200 dark:border-navy-700 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-8 flex flex-col">
+      <h3 className="text-2xl font-bold text-navy-900 dark:text-white">
         {project.name}
       </h3>
-      <p className="text-xs uppercase tracking-wide text-blue-700 dark:text-blue-400 font-semibold mt-2 mb-4">
+      <p className="font-mono text-xs uppercase tracking-wide text-gold-700 dark:text-gold-300 font-semibold mt-2 mb-4">
         {project.stack.join(" · ")}
       </p>
-      <p className="text-gray-600 dark:text-gray-300 leading-relaxed flex-grow">
+      <p className="text-navy-600 dark:text-navy-300 leading-relaxed flex-grow">
         {project.blurb}
       </p>
       <div className="mt-5 flex flex-wrap gap-2">
         {project.tags.map((tag) => (
           <span
             key={tag}
-            className="inline-block rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-medium px-3 py-1"
+            className="inline-block rounded-full bg-navy-100 dark:bg-navy-700 text-navy-700 dark:text-navy-200 text-xs font-medium px-3 py-1"
           >
             {tag}
           </span>
@@ -68,7 +77,7 @@ const Card = ({ project }) => {
           href={project.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-semibold hover:underline"
+          className="mt-5 inline-flex items-center gap-1 text-teal-700 dark:text-teal-300 font-semibold hover:underline"
         >
           {project.hrefLabel}
           <svg
@@ -92,29 +101,30 @@ const Card = ({ project }) => {
 
 const Projects = () => {
   return (
-    <section
-      id="projects"
-      className="py-20 px-4 md:px-8 max-w-6xl mx-auto"
-    >
+    <section id="projects" className="py-16 px-4 md:px-8 max-w-6xl mx-auto">
       <Seo
         title="Projects"
         path="/projects"
-        description="Selected projects by Adam Aurelio — enterprise automation, RPA, Oracle applications, and this cloud-deployed website."
+        description="Selected projects by Adam Aurelio — enterprise automation, spec-driven development, Oracle applications, and this cloud-deployed website."
       />
 
+      <Reveal as="p" className="kicker mb-2">
+        Projects
+      </Reveal>
       <Reveal
         as="h1"
-        className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
+        className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-4"
       >
-        Projects
+        Things I&apos;ve built
       </Reveal>
       <Reveal
         as="p"
         delay={70}
-        className="text-lg text-gray-600 dark:text-gray-400 mb-12 max-w-2xl"
+        className="text-lg text-navy-600 dark:text-navy-300 mb-12 max-w-2xl"
       >
-        A sample of things I&apos;ve built — from enterprise automation and
-        Oracle applications to the cloud pipeline running this site.
+        A sample of the work — from enterprise automation and Oracle
+        applications to the spec-driven development practice and the cloud
+        pipeline running this site.
       </Reveal>
 
       <Reveal className="grid md:grid-cols-2 gap-8">
@@ -124,12 +134,12 @@ const Projects = () => {
       </Reveal>
 
       <Reveal className="mt-14 text-center">
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
+        <p className="text-navy-600 dark:text-navy-300 mb-4">
           Want to talk through a problem or an opportunity?
         </p>
         <Link
           to="/contact"
-          className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl inline-block"
+          className="px-8 py-3 bg-teal-700 text-white rounded-lg font-semibold hover:bg-teal-800 transition-colors shadow-sm hover:shadow-md inline-block"
         >
           Get in touch
         </Link>

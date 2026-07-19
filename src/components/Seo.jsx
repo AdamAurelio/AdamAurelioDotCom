@@ -8,8 +8,9 @@
 const SITE_NAME = "Adam Aurelio";
 const BASE_URL = "https://adamaurelio.com";
 const DEFAULT_DESCRIPTION =
-  "Adam Aurelio — Software Engineer specializing in enterprise automation, " +
-  "full-stack development, and Oracle PL/SQL.";
+  "Adam Aurelio — software engineer in Des Moines, Iowa. I build dependable " +
+  "systems and the teams that keep them running: full-stack, automation, " +
+  "access governance, and spec-driven AI-assisted engineering.";
 
 const Seo = ({ title, description = DEFAULT_DESCRIPTION, path = "", jsonLd }) => {
   const fullTitle = title ? `${title} · ${SITE_NAME}` : `${SITE_NAME} · Software Engineer`;

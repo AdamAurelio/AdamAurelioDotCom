@@ -28,7 +28,16 @@
       "Bash(curl -s http://localhost:8081/health)",
       "Bash(curl -s http://localhost:8081/)",
       "Bash(curl -sI http://localhost:8081/)",
-      "Bash(docker rmi *)"
+      "Bash(docker rmi *)",
+      "Bash(aws --version)",
+      "Bash(gh --version)",
+      "Bash(aws sts *)",
+      "Bash(export AWS_PROFILE=adamaurelio AWS_REGION=us-east-1)",
+      "Bash(aws route53 *)",
+      "Bash(aws s3api *)",
+      "Bash(aws iam *)",
+      "Bash(bash ./infra/scripts/bootstrap-state.sh)",
+      "Bash(powershell -NoProfile -Command 'Get-NetTCPConnection -LocalPort 4173 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }')"
     ]
   }
 }

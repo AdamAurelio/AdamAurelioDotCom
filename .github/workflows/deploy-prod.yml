@@ -20,7 +20,11 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
+    # NOTE: no `environment:` here — the deploy role's OIDC trust policy expects
+    # sub = repo:...:ref:refs/heads/main (auto-deploy on merge, per README).
+    # Declaring an environment would rewrite the token sub to
+    # repo:...:environment:<name> and break AssumeRole. The human-approval gate
+    # lives on the Infra workflow's apply job (provision role), not on deploys.
     steps:
       - uses: actions/checkout@v4
 

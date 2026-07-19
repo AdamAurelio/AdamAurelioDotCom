@@ -1,42 +1,33 @@
-import { Link } from "react-router-dom";
-import EmailLink from "./EmailLink";
+const links = [
+  { href: "https://linkedin.com/in/adamaurelio", label: "LinkedIn" },
+  // NOTE: verify this GitHub username before shipping.
+  { href: "https://github.com/adamaurelio", label: "GitHub" },
+  { href: "mailto:adam.aurelio@gmail.com", label: "Email" },
+];
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 dark:bg-gray-950 dark:border-t dark:border-gray-800 text-white py-10 px-4 transition-colors">
+    <footer className="print:hidden bg-navy-900 dark:bg-navy-950 border-t-2 border-gold-500/70 text-navy-100 py-10 px-4 transition-colors">
       <div className="max-w-7xl mx-auto text-center space-y-4">
-        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-          <Link to="/resume" className="text-gray-300 hover:text-white transition-colors">
-            Résumé
-          </Link>
-          <Link to="/projects" className="text-gray-300 hover:text-white transition-colors">
-            Projects
-          </Link>
-          <Link to="/about" className="text-gray-300 hover:text-white transition-colors">
-            About
-          </Link>
-          <Link to="/contact" className="text-gray-300 hover:text-white transition-colors">
-            Contact
-          </Link>
-        </nav>
-
-        <p className="text-gray-400 text-sm">
-          <EmailLink />
-          <span className="mx-2 text-gray-600" aria-hidden="true">
-            ·
-          </span>
-          <a
-            href="https://linkedin.com/in/adamaurelio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            LinkedIn
-          </a>
+        <p className="font-serif text-lg text-navy-50">
+          Let&apos;s build something worth maintaining.
         </p>
-
-        <p className="text-gray-500 text-sm">
-          © {new Date().getFullYear()} Adam Aurelio. All rights reserved.
+        <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          {links.map(({ href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="text-navy-300 hover:text-gold-300 transition-colors"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+        <p className="text-sm text-navy-400">
+          © {new Date().getFullYear()} Adam Aurelio · Built in Des Moines, Iowa ·
+          React &amp; Tailwind, deployed on AWS
         </p>
       </div>
     </footer>
