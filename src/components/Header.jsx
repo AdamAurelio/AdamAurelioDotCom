@@ -22,6 +22,9 @@ const mobileLinkClass =
 const iconBtnClass =
   "p-2 rounded-lg text-navy-600 hover:text-teal-700 hover:bg-navy-100 dark:text-navy-300 dark:hover:text-teal-300 dark:hover:bg-navy-800 transition-colors";
 
+// The GitHub mark is a trademark of GitHub, Inc., used unmodified to link to a
+// profile as their brand guidelines allow. The menu/close icons further down are
+// Lucide (ISC) path data. Both are attributed in NOTICE.
 const GitHubIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+// Sun/moon icon paths below are from Lucide (ISC) — see NOTICE.
+
 // Reads the theme the no-flash init script already applied to <html>.
 const getInitialTheme = () =>
   document.documentElement.classList.contains("dark") ? "dark" : "light";

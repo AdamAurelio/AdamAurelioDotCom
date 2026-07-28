@@ -80,6 +80,7 @@ const Card = ({ project }) => {
           className="mt-5 inline-flex items-center gap-1 text-teal-700 dark:text-teal-300 font-semibold hover:underline"
         >
           {project.hrefLabel}
+          {/* arrow-up-right icon: Lucide (ISC) — see NOTICE. */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4"
