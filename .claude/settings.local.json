@@ -37,7 +37,16 @@
       "Bash(aws s3api *)",
       "Bash(aws iam *)",
       "Bash(bash ./infra/scripts/bootstrap-state.sh)",
-      "Bash(powershell -NoProfile -Command 'Get-NetTCPConnection -LocalPort 4173 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }')"
+      "Bash(powershell -NoProfile -Command 'Get-NetTCPConnection -LocalPort 4173 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object { Stop-Process -Id $_ -Force -ErrorAction SilentlyContinue }')",
+      "Bash(xargs -0 -I{} sh -c 'printf \"%8s %s\\\\n\" \"$\\(wc -l < \"{}\" 2>/dev/null\\)\" \"{}\"')",
+      "Bash(git grep *)",
+      "Bash(awk '/^COMMIT/{if\\(c!=\"\"&&t>0\\)printf \"%6d  %s\\\\n\",t,c; c=$0; t=0; next} NF==3 && $1!=\"-\" {t+=$1} END{if\\(c!=\"\"\\)printf \"%6d  %s\\\\n\",t,c}')",
+      "Bash(xxd -l 64 public/favicon.ico)",
+      "Bash(grep -iE \"^\\(sharp|canvas|jimp|pngjs|svg2png|to-ico|png-to-ico\\)$\")",
+      "Bash(python -c \"import PIL; print\\('Pillow', PIL.__version__\\)\")",
+      "Bash(python -c \"import zlib, struct; print\\('stdlib ok'\\)\")",
+      "Bash(python make_icons.py)",
+      "Bash(echo \"=== LINT EXIT: $? ===\")"
     ]
   }
 }
