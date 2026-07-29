@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Reveal from "../components/Reveal";
 import Seo from "../components/Seo";
 

@@ -46,7 +46,15 @@
       "Bash(python -c \"import PIL; print\\('Pillow', PIL.__version__\\)\")",
       "Bash(python -c \"import zlib, struct; print\\('stdlib ok'\\)\")",
       "Bash(python make_icons.py)",
-      "Bash(echo \"=== LINT EXIT: $? ===\")"
+      "Bash(echo \"=== LINT EXIT: $? ===\")",
+      "Bash(npm ls *)",
+      "Bash(npm view *)",
+      "Bash(npm uninstall *)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(echo \"lint exit: $?\")",
+      "Bash(echo \"AUDIT EXIT: $?\")",
+      "Bash(npm ci *)",
+      "Bash(echo \"CI-INSTALL EXIT: $?\")"
     ]
   }
 }
