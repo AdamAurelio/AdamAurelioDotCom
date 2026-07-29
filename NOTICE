@@ -55,7 +55,7 @@ Runtime dependencies
 The production bundle includes React and React Router, both MIT-licensed:
 
   react, react-dom      Copyright (c) Meta Platforms, Inc. and affiliates.
-  react-router-dom      Copyright (c) React Training / Remix Software
+  react-router          Copyright (c) React Training / Remix Software
 
 Full license texts ship with each package in node_modules/<pkg>/LICENSE
 and are available at https://github.com/facebook/react and

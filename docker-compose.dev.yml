@@ -13,7 +13,7 @@ name: adamaurelio-dev
 
 services:
   web-dev:
-    image: node:20-alpine
+    image: node:22-alpine
     working_dir: /app
     environment:
       VITE_DOCKER: "1" # enables HMR polling in vite.config.js

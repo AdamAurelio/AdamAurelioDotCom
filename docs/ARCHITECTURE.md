@@ -38,7 +38,7 @@ extension): [`diagrams/dev.drawio`](diagrams/dev.drawio),
 
 | Layer        | Choice                          | Why |
 |--------------|---------------------------------|-----|
-| UI           | React 19 + react-router-dom 7   | Existing components; SPA routing |
+| UI           | React 19 + react-router 8       | Existing components; SPA routing |
 | Build        | Vite 6                          | Fast, maintained (CRA is EOL), small output |
 | Styling      | Tailwind CSS v3                 | Utility CSS already used throughout |
 | Dev serve    | Vite dev server                 | HMR, zero config |
