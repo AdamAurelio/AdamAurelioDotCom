@@ -54,7 +54,8 @@
       "Bash(echo \"lint exit: $?\")",
       "Bash(echo \"AUDIT EXIT: $?\")",
       "Bash(npm ci *)",
-      "Bash(echo \"CI-INSTALL EXIT: $?\")"
+      "Bash(echo \"CI-INSTALL EXIT: $?\")",
+      "WebSearch"
     ]
   }
 }
