@@ -54,7 +54,20 @@
       "Bash(echo \"lint exit: $?\")",
       "Bash(echo \"AUDIT EXIT: $?\")",
       "Bash(npm ci *)",
-      "Bash(echo \"CI-INSTALL EXIT: $?\")"
+      "Bash(echo \"CI-INSTALL EXIT: $?\")",
+      "PowerShell(git status *)",
+      "PowerShell(git show *)",
+      "PowerShell(\"local  : \" + \\(git hash-object NOTICE\\); \"origin : \" + \\(git rev-parse origin/main:NOTICE\\))",
+      "PowerShell(git diff *)",
+      "PowerShell(git check-ignore *)",
+      "PowerShell(git stash *)",
+      "PowerShell(git status --short | Select-Object -First 30; \"--- tracked-file status count ---\"; \\(git status --porcelain | Measure-Object -Line\\).Lines)",
+      "PowerShell(foreach \\($p in @\\(\"node_modules\",\"dist\",\"infra\\\\terraform\\\\.terraform\",\"nas_data_tier\\\\api\\\\node_modules\",\"NOTICE\",\"nas_data_tier\\\\.env\",\"infra\\\\terraform\\\\terraform.tfvars\"\\)\\) { if \\(Test-Path $p\\) { \"PRESENT : $p\" } else { \"MISSING : $p\" } })",
+      "PowerShell(\"parents: \" + \\(\\(git rev-list --parents -n 1 \"stash@{0}\"\\).Split\\(\" \"\\).Count - 1\\); \"files in ^3: \" + \\(git ls-tree -r --name-only \"stash@{0}^3\" 2>$null | Measure-Object -Line\\).Lines)",
+      "PowerShell(git reset *)",
+      "PowerShell(\"--- status ---\"; git status --short; \"--- \\(clean if blank\\) ---\"; \"--- branch ---\"; git status -sb | Select-Object -First 1)",
+      "PowerShell(foreach \\($p in @\\(\"nas_data_tier/.env\",\"infra/terraform/terraform.tfvars\"\\)\\) { $live = git hash-object $p; $saved = git rev-parse \"stash@{0}^3:$p\"; $ok = if \\($live -eq $saved\\) { \"OK match\" } else { \"MISMATCH\" }; \"$ok  $p\"; \"   tracked? \" + $\\(if \\(git ls-files --error-unmatch $p 2>$null\\) { \"YES - PROBLEM\" } else { \"no \\(ignored, correct\\)\" }\\) }; \"--- NOTICE ---\"; if \\(Test-Path NOTICE\\) { \"PRESENT, tracked: \" + [bool]\\(git ls-files NOTICE\\) })",
+      "PowerShell(\"--- package.json deps now ---\"; \\(Get-Content package.json | Select-String -Pattern 'react|react-dom|react-router' -SimpleMatch\\); \"--- installed on disk ---\"; foreach \\($m in @\\(\"react\",\"react-router\",\"react-router-dom\"\\)\\) { $pj = \"node_modules\\\\$m\\\\package.json\"; if \\(Test-Path $pj\\) { \"$m = \" + \\(Get-Content $pj -Raw | ConvertFrom-Json\\).version } else { \"$m = NOT INSTALLED\" } })"
     ]
   }
 }
