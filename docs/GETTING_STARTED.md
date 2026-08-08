@@ -5,6 +5,12 @@ automated — the accounts, credentials, and one-time bootstrap that only you ca
 do — and the exact order to do them in. Once these are done, every environment is
 self-provisioning and self-deploying (see [`AUTOMATION.md`](AUTOMATION.md)).
 
+> **Current status:** production is **already provisioned and live**, deploying
+> on every merge to `main`. This page is the *from-scratch runbook* — you only
+> re-run §2 to rebuild prod from zero, and §3 to stand up QA (not yet set up).
+> Open work is tracked in [GitHub Issues](../../../issues) on the repo's
+> **Projects** board; QA setup is tracked there too.
+
 ---
 
 ## What only you can provide
