@@ -95,7 +95,7 @@ Good baseline already (semantic landmarks, `aria-*`, alt text).
 
 ### <a id="monitor"></a>MONITOR — Closing the loop (`closing-the-loop.md`)
 - [ ] Prod uptime/synthetic check
-- [ ] AWS Budgets alert (also in `TODO.md`)
+- [ ] AWS Budgets alert (tracked as a GitHub issue)
 - [ ] `docs/MONITORING.md` — success criteria + lessons learned per change
 
 ### <a id="adr"></a>ADR — Decision records (Dev Std §4)

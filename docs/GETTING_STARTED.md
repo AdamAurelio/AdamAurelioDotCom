@@ -8,8 +8,8 @@ self-provisioning and self-deploying (see [`AUTOMATION.md`](AUTOMATION.md)).
 > **Current status:** production is **already provisioned and live**, deploying
 > on every merge to `main`. This page is the *from-scratch runbook* — you only
 > re-run §2 to rebuild prod from zero, and §3 to stand up QA (not yet set up).
-> For live status and open work, see [`../TODO.md`](../TODO.md) and the repo's
-> **Projects** board.
+> Open work is tracked in [GitHub Issues](../../../issues) on the repo's
+> **Projects** board; QA setup is tracked there too.
 
 ---
 
