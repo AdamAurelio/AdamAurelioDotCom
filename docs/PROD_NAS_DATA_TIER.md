@@ -410,13 +410,26 @@ Then redeploy and re-run `./scripts/qa-parity-check.ps1`.
 ## 10. Back up your data (it's now your responsibility)
 
 Previously the site was stateless and "reproducible from Git." With a database,
-**you own the backups** (ISO A.12.3). Add a Synology **Scheduled Task** (daily):
+**you own the backups** (ISO A.12.3). Use the packaged agent rather than a raw
+one-liner — add a **daily** Synology Scheduled Task (user `root`):
+
+```
+/volume1/docker/adamaurelio-data-tier/scripts/data-tier-backup.sh >> /var/log/data-tier-backup.log 2>&1
+```
+
+[`../scripts/data-tier-backup.sh`](../scripts/data-tier-backup.sh) dumps in
+`pg_restore` custom format, **verifies the dump is readable before keeping it**,
+rotates at `RETAIN_DAYS` (default 14), and fails loudly rather than letting a
+truncated dump replace a good one — the failure mode a bare `pg_dump >file`
+redirect quietly allows, since the shell creates the file even when the dump
+fails.
+
+Test a restore occasionally; an untested backup is a guess:
 
 ```bash
-docker exec adamaurelio_db pg_dump -U app -Fc adamaurelio \
-  > /volume1/backups/adamaurelio_$(date +\%F).dump
+sudo docker exec -i adamaurelio_db pg_restore -U app -d adamaurelio --clean \
+  < /volume1/backups/adamaurelio/adamaurelio_<stamp>.dump
 ```
-Keep a rotation (e.g. 14 days) and test a restore (`pg_restore`) occasionally.
 
 ---
 

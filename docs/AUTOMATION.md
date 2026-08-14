@@ -59,6 +59,42 @@ timer (user `root`, every 5–10 min). Both no-op unless their code actually mov
 > Run each agent from a checkout dedicated to the branch it tracks (`qa` vs
 > `main`) — pointing both at one checkout makes them fight over the working tree.
 
+### As-built layout (AHSynologyNAS)
+
+Because the two agents track different branches, the NAS carries **two**
+checkouts. Task Scheduler entries must use these absolute paths:
+
+| Checkout | Branch | Runs | Serves |
+|---|---|---|---|
+| `/volume1/docker/AdamAurelioDotCom` | `qa` | `qa-update.sh` | website on `:8080` (LAN) |
+| `/volume1/docker/adamaurelio-data-tier` | `main` | `data-tier-update.sh`, `data-tier-backup.sh` | API on `127.0.0.1:3001` + Postgres (no published port) |
+
+```
+/volume1/docker/AdamAurelioDotCom/scripts/qa-update.sh              >> /var/log/qa-update.log 2>&1
+/volume1/docker/adamaurelio-data-tier/scripts/data-tier-update.sh   >> /var/log/data-tier-update.log 2>&1
+```
+
+Container Manager's `docker` is at `/usr/local/bin/docker`, which is **not** on
+Task Scheduler's default PATH — the scripts add it themselves, so invoke them
+directly rather than wrapping them in `docker ...` commands.
+
+### Backups (the one thing Git can't rebuild)
+
+The website is reproducible from the repo; the database is not. Schedule a
+**daily** Task Scheduler entry (user `root`):
+
+```
+/volume1/docker/adamaurelio-data-tier/scripts/data-tier-backup.sh   >> /var/log/data-tier-backup.log 2>&1
+```
+
+It writes a verified `pg_restore`-compatible dump to `/volume1/backups/adamaurelio`,
+keeps 14 days (`RETAIN_DAYS`), and refuses to overwrite a good dump with a failed
+one. Test a restore occasionally — an untested backup is a guess:
+
+```bash
+sudo docker exec -i adamaurelio_db pg_restore -U app -d adamaurelio --clean < <dump>
+```
+
 ## Prod (AWS) — gated auto-provision
 
 ### One-time bootstrap (admin AWS creds; unavoidable chicken-and-egg)
