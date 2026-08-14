@@ -40,10 +40,14 @@ if [ "$WITH_DATA" = "1" ]; then
       rc_log "ERROR: openssl is required to generate secrets."
       exit 1
     }
-    pw="$(openssl rand -base64 32)"
-    key="$(openssl rand -base64 32)"
+    # hex, NOT base64: POSTGRES_PASSWORD is interpolated raw into the API's
+    # DATABASE_URL (postgres://app:<pw>@postgres:5432/...). base64 emits + / =,
+    # and a `/` terminates the URL authority early -> pg throws ERR_INVALID_URL.
+    # hex is URL-safe and still 256 bits of entropy.
+    pw="$(openssl rand -hex 32)"
+    key="$(openssl rand -hex 32)"
     origin="${ALLOWED_ORIGIN:-https://adamaurelio.com}"
-    # base64 has no | & or \\, so it's safe as the sed replacement / delimiter.
+    # hex has no | & or \\, so it's safe as the sed replacement / delimiter.
     sed -e "s|^POSTGRES_PASSWORD=.*|POSTGRES_PASSWORD=${pw}|" \
       -e "s|^API_KEY=.*|API_KEY=${key}|" \
       -e "s|^ALLOWED_ORIGIN=.*|ALLOWED_ORIGIN=${origin}|" \

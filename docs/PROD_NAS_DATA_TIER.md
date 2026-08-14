@@ -144,7 +144,9 @@ volumes:
 ### `.env.example`  → copy to `.env` (gitignored; never commit)
 
 ```bash
-# Strong random values. Generate e.g. with: openssl rand -base64 32
+# Strong random values. Generate e.g. with: openssl rand -hex 32
+# Use hex, not base64: POSTGRES_PASSWORD is interpolated raw into the API's
+# DATABASE_URL, and base64's / + = characters break URL parsing.
 POSTGRES_PASSWORD=change-me-long-random
 API_KEY=change-me-long-random
 # The only browser origin allowed to call the API (your prod site):
