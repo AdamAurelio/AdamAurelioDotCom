@@ -67,7 +67,22 @@
       "PowerShell(git reset *)",
       "PowerShell(\"--- status ---\"; git status --short; \"--- \\(clean if blank\\) ---\"; \"--- branch ---\"; git status -sb | Select-Object -First 1)",
       "PowerShell(foreach \\($p in @\\(\"nas_data_tier/.env\",\"infra/terraform/terraform.tfvars\"\\)\\) { $live = git hash-object $p; $saved = git rev-parse \"stash@{0}^3:$p\"; $ok = if \\($live -eq $saved\\) { \"OK match\" } else { \"MISMATCH\" }; \"$ok  $p\"; \"   tracked? \" + $\\(if \\(git ls-files --error-unmatch $p 2>$null\\) { \"YES - PROBLEM\" } else { \"no \\(ignored, correct\\)\" }\\) }; \"--- NOTICE ---\"; if \\(Test-Path NOTICE\\) { \"PRESENT, tracked: \" + [bool]\\(git ls-files NOTICE\\) })",
-      "PowerShell(\"--- package.json deps now ---\"; \\(Get-Content package.json | Select-String -Pattern 'react|react-dom|react-router' -SimpleMatch\\); \"--- installed on disk ---\"; foreach \\($m in @\\(\"react\",\"react-router\",\"react-router-dom\"\\)\\) { $pj = \"node_modules\\\\$m\\\\package.json\"; if \\(Test-Path $pj\\) { \"$m = \" + \\(Get-Content $pj -Raw | ConvertFrom-Json\\).version } else { \"$m = NOT INSTALLED\" } })"
+      "PowerShell(\"--- package.json deps now ---\"; \\(Get-Content package.json | Select-String -Pattern 'react|react-dom|react-router' -SimpleMatch\\); \"--- installed on disk ---\"; foreach \\($m in @\\(\"react\",\"react-router\",\"react-router-dom\"\\)\\) { $pj = \"node_modules\\\\$m\\\\package.json\"; if \\(Test-Path $pj\\) { \"$m = \" + \\(Get-Content $pj -Raw | ConvertFrom-Json\\).version } else { \"$m = NOT INSTALLED\" } })",
+      "Read(//c/Users/adama/.ssh/**)",
+      "Bash(git -C \"C:/Users/adama/OneDrive/Apps/Developer/AdamAurelioDotCom\" remote -v)",
+      "Bash(gh issue *)",
+      "Bash(getent hosts *)",
+      "Bash(nslookup AHSynology)",
+      "Bash(ping -n 2 AHSynology)",
+      "PowerShell(Get-NetAdapter | Where-Object Status -eq 'Up' | Select-Object Name, InterfaceDescription, LinkSpeed | Format-Table -AutoSize; \"=== IPv4 ===\"; Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -ne '127.0.0.1' } | Select-Object IPAddress, InterfaceAlias, PrefixLength | Format-Table -AutoSize)",
+      "PowerShell(foreach \\($ip in @\\('192.168.50.107','192.168.50.117','192.168.50.223'\\)\\) { foreach \\($p in @\\(22,5000,5001,8080,3001\\)\\) { $t = Test-NetConnection -ComputerName $ip -Port $p -WarningAction SilentlyContinue -InformationLevel Quiet; \"{0}:{1} = {2}\" -f $ip,$p,$t } })",
+      "Bash(ssh -o BatchMode=yes -o ConnectTimeout=6 -o StrictHostKeyChecking=accept-new adamaurelio@192.168.50.223 \"uname -a; echo OK\")",
+      "Bash(git fetch *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(git ls-remote *)",
+      "PowerShell(foreach \\($p in @\\(8080,3001,5432\\)\\) { $t = Test-NetConnection -ComputerName 192.168.50.223 -Port $p -WarningAction SilentlyContinue -InformationLevel Quiet; \"NAS:{0} reachable from my LAN host = {1}\" -f $p, $t })",
+      "Bash(ssh *)"
     ]
   }
 }
