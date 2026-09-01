@@ -78,3 +78,43 @@ variable "tags" {
     ManagedBy = "Terraform"
   }
 }
+
+# ── Monitoring & alerting (monitoring.tf) ────────────────────────────────────
+
+variable "enable_monitoring" {
+  description = "Create the CloudFront alarms, alerts SNS topic, and cost budget. Off by default — the config stays in the repo but applies nothing until this is true. Note that none of it bills at this scale: the first two AWS Budgets are free, the alarms fall inside CloudWatch's 10-alarm free tier, and SNS covers 1,000 emails/month."
+  type        = bool
+  default     = false
+}
+
+variable "alert_email" {
+  description = "Address subscribed to the alerts SNS topic. Leave empty to create the topic without a subscriber. AWS emails a confirmation link that must be clicked before anything is delivered."
+  type        = string
+  default     = ""
+}
+
+variable "cloudfront_5xx_threshold_percent" {
+  description = "Alarm when CloudFront's 5xx rate exceeds this percentage over two 5-minute periods."
+  type        = number
+  default     = 1
+}
+
+variable "cloudfront_4xx_threshold_percent" {
+  description = "Alarm when CloudFront's 4xx rate exceeds this percentage over three 5-minute periods. Set well above the background rate from scanners and stale links."
+  type        = number
+  default     = 25
+}
+
+variable "monthly_budget_usd" {
+  description = "Monthly cost budget in USD. Notifies at 80% actual and 100% forecast."
+  type        = number
+  default     = 5
+}
+
+# ── Search Console (dns.tf) ──────────────────────────────────────────────────
+
+variable "google_site_verification" {
+  description = "Token from Google Search Console's DNS verification method — the value only, without the 'google-site-verification=' prefix. Leave empty to skip the record."
+  type        = string
+  default     = ""
+}

@@ -6,6 +6,8 @@
   "description": "Personal website and resume for Adam Aurelio — static React SPA.",
   "scripts": {
     "dev": "vite",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "prebuild": "npm run sitemap",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -26,6 +28,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@sentry/browser": "^10.72.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router": "^8.3.0"

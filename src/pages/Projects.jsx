@@ -2,6 +2,7 @@
 import { Link } from "react-router";
 import Reveal from "../components/Reveal";
 import Seo from "../components/Seo";
+import OutboundLink from "../components/OutboundLink";
 
 const projects = [
   {
@@ -73,10 +74,9 @@ const Card = ({ project }) => {
         ))}
       </div>
       {project.href && (
-        <a
+        <OutboundLink
           href={project.href}
-          target="_blank"
-          rel="noopener noreferrer"
+          label={project.title}
           className="mt-5 inline-flex items-center gap-1 text-teal-700 dark:text-teal-300 font-semibold hover:underline"
         >
           {project.hrefLabel}
@@ -94,7 +94,7 @@ const Card = ({ project }) => {
           >
             <path d="M7 17 17 7M7 7h10v10" />
           </svg>
-        </a>
+        </OutboundLink>
       )}
     </article>
   );

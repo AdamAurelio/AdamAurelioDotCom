@@ -1,3 +1,5 @@
+import { trackEvent } from "../lib/analytics";
+
 // Renders a clickable email address whose full "user@domain" string is never
 // present as a contiguous, regex-harvestable literal in the shipped bundle.
 // Joined via Array.join (not "+"/template literal) so the bundler can't
@@ -11,6 +13,7 @@ const EmailLink = () => {
   return (
     <a
       href={`mailto:${address}`}
+      onClick={() => trackEvent("contact_email_click")}
       className="text-teal-700 dark:text-teal-300 hover:underline"
     >
       {address}

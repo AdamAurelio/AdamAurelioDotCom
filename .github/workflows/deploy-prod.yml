@@ -50,7 +50,17 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Both are optional. Unset, Vite folds VITE_SENTRY_DSN to undefined and
+      # drops the Sentry import entirely, so the bundle is byte-identical to a
+      # build without monitoring. SENTRY_DSN is a Variable rather than a Secret
+      # because a DSN is designed to be public — it ships inside the client
+      # bundle, so storing it as a secret would imply a confidentiality the
+      # value does not have.
       - run: npm run build
+        env:
+          VITE_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          VITE_RELEASE: ${{ github.sha }}
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4

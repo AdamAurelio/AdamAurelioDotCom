@@ -26,3 +26,21 @@ output "provision_role_arn" {
   description = "ARN of the role the Infra workflow assumes to provision the stack."
   value       = aws_iam_role.github_actions_provision.arn
 }
+
+# one() collapses the 0-or-1 element list `count` produces, yielding null when
+# monitoring is disabled rather than failing on a [0] index.
+output "alerts_topic_arn" {
+  description = "SNS topic the CloudFront alarms and the budget publish to. Null when enable_monitoring = false."
+  value       = one(aws_sns_topic.alerts[*].arn)
+}
+
+output "alerts_subscription_state" {
+  description = "Whether alerts will actually reach anyone."
+  value = (
+    !var.enable_monitoring
+    ? "Monitoring disabled — set enable_monitoring = true to create the alarms and budget."
+    : var.alert_email == ""
+    ? "No alert_email set — topic has no subscriber."
+    : "Check ${var.alert_email} for the AWS confirmation link; alerts are not delivered until it is clicked."
+  )
+}

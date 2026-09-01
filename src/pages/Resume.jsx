@@ -2,6 +2,8 @@
 import EmailLink from "../components/EmailLink";
 import Reveal from "../components/Reveal";
 import Seo from "../components/Seo";
+import OutboundLink from "../components/OutboundLink";
+import { trackEvent } from "../lib/analytics";
 
 const skills = [
   {
@@ -94,7 +96,10 @@ const Resume = () => {
               </div>
               <button
                 type="button"
-                onClick={() => window.print()}
+                onClick={() => {
+                  trackEvent("resume_print");
+                  window.print();
+                }}
                 className="print:hidden shrink-0 px-4 py-2 text-sm font-semibold rounded-lg border border-navy-300 dark:border-navy-600 text-navy-700 dark:text-navy-200 hover:bg-navy-100 dark:hover:bg-navy-800 transition-colors"
               >
                 Print / Save PDF
@@ -102,14 +107,13 @@ const Resume = () => {
             </div>
             <p className="text-sm text-navy-600 dark:text-navy-400 mb-4">
               Des Moines, IA area · <EmailLink /> ·{" "}
-              <a
+              <OutboundLink
                 href="https://linkedin.com/in/adamaurelio"
-                target="_blank"
-                rel="noopener noreferrer"
+                label="resume-linkedin"
                 className="text-teal-700 dark:text-teal-300 hover:underline"
               >
                 linkedin.com/in/adamaurelio
-              </a>
+              </OutboundLink>
             </p>
             <p className="text-lg text-navy-700 dark:text-navy-200 leading-relaxed">
               Software engineer with 7+ years designing and delivering

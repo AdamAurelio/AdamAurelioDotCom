@@ -1,5 +1,6 @@
 import Reveal from "../components/Reveal";
 import EmailLink from "../components/EmailLink";
+import OutboundLink from "../components/OutboundLink";
 import Seo from "../components/Seo";
 
 // NOTE: verify this GitHub username before shipping.
@@ -15,28 +16,26 @@ const channels = [
   {
     label: "LinkedIn",
     detail: (
-      <a
+      <OutboundLink
         href={LINKEDIN_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        label="contact-linkedin"
         className="text-teal-700 dark:text-teal-300 hover:underline"
       >
         linkedin.com/in/adamaurelio
-      </a>
+      </OutboundLink>
     ),
     note: "Connect, or reach out about a role or collaboration.",
   },
   {
     label: "GitHub",
     detail: (
-      <a
+      <OutboundLink
         href={GITHUB_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        label="contact-github"
         className="text-teal-700 dark:text-teal-300 hover:underline"
       >
         github.com/adamaurelio
-      </a>
+      </OutboundLink>
     ),
     note: "Code, this site, and the occasional experiment.",
   },
