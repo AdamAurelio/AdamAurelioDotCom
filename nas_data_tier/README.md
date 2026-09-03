@@ -27,7 +27,7 @@ when `nas_data_tier/` changes). See [`../docs/AUTOMATION.md`](../docs/AUTOMATION
 Or do it by hand, from this directory:
 
 ```bash
-cp .env.example .env          # then set strong secrets (openssl rand -base64 32)
+cp .env.example .env          # then set strong secrets (openssl rand -hex 32)
 sudo docker compose -f docker-compose.data.yml up -d --build
 
 # On first run, db/schema.sql seeds an example `items` table automatically.
