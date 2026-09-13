@@ -1,23 +1,29 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import ThemeToggle from "./ThemeToggle";
+import Container from "./ui/Container";
+import { navRoutes } from "../routes";
+import { site } from "../content/site";
 
-const navLinks = [
-  { to: "/about", label: "About" },
-  { to: "/resume", label: "Résumé" },
-  { to: "/projects", label: "Projects" },
-  { to: "/how-i-work", label: "How I Work" },
-  { to: "/contact", label: "Contact" },
-];
+// Desktop links: an animated gold underline on hover, held open on the active
+// route. NavLink sets aria-current="page" on the active link for us.
+const desktopLinkClass = ({ isActive }) =>
+  [
+    "relative inline-block font-medium transition-colors",
+    "after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-full after:origin-left after:bg-gold-500 dark:after:bg-gold-400 after:transition-transform after:duration-300",
+    isActive
+      ? "text-teal-700 dark:text-teal-300 after:scale-x-100"
+      : "text-navy-700 dark:text-navy-300 hover:text-teal-700 dark:hover:text-teal-300 after:scale-x-0 hover:after:scale-x-100",
+  ].join(" ");
 
-// NOTE: verify this GitHub username points at your real profile before shipping.
-const GITHUB_URL = "https://github.com/adamaurelio";
-
-const desktopLinkClass =
-  "relative inline-block text-navy-700 dark:text-navy-300 hover:text-teal-700 dark:hover:text-teal-300 font-medium transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-gold-500 dark:after:bg-gold-400 after:transition-transform after:duration-300 hover:after:scale-x-100";
-
-const mobileLinkClass =
-  "block px-4 py-3 rounded-lg text-navy-700 dark:text-navy-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-navy-100 dark:hover:bg-navy-800 font-medium transition-colors";
+const mobileLinkClass = ({ isActive }) =>
+  [
+    "block px-4 py-3 rounded-lg font-medium transition-colors",
+    isActive
+      ? "text-teal-700 dark:text-teal-300 bg-navy-100 dark:bg-navy-800"
+      : "text-navy-700 dark:text-navy-300 hover:text-teal-700 dark:hover:text-teal-300 hover:bg-navy-100 dark:hover:bg-navy-800",
+  ].join(" ");
 
 const iconBtnClass =
   "p-2 rounded-lg text-navy-600 hover:text-teal-700 hover:bg-navy-100 dark:text-navy-300 dark:hover:text-teal-300 dark:hover:bg-navy-800 transition-colors";
@@ -37,38 +43,55 @@ const GitHubIcon = () => (
   </svg>
 );
 
+const MenuIcon = ({ open }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    {open ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M3 6h18M3 12h18M3 18h18" />}
+  </svg>
+);
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <header className="print:hidden bg-navy-50/90 dark:bg-navy-950/90 backdrop-blur border-b border-navy-200 dark:border-navy-800 sticky top-0 z-50 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <Container>
         <div className="flex items-center justify-between h-16">
           <div className="font-serif text-2xl font-bold text-navy-900 dark:text-white">
             <Link
               to="/"
               className="hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
             >
-              Adam Aurelio
+              {site.name}
             </Link>
           </div>
 
           <div className="flex items-center gap-2 md:gap-6">
             {/* Desktop nav */}
-            <nav className="hidden md:block">
+            <nav className="hidden md:block" aria-label="Primary">
               <ul className="flex space-x-8">
-                {navLinks.map(({ to, label }) => (
-                  <li key={to}>
-                    <Link to={to} className={desktopLinkClass}>
+                {navRoutes.map(({ path, label }) => (
+                  <li key={path}>
+                    <NavLink to={path} className={desktopLinkClass}>
                       {label}
-                    </Link>
+                    </NavLink>
                   </li>
                 ))}
               </ul>
             </nav>
 
             <a
-              href={GITHUB_URL}
+              href={site.links.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile"
@@ -86,41 +109,13 @@ const Header = () => {
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="md:hidden p-2 rounded-lg text-navy-600 hover:text-teal-700 hover:bg-navy-100 dark:text-navy-300 dark:hover:text-teal-300 dark:hover:bg-navy-800 transition-colors"
+              className={`md:hidden ${iconBtnClass}`}
             >
-              {menuOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M18 6 6 18M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M3 6h18M3 12h18M3 18h18" />
-                </svg>
-              )}
+              <MenuIcon open={menuOpen} />
             </button>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Mobile dropdown menu — animates height (grid-rows) + opacity. */}
       <div
@@ -133,27 +128,24 @@ const Header = () => {
         <div className="overflow-hidden">
           <nav
             id="mobile-menu"
+            aria-label="Primary, mobile"
             className="border-t border-navy-200 dark:border-navy-800 px-4 py-3"
           >
             <ul className="space-y-1">
-              {navLinks.map(({ to, label }) => (
-                <li key={to}>
-                  <Link
-                    to={to}
-                    onClick={() => setMenuOpen(false)}
-                    className={mobileLinkClass}
-                  >
+              {navRoutes.map(({ path, label }) => (
+                <li key={path}>
+                  <NavLink to={path} onClick={closeMenu} className={mobileLinkClass}>
                     {label}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
               <li>
                 <a
-                  href={GITHUB_URL}
+                  href={site.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setMenuOpen(false)}
-                  className={mobileLinkClass}
+                  onClick={closeMenu}
+                  className={mobileLinkClass({ isActive: false })}
                 >
                   GitHub
                 </a>

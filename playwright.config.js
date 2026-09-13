@@ -13,6 +13,8 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     trace: "on-first-retry",
+    // Reduced motion is applied per page in e2e/fixtures.js (emulateMedia);
+    // the context-level option did not reach the page in this version.
   },
   webServer: {
     command: `npm run preview -- --port ${PORT} --strictPort`,

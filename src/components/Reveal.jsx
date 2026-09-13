@@ -6,18 +6,29 @@ const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Fades + slides its children in when they scroll into view (or on mount, for
- * above-the-fold content). No dependencies; animates only opacity/transform.
- * If the user prefers reduced motion, content renders visible immediately.
+ * Fades + slides its children in when they scroll into view. No dependencies;
+ * animates only opacity/transform. If the user prefers reduced motion, content
+ * renders visible immediately.
  *
  * Props:
  *  - as: element/tag to render (default "div")
  *  - delay: ms transition delay, for staggering siblings
+ *  - immediate: render visible from the first paint, with no animation. Use
+ *    for anything above the fold: a hero or page header that starts at
+ *    opacity 0 delays Largest Contentful Paint and reads as a blank page in
+ *    a throttled background tab. The reveal is for content the visitor
+ *    scrolls to, not content they land on.
  *  - className: extra classes for the rendered element
  */
-const Reveal = ({ children, className = "", delay = 0, as: Tag = "div" }) => {
+const Reveal = ({
+  children,
+  className = "",
+  delay = 0,
+  immediate = false,
+  as: Tag = "div",
+}) => {
   const ref = useRef(null);
-  const [shown, setShown] = useState(prefersReducedMotion);
+  const [shown, setShown] = useState(() => immediate || prefersReducedMotion());
 
   useEffect(() => {
     if (shown) return;
@@ -35,6 +46,14 @@ const Reveal = ({ children, className = "", delay = 0, as: Tag = "div" }) => {
     observer.observe(el);
     return () => observer.disconnect();
   }, [shown]);
+
+  if (immediate) {
+    return (
+      <Tag ref={ref} className={className}>
+        {children}
+      </Tag>
+    );
+  }
 
   return (
     <Tag

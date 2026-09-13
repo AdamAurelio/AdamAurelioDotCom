@@ -32,12 +32,27 @@
   ::selection {
     background-color: rgba(197, 139, 42, 0.25); /* gold */
   }
+
+  /* One visible focus indicator for every interactive element, keyboard-only
+     (:focus-visible), in the gold accent so it reads on both themes. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold-500 ring-offset-2 ring-offset-navy-50 dark:ring-gold-400 dark:ring-offset-navy-950;
+  }
 }
 
 @layer components {
   /* Small mono kicker above section titles — a quiet engineer's fingerprint. */
   .kicker {
     @apply font-mono text-xs uppercase tracking-[0.2em] text-gold-700 dark:text-gold-300;
+  }
+
+  /* "Skip to content": visually hidden until it receives keyboard focus, then
+     pinned at the top-left above the sticky header. */
+  .skip-link {
+    @apply sr-only;
+  }
+  .skip-link:focus {
+    @apply not-sr-only fixed top-3 left-3 z-[100] rounded-lg bg-teal-700 px-4 py-2 font-semibold text-white shadow-lg;
   }
 }
 
@@ -90,6 +105,7 @@
   /* Hide site chrome and any element explicitly marked no-print. */
   header,
   footer,
+  .skip-link,
   .no-print {
     display: none !important;
   }

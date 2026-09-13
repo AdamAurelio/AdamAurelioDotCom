@@ -1,4 +1,5 @@
 import { trackEvent } from "../lib/analytics";
+import { site } from "../content/site";
 
 // Renders a clickable email address whose full "user@domain" string is never
 // present as a contiguous, regex-harvestable literal in the shipped bundle.
@@ -6,9 +7,7 @@ import { trackEvent } from "../lib/analytics";
 // constant-fold it back into one string. Defeats naive email scrapers while
 // keeping a normal mailto: link for humans.
 const EmailLink = () => {
-  const user = "adam.aurelio";
-  const domain = "gmail.com";
-  const address = [user, domain].join("@");
+  const address = [site.email.user, site.email.domain].join("@");
 
   return (
     <a

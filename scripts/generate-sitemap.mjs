@@ -7,31 +7,27 @@
 // lastmod it judges to be auto-stamped. Reintroduce it only if it is wired to
 // real per-page modification dates.
 //
-// ROUTES must track the <Route> list in src/App.jsx. There is no NotFound entry
-// here on purpose: a catch-all route is not a page worth indexing.
+// The route list comes from src/routes.js — the same manifest the router and
+// the header read — so a page cannot exist without being in the sitemap. The
+// catch-all 404 route is not in the manifest on purpose: it is not a page
+// worth indexing.
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { routes } from "../src/routes.js";
 
 const BASE_URL = "https://adamaurelio.com";
 
-const ROUTES = [
-  { path: "/", priority: "1.0", changefreq: "monthly" },
-  { path: "/resume", priority: "0.9", changefreq: "monthly" },
-  { path: "/projects", priority: "0.8", changefreq: "monthly" },
-  { path: "/about", priority: "0.7", changefreq: "yearly" },
-  { path: "/how-i-work", priority: "0.7", changefreq: "yearly" },
-  { path: "/contact", priority: "0.6", changefreq: "yearly" },
-];
-
-const urls = ROUTES.map(
-  ({ path, priority, changefreq }) => `  <url>
+const urls = routes
+  .map(
+    ({ path, priority, changefreq }) => `  <url>
     <loc>${BASE_URL}${path}</loc>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`
-).join("\n");
+  )
+  .join("\n");
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -49,4 +45,4 @@ const outPath = resolve(
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, sitemap, "utf8");
 
-console.log(`sitemap: ${ROUTES.length} routes → ${outPath}`);
+console.log(`sitemap: ${routes.length} routes → ${outPath}`);

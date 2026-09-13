@@ -1,13 +1,13 @@
 name: CI
 
-# Lint + build on every PR and on pushes to dev.
+# Lint + build on every PR and on pushes to develop (the working branch).
 # Catches build breaks (including filename-casing issues, since CI runs Linux)
 # before anything reaches QA or production.
 on:
   push:
-    branches: [dev]
+    branches: [develop]
   pull_request:
-    branches: [dev, main]
+    branches: [develop, main]
 
 # Least-privilege token. gitleaks-action needs pull-requests:read to enumerate a
 # PR's commits (otherwise it 403s on GET /pulls/{n}/commits); checkout needs
