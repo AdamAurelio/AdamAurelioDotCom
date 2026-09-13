@@ -20,11 +20,20 @@ npm run dev        # http://localhost:5173
 
 ## Environments
 
-| Env  | Where            | How                                                    |
-|------|------------------|--------------------------------------------------------|
-| Dev  | Local machine    | `npm run dev` — see [docs/DEV_SETUP.md](docs/DEV_SETUP.md) |
-| QA   | Synology NAS     | Docker + nginx — see [docs/QA_SYNOLOGY_SETUP.md](docs/QA_SYNOLOGY_SETUP.md) |
-| Prod | AWS S3+CloudFront| Auto-deploy on `main` — see [docs/PROD_AWS_SETUP.md](docs/PROD_AWS_SETUP.md) |
+| Env  | Status | Where            | How                                                    |
+|------|--------|------------------|--------------------------------------------------------|
+| Dev  | ✅ Working | Local machine    | `npm run dev` — see [docs/DEV_SETUP.md](docs/DEV_SETUP.md) |
+| QA   | ⬜ Not set up | Synology NAS     | Docker + nginx — see [docs/QA_SYNOLOGY_SETUP.md](docs/QA_SYNOLOGY_SETUP.md) |
+| Prod | ✅ **Live** | AWS S3+CloudFront| Auto-deploy on `main` — see [docs/PROD_AWS_SETUP.md](docs/PROD_AWS_SETUP.md) |
+
+## Tracking
+
+Open work lives in **[GitHub Issues](../../issues)**, organised on the repo's
+**[Projects board](../../projects)**. Instructions live in `docs/`.
+
+> Rule of thumb: **instructions belong in `docs/`, work items belong on the
+> board.** If you're about to add a checkbox to a Markdown file, it probably
+> wants to be an issue instead.
 
 ## Documentation
 

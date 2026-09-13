@@ -55,7 +55,7 @@ npm run test:e2e    # Playwright: every route loads, no JS errors, axe clean,
 - **No secrets, no PII, no third-party scripts** without widening the CSP in all four
   places named in `src/lib/analytics/providers.js`.
 - **Security headers are hand-maintained in three places** — keep `infra/`,
-  `nginx.conf`, and Terraform in sync (see `TODO.md` §4).
+  `nginx.conf`, and Terraform in sync (see `infra/README.md` §7 and `docs/QA_SYNOLOGY_SETUP.md`).
 - **Record decisions.** New dependency, new page type, new hosting behaviour → an ADR.
   Update `CHANGELOG.md` under *Unreleased*.
 - **Branches:** work on `develop`; `main` auto-deploys to production on merge.
