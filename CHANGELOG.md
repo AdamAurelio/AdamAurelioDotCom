@@ -17,7 +17,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > AI-generated code and docs are reviewed to the same standard as hand-written
 > work before commit — per the ADAM model's AI-assistant standard._
 
+### Changed
+- **Site foundation pass (2026-09-12)** — restructured so the résumé is one
+  section of a personal site that can grow, without changing the stack:
+  - **Content layer** — all page text moved to `src/content/*.js`; pages are
+    templates over data. Site identity (name, links, email parts) lives once in
+    `src/content/site.js`.
+  - **Route manifest** — `src/routes.js` feeds the router, the header nav, and
+    the sitemap generator (previously three hand-kept copies). `src/pages/index.js`
+    maps paths to lazy-loaded page chunks.
+  - **UI primitives** — `src/components/ui/`: `ButtonLink`, `Card`, `Section`,
+    `PageHeader`, `Container`, replacing ~10 repeated button/card class strings.
+  - **Route-level code splitting** — each page is its own chunk; the shell is
+    ≈79 kB gzip (was 88 kB for everything).
+  - **Home CTA** — "See my work" now goes to Projects (the work showcase) and
+    reads "See my projects"; the résumé keeps its own nav entry. The "Beyond the
+    code" band is a warm gold-paper surface in light mode so the page no longer
+    ends in two stacked navy blocks.
+  - **Repo `CLAUDE.md`** — points at the `agentic_engineering` standards this
+    project adopts and the gates it runs; `docs/MODEL_CONFORMANCE.md` refreshed
+    against the consolidated workspace path.
+  - **README** — React Router version corrected to 8.
+
+### Added
+- **Accessibility** — "Skip to content" link; one global `:focus-visible` ring;
+  scroll reset + focus moved to `<main>` on client-side navigation (a SPA gets
+  neither for free); `aria-current="page"` on the active nav link;
+  `eslint-plugin-jsx-a11y` in the lint gate.
+- **Tests** — behaviour tests for Header, ThemeToggle, Layout, ButtonLink, and
+  the manifest ↔ pages ↔ sitemap contract (16 → 31 unit tests). E2E now scans
+  **every** route with axe across all WCAG 2.x A/AA tag sets and fails on any
+  violation (was: home only, critical only), asserts no uncaught page errors,
+  and includes an `@harness` self-check that proves the error collector and
+  the scan can fail — a green run is only evidence if it could have gone red.
+- **Above-the-fold rendering** — `<Reveal immediate>` / `PageHeader` render
+  hero content visible at first paint instead of gating it on an
+  IntersectionObserver and a 500 ms fade (better LCP; no blank page in a
+  throttled tab).
+
 ### Fixed
+- **CI never ran on the working branch** — `ci.yml` triggered on `dev`, but
+  the branch is `develop`. Pushes to `develop` now lint, build, test, and audit.
+- **Projects analytics label** — the outbound "View source" click passed
+  `project.title` (undefined); now `project.name`.
+- **Stale "verify this GitHub username" notes** and mixed-case GitHub URLs —
+  one value in `site.js`.
 - **CI secret-scanning step** — added a least-privilege `permissions:` block
   (`contents: read`, `pull-requests: read`) to `.github/workflows/ci.yml`.
   Without it, `gitleaks-action` 403'd on `GET /pulls/{n}/commits` when

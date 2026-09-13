@@ -20,3 +20,21 @@ resource "aws_route53_record" "alias" {
     evaluate_target_health = false
   }
 }
+
+# ── Google Search Console domain verification ────────────────────────────────
+# Domain-level (DNS) verification is preferred over the HTML-file and meta-tag
+# methods: it covers apex and every subdomain at once, and it cannot be broken
+# by a deploy that overwrites the site's files.
+#
+# Route 53 allows only one TXT record set per name, so if the apex ever needs
+# other TXT values (SPF, DMARC, another verification), they must be added to
+# `records` here rather than as a second resource.
+resource "aws_route53_record" "google_site_verification" {
+  count = var.google_site_verification == "" ? 0 : 1
+
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = var.domain_name
+  type    = "TXT"
+  ttl     = 300
+  records = ["google-site-verification=${var.google_site_verification}"]
+}

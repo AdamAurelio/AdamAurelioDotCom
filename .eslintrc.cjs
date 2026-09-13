@@ -6,10 +6,14 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
+    // Static accessibility checks on JSX (Frontend Standards §9). Catches the
+    // mechanical half — missing alt, labels, roles — so the axe scan in e2e
+    // only has to find what a linter can't.
+    "plugin:jsx-a11y/recommended",
   ],
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   settings: { react: { version: "detect" } },
-  plugins: ["react-refresh"],
+  plugins: ["react-refresh", "jsx-a11y"],
   ignorePatterns: [
     "dist",
     "build",
@@ -31,6 +35,7 @@ module.exports = {
       // Config + E2E + test files run under Node / test runners, not the browser.
       files: [
         "*.config.js",
+        "*.mjs",
         "playwright.config.js",
         "e2e/**/*.{js,jsx}",
         "src/test/**/*.{js,jsx}",

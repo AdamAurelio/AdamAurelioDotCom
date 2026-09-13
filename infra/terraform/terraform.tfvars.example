@@ -21,3 +21,24 @@ price_class = "PriceClass_100"
 # Set true to have Terraform write the repo's Actions secret/variables for you.
 # Requires a GITHUB_TOKEN (repo scope) in the environment when you apply.
 # manage_github_actions_config = true
+
+# ── Monitoring (monitoring.tf) ───────────────────────────────────────────────
+# Off by default: monitoring.tf applies nothing until this is true. None of it
+# bills at this scale (first 2 budgets free, alarms within CloudWatch's 10-alarm
+# free tier, 1,000 SNS emails/month free) — it is opt-in only so the account
+# stays empty until you want the alerts.
+# enable_monitoring = true
+
+# Address subscribed to the alerts topic. AWS emails a confirmation link — until
+# it is clicked, alerts are created but silently discarded.
+# alert_email = "you@example.com"
+
+# Alarm thresholds and the monthly cost guardrail. Defaults: 1% / 25% / $5.
+# cloudfront_5xx_threshold_percent = 1
+# cloudfront_4xx_threshold_percent = 25
+# monthly_budget_usd               = 5
+
+# ── Google Search Console (dns.tf) ───────────────────────────────────────────
+# TXT token from Search Console's Domain verification, value only (no
+# "google-site-verification=" prefix). Empty skips the record entirely.
+# google_site_verification = "abc123def456..."

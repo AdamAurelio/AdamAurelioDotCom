@@ -82,7 +82,8 @@
       "Bash(git push *)",
       "Bash(git ls-remote *)",
       "PowerShell(foreach \\($p in @\\(8080,3001,5432\\)\\) { $t = Test-NetConnection -ComputerName 192.168.50.223 -Port $p -WarningAction SilentlyContinue -InformationLevel Quiet; \"NAS:{0} reachable from my LAN host = {1}\" -f $p, $t })",
-      "Bash(ssh *)"
+      "Bash(ssh *)",
+      "WebSearch"
     ]
   }
 }

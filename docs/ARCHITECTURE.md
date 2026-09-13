@@ -10,7 +10,7 @@ it cheap, fast, and effectively infinitely scalable: a CDN serves files.
    ───────────────────▶│  npm run dev (Vite, HMR) :5173           │
                        │  or: docker compose -f docker-compose.dev │
                        └──────────────────────────────────────────┘
-                                        │ open PR / push dev
+                                        │ open PR / push develop
                                         ▼
                        ┌──────────────────────────────────────────┐
    GitHub Actions CI   │  CI (ci.yml): lint · build · unit · e2e   │
@@ -103,7 +103,7 @@ fully reversible — see [`PROD_NAS_DATA_TIER.md`](PROD_NAS_DATA_TIER.md) and
 
 | Branch | Environment | Trigger |
 |--------|-------------|---------|
-| `dev`  | local + CI  | day-to-day work; CI lints, builds, tests, validates the data tier |
+| `develop` | local + CI | day-to-day work; CI lints, builds, tests, validates the data tier |
 | `qa`   | Synology    | NAS pulls + rebuilds via `qa-update.sh` / `data-tier-update.sh` (timer or by hand) — pull-based, ADR-0005 |
 | `main` | AWS prod    | push → `deploy-prod.yml` deploys; changes under `infra/terraform/**` → `infra.yml` runs a gated `terraform apply` (ADR-0007) |
 

@@ -52,5 +52,5 @@ Open work lives in **[GitHub Issues](../../issues)**, organised on the repo's
 
 ## Tech stack
 
-React 19 · React Router 7 · Vite 6 · Tailwind CSS v3 · nginx (QA) · AWS S3 +
+React 19 · React Router 8 · Vite 6 · Tailwind CSS v3 · nginx (QA) · AWS S3 +
 CloudFront (prod) · GitHub Actions (CI/CD).

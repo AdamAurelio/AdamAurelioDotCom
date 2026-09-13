@@ -5,17 +5,12 @@
 // library. Structured data (JSON-LD) is emitted as a plain script tag, which
 // search engines parse wherever it appears in the document.
 
-const SITE_NAME = "Adam Aurelio";
-const BASE_URL = "https://adamaurelio.com";
-const DEFAULT_DESCRIPTION =
-  "Adam Aurelio — software engineer in Des Moines, Iowa. I build dependable " +
-  "systems and the teams that keep them running: full-stack, automation, " +
-  "access governance, and spec-driven AI-assisted engineering.";
+import { site } from "../content/site";
 
-const Seo = ({ title, description = DEFAULT_DESCRIPTION, path = "", jsonLd }) => {
-  const fullTitle = title ? `${title} · ${SITE_NAME}` : `${SITE_NAME} · Software Engineer`;
-  const url = `${BASE_URL}${path}`;
-  const image = `${BASE_URL}/profile.jpg`;
+const Seo = ({ title, description = site.description, path = "", jsonLd }) => {
+  const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`;
+  const url = `${site.baseUrl}${path}`;
+  const image = `${site.baseUrl}${site.images.profile}`;
 
   return (
     <>
@@ -24,7 +19,7 @@ const Seo = ({ title, description = DEFAULT_DESCRIPTION, path = "", jsonLd }) =>
       <link rel="canonical" href={url} />
 
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content={SITE_NAME} />
+      <meta property="og:site_name" content={site.name} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />

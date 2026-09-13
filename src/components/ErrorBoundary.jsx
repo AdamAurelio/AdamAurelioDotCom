@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { trackError } from "../lib/analytics";
+import { reportError } from "../lib/monitoring";
 
 /**
  * Top-level error boundary (ADAM model, Frontend §8: errors must never fail
@@ -20,10 +22,14 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
-    // Single place to report errors. For a static site this logs locally; when a
-    // telemetry sink is added, send here (and widen CSP `connect-src` to it).
-    // Never surface `error`/`info` to the user — they can contain internals.
+    // Single place to report errors. Never surface `error`/`info` to the user —
+    // they can contain internals. The analytics sink forwards only the message
+    // and component stack; with the default `none`/`debug` providers nothing
+    // leaves the browser, so no CSP change is needed until a real backend is
+    // configured (see src/lib/analytics/providers.js).
     console.error("Unhandled UI error:", error, info);
+    trackError(error, info); // product signal (debug buffer / analytics)
+    reportError(error, info); // operational signal (Sentry)
   }
 
   render() {

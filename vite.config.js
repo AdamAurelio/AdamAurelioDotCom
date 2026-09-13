@@ -6,6 +6,13 @@ import react from "@vitejs/plugin-react";
 // or served by nginx (qa). See docs/ARCHITECTURE.md.
 export default defineConfig({
   plugins: [react()],
+  // Sentry ships these as build-time flags so bundlers can drop code paths this
+  // app never uses. Tracing and debug logging together are the bulk of the SDK;
+  // only error capture is wanted here. See src/lib/monitoring.js.
+  define: {
+    __SENTRY_DEBUG__: false,
+    __SENTRY_TRACING__: false,
+  },
   build: {
     outDir: "dist",
     sourcemap: false,
