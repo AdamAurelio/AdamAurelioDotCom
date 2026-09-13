@@ -40,14 +40,17 @@ test.describe("smoke", () => {
     // The route chunk is lazy; the page has no height until it renders.
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+    // Polling: layout can settle a frame after the h1 is visible, and the
+    // reset runs in an effect after the route change — sample-once reads
+    // were flaky under parallel workers.
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
 
     await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "About" }).click();
     await expect(page).toHaveURL(/\/about$/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
-    expect(await page.evaluate(() => window.scrollY)).toBe(0);
-    expect(await page.evaluate(() => document.activeElement?.id)).toBe("main");
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+    await expect.poll(() => page.evaluate(() => document.activeElement?.id)).toBe("main");
   });
 
   test("the active nav link is marked with aria-current", async ({ page }) => {
