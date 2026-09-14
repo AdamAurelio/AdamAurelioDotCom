@@ -17,6 +17,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > AI-generated code and docs are reviewed to the same standard as hand-written
 > work before commit — per the ADAM model's AI-assistant standard._
 
+### Fixed
+- **NAS self-update agents failed silently under Task Scheduler (2026-09-13)** —
+  a scheduled task runs with a bare `/usr/bin:/bin:/usr/sbin:/sbin`, which holds
+  neither the Git Server package's `git` nor Container Manager's `docker`, so
+  both agents died on their first `git` call. Because Task Scheduler discards
+  output, the failure was invisible: the QA mirror went a month without fetching
+  while still serving a stale build and reporting `healthy`.
+  - `rc_ensure_path()` in `scripts/lib/refresh-common.sh` now prepends the DSM
+    package directories (Container Manager, Git Server under any `/volume*`,
+    Entware) at source time. Idempotent, and it never shadows a binary that
+    already resolves.
+  - `rc_require()` reports a missing command by name along with the PATH it
+    searched, instead of a bare "command not found" in an unread log.
+  - `rc_detect_compose()` now separates "docker is missing" from "the daemon is
+    unreachable", the latter naming the user and pointing at root. Previously a
+    permissions failure surfaced as the misleading "neither 'docker compose' nor
+    'docker-compose' is available" — or worse, as a cheerful "Nothing to do",
+    since `rc_compose_running()` deliberately treats an errored `ps` as running.
+  - `docs/QA_SYNOLOGY_SETUP.md` gains a "confirm the timer is actually running"
+    step (check `FETCH_HEAD` freshness) and explains why the log redirect in the
+    task's command matters.
+
 ### Changed
 - **Site foundation pass (2026-09-12)** — restructured so the résumé is one
   section of a personal site that can grow, without changing the stack:

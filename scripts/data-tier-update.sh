@@ -42,6 +42,7 @@ if [ ! -f "$REPO_DIR/nas_data_tier/.env" ]; then
 fi
 
 rc_acquire_lock "$REPO_DIR/.data-tier-update.lock"
+rc_require git || exit 1
 rc_detect_compose || exit 1
 rc_fetch "$DATA_BRANCH"
 
