@@ -32,6 +32,7 @@ cd "$REPO_DIR"
 . "$SCRIPT_DIR/lib/refresh-common.sh"
 
 rc_acquire_lock "$REPO_DIR/.qa-update.lock"
+rc_require git || exit 1
 rc_detect_compose || exit 1
 rc_fetch "$QA_BRANCH"
 

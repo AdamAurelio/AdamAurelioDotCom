@@ -167,6 +167,36 @@ Because the script is change-aware, most ticks do nothing (and cost nothing); it
 only rebuilds after you push to the QA branch. Tail `/var/log/qa-update.log` to
 see what each run did.
 
+> **Keep the `>> …log 2>&1` redirect.** Task Scheduler discards a task's output
+> otherwise, and a scheduled agent that fails on every tick looks exactly like
+> one that had nothing to do — the NAS keeps serving a stale build and says
+> nothing. The log is the only place that distinction shows up.
+
+**PATH is handled for you.** A scheduled task runs with a bare
+`/usr/bin:/bin:/usr/sbin:/sbin`, which contains neither the Git Server package's
+`git` nor Container Manager's `docker`. The agents prepend the DSM package
+directories themselves (`rc_ensure_path` in
+[`scripts/lib/refresh-common.sh`](../scripts/lib/refresh-common.sh)), so you do
+not need to set `PATH` in the task. If your packages live somewhere unusual, add
+the directory to that function rather than to each task.
+
+#### Confirm the timer is actually running
+
+A silent agent is the failure mode worth checking for. After the first few
+ticks, on the NAS:
+
+```bash
+# When did the agent last reach GitHub? Should be minutes ago, not months.
+ls -l --time-style=+%Y-%m-%d\ %H:%M /volume1/path/to/AdamAurelioDotCom/.git/FETCH_HEAD
+
+# What did the recent ticks actually do?
+tail -20 /var/log/qa-update.log
+```
+
+A `FETCH_HEAD` timestamp that never advances means the task is not running, or
+is failing before its first fetch — check the log, then run the script by hand
+as root to see the error directly.
+
 **Data tier:** the on-prem API + Postgres has its own change-aware agent,
 `scripts/data-tier-update.sh` — add a second scheduled task for it. It rebuilds
 only when something under `nas_data_tier/` actually changes, so the database and
