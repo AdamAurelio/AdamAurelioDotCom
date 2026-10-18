@@ -40,6 +40,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     task's command matters.
 
 ### Changed
+- **Résumé synced to the 2026 master résumé (2026-10-18)** — `src/content/resume.js`
+  now mirrors `Adam_Aurelio_Resume_2026.docx` (the October 12 revision): new
+  summary (10+ years), four skill groups, regrouped experience bullets, and
+  community roles marked *former*. The revision dropped claims still awaiting
+  evidence, so the site drops them too:
+  - The ~80% provisioning, ~32 hours/week, and 3-weeks-to-under-5-days figures
+    are gone from the résumé and the Projects access-governance card.
+  - "Architected" → "Developed"; "central builder" / "adopted across the
+    enterprise" wording is softened on the résumé, Home, About, and Projects.
+  - Certifications no longer carry a "valid through 2029" date.
+  - Home and About say ten-plus years, matching the résumé.
 - **Site foundation pass (2026-09-12)** — restructured so the résumé is one
   section of a personal site that can grow, without changing the stack:
   - **Content layer** — all page text moved to `src/content/*.js`; pages are
