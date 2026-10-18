@@ -49,16 +49,16 @@ const About = () => {
             there&apos;s a person on the other end of the error message.
           </p>
           <p>
-            Over seven-plus years I grew into building the systems I used to
+            Over ten-plus years I grew into building the systems I used to
             support: PL/SQL and .NET services behind mission-critical business
             processes, Oracle APEX applications, resilient RPA automations, and
             the access-governance workflows that keep a regulated utility
             compliant. Lately I&apos;ve been pushing into full-stack React,
-            Databricks, and cloud — and helping build our company&apos;s
-            spec-driven, AI-assisted development practice from the inside: the
-            specs, standards, and delivery paths that my team and engineers
-            across the enterprise now use. Adopting AI the right way, not just
-            the fast way.
+            Databricks, and cloud — and helping shape our company&apos;s
+            spec-driven, AI-assisted development practice from the inside:
+            evaluating frameworks, demonstrating a gated workflow with a human
+            in the loop, and authoring a proposed solution design. Adopting AI
+            the right way, not just the fast way.
           </p>
           <p>
             Somewhere in there I became the person others come to when

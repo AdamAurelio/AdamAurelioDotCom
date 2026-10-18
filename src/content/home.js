@@ -8,7 +8,7 @@ export const roles = [
 ];
 
 export const intro =
-  "Seven-plus years turning messy, high-stakes problems into automation, " +
+  "Ten-plus years turning messy, high-stakes problems into automation, " +
   "integrations, and applications people can trust. I care about the details " +
   "most people never see — the retry that saves a 2 a.m. page, the audit trail " +
   "that passes the review, the onboarding doc that ramps a teammate a week faster.";
@@ -28,12 +28,12 @@ export const whatIDo = [
   },
   {
     title: "Spec-Driven Development",
-    body: "A central builder of my company's spec-driven, AI-assisted delivery practice — source-controlled specs and shared standards that my team and engineers across the enterprise ship with.",
+    body: "Helping shape my company's spec-driven, AI-assisted delivery practice — evaluating frameworks and demonstrating a gated workflow that turns requirements into reviewed Azure DevOps work items.",
   },
 ];
 
 export const numbers = [
-  { value: 7, suffix: "+", label: "Years building" },
+  { value: 10, suffix: "+", label: "Years building" },
   { value: 5, label: "Developers I lead" },
   { value: 3, label: "CompTIA certifications" },
 ];

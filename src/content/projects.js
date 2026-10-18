@@ -11,21 +11,21 @@ export const projects = [
     name: "Enterprise Access-Governance Platform",
     stack: ["Python", "Oracle SQL", "REST APIs"],
     blurb:
-      "A full-stack application that automates security-access provisioning into Oracle Fusion. It replaced a manual, multi-team approval chain with an automated workflow — compressing a 3-week cycle to under 5 days while adding complete, built-in audit trails for compliance.",
+      "Access-governance functionality for Oracle Fusion security management, integrating Python APIs with Oracle SQL. Recent work includes a shopping cart that lets users stage multiple access requests in one session, performance enhancements, and approval and provisioning-status logic with exception handling and manager notification routing.",
     tags: ["Automation", "Security", "Full-stack"],
   },
   {
     name: "Spec-Driven Development Practice",
     stack: ["OpenSpec", "SpecKit", "GitHub Copilot", "Copilot Studio"],
     blurb:
-      "Co-built my company's spec-driven, AI-assisted delivery practice: source-controlled specifications, reusable prompts and standards, and delivery paths spanning Oracle APEX, Databricks, and conventional stacks — adopted by my team and engineers across the enterprise.",
+      "Contributing to my company's spec-driven, AI-assisted delivery practice: evaluating spec-driven development frameworks, helping develop a business requirements agent, and demonstrating a gated workflow that gathers requirements and creates and updates Azure DevOps work items through Azure CLI.",
     tags: ["AI", "Process", "Enablement"],
   },
   {
     name: "UiPath Center of Excellence",
     stack: ["UiPath", ".NET (C# / VB)", "Azure DevOps", "Docker"],
     blurb:
-      "Established the organization's RPA practice from the ground up: reusable automation frameworks, resilient bots with retry/idempotency patterns, and CI/CD pipelines so automations deploy and recover predictably instead of failing silently.",
+      "Built the CI/CD and deployment process for the organization's RPA Center of Excellence (2021–2022): a deployment pipeline with automated rollback, change control across affiliates, and standardized deployment documentation — plus resilient UiPath automations with retry and idempotency patterns.",
     tags: ["RPA", "DevOps", "Platform"],
   },
   {

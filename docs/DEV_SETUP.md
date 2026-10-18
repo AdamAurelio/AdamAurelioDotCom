@@ -49,11 +49,10 @@ per-environment command map.
 
 ## Editing content
 
-- **Resume:** `src/pages/Resume.jsx`
+- **Resume:** `src/content/resume.js` (text) — `src/pages/Resume.jsx` is only the layout
 - **Home/landing:** `src/pages/Home.jsx`
 - **Nav links:** `src/components/Header.jsx`
 - **Footer / social links:** `src/components/Footer.jsx`
-- The reference text for the resume lives at `docs/Resume Text.md`.
 
 ## Workflow
 
