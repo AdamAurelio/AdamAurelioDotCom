@@ -78,6 +78,18 @@ Container Manager's `docker` is at `/usr/local/bin/docker`, which is **not** on
 Task Scheduler's default PATH — the scripts add it themselves, so invoke them
 directly rather than wrapping them in `docker ...` commands.
 
+The tasks run as `root`, but each checkout belongs to the user who cloned it, and
+Git refuses a repository owned by someone else ("detected dubious ownership").
+A `sudo` run by hand still passes — Git trusts the user behind `sudo` — so the
+failure only shows in the task's log. Mark both checkouts trusted once (the
+`PATH` prefix is because the Git package isn't on `sudo`'s path):
+
+```bash
+G='/volume1/@appstore/Git/bin:/usr/local/git/bin'
+sudo env "PATH=$G:$PATH" git config --system --add safe.directory /volume1/docker/AdamAurelioDotCom
+sudo env "PATH=$G:$PATH" git config --system --add safe.directory /volume1/docker/adamaurelio-data-tier
+```
+
 ### Backups (the one thing Git can't rebuild)
 
 The website is reproducible from the repo; the database is not. Schedule a

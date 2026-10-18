@@ -100,15 +100,23 @@ rc_detect_compose() {
 
 # Single-instance lock via atomic mkdir; auto-released on EXIT. A concurrent run
 # (e.g. an overlapping timer tick) exits 0 without touching anything.
+# A caller that sets its own EXIT trap replaces this one, so that trap must call
+# rc_release_lock itself — otherwise the lock outlives the run and every later
+# run exits here as if one were still in progress.
 # Arg: lock directory path.
 rc_acquire_lock() {
-  local lock_dir="$1"
-  if ! mkdir "$lock_dir" 2>/dev/null; then
-    rc_log "Another run is in progress (lock: $lock_dir). Exiting."
+  RC_LOCK_DIR="$1"
+  if ! mkdir "$RC_LOCK_DIR" 2>/dev/null; then
+    rc_log "Another run is in progress (lock: $RC_LOCK_DIR). Exiting."
     exit 0
   fi
-  # shellcheck disable=SC2064 -- expand $lock_dir now, not at trap time.
-  trap "rmdir '$lock_dir' 2>/dev/null || true" EXIT
+  trap rc_release_lock EXIT
+}
+
+rc_release_lock() {
+  if [ -n "${RC_LOCK_DIR:-}" ]; then
+    rmdir "$RC_LOCK_DIR" 2>/dev/null || true
+  fi
 }
 
 # Fetch a branch; export old/new HEAD as RC_LOCAL / RC_REMOTE. Arg: branch.
