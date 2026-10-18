@@ -53,8 +53,10 @@ chmod 700 "$BACKUP_DIR"
 
 dest="$BACKUP_DIR/${DB_NAME}_$(date +%F_%H%M%S).dump"
 tmp="$dest.partial"
-# Any early exit leaves no half-written file behind.
-trap 'rm -f "$tmp"' EXIT
+# Any early exit leaves no half-written file behind. This replaces the lock's
+# EXIT trap, so it releases the lock too — even if the rm fails (set -e would
+# otherwise abort the trap before the release).
+trap 'rm -f "$tmp" || true; rc_release_lock' EXIT
 
 rc_log "Dumping '$DB_NAME' from '$DB_CONTAINER'..."
 if ! docker exec "$DB_CONTAINER" pg_dump -U "$DB_USER" -Fc "$DB_NAME" >"$tmp" 2>/tmp/pg_dump.err; then
@@ -69,7 +71,7 @@ if ! docker exec -i "$DB_CONTAINER" pg_restore --list >/dev/null 2>&1 <"$tmp"; t
 fi
 
 mv "$tmp" "$dest"
-trap - EXIT
+trap rc_release_lock EXIT
 chmod 600 "$dest"
 rc_log "Backup OK: $dest ($(du -h "$dest" | cut -f1))"
 
