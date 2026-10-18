@@ -107,7 +107,7 @@ That's why edits appear in well under a second.
 | `npm run preview` | Serve the built `dist/` locally to sanity-check a build  |
 
 ### Where content lives
-- Resume → `src/pages/Resume.jsx` (source text: `docs/Resume Text.md`)
+- Resume → `src/content/resume.js` (text); `src/pages/Resume.jsx` is the layout
 - Landing page → `src/pages/Home.jsx`
 - Nav links → `src/components/Header.jsx`
 - Footer/social → `src/components/Footer.jsx`

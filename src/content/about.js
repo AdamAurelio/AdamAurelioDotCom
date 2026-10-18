@@ -22,15 +22,15 @@ export const values = [
 
 export const community = [
   {
-    role: "Coach — Iowa United Select 14U Girls",
+    role: "Former Head Coach — Iowa United Select 14U Girls",
     body: "Teaching kids that effort and composure beat talent on a bad day.",
   },
   {
-    role: "Director of Volunteers — Prior Iowa Asian Alliance",
+    role: "Former Director of Volunteers — Iowa Asian Alliance",
     body: "Organizing people around service and celebrating the community and heritage I come from.",
   },
   {
-    role: "A/V Team Lead — Walnut Creek Community Church",
-    body: "Faith and family are the foundation I build everything else on; serving on the tech team is one small way I give back.",
+    role: "Former A/V Team Lead — Walnut Creek Community Church",
+    body: "Faith and family are the foundation I build everything else on; leading the tech team was one small way I gave back.",
   },
 ];
