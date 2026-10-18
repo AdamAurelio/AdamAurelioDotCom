@@ -78,6 +78,24 @@ Container Manager's `docker` is at `/usr/local/bin/docker`, which is **not** on
 Task Scheduler's default PATH — the scripts add it themselves, so invoke them
 directly rather than wrapping them in `docker ...` commands.
 
+The tasks run as `root`, but each checkout belongs to the user who cloned it, and
+Git refuses a repository owned by someone else ("detected dubious ownership").
+A `sudo` run by hand still passes — Git trusts the user behind `sudo` — so the
+failure only shows in the task's log. Mark both checkouts trusted once, in
+root's own Git config — the file the tasks read. Name the file explicitly:
+`sudo` on DSM can keep your `HOME`, so `--global` may write to your config
+instead, and `--system` fails because the Git package ships no `etc/`
+directory. The `PATH` prefix is because the Git package isn't on `sudo`'s path:
+
+```bash
+G='/volume1/@appstore/Git/bin:/usr/local/git/bin'
+sudo env "PATH=$G:$PATH" git config --file /root/.gitconfig --add safe.directory /volume1/docker/AdamAurelioDotCom
+sudo env "PATH=$G:$PATH" git config --file /root/.gitconfig --add safe.directory /volume1/docker/adamaurelio-data-tier
+```
+
+To confirm, click **Run** on each task: its log should end in "Already up to
+date". If "dubious ownership" reappears after a DSM update, run these again.
+
 ### Backups (the one thing Git can't rebuild)
 
 The website is reproducible from the repo; the database is not. Schedule a

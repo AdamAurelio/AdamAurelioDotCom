@@ -18,6 +18,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > work before commit — per the ADAM model's AI-assistant standard._
 
 ### Fixed
+- **Nightly data-tier backup ran once, then never again (2026-10-18)** —
+  `data-tier-backup.sh` replaced the EXIT trap that `rc_acquire_lock` installs to
+  release its lock, then cleared it, so the lock directory outlived every run
+  that reached the dump. Each later run exited 0 with "Another run is in progress":
+  Task Scheduler reported success while no dump was written.
+  - `refresh-common.sh` gains `rc_release_lock`; the backup script's own traps
+    call it, on success and on every failure path.
+  - Removes a malformed `# shellcheck disable=… --` directive that stopped
+    shellcheck from parsing `refresh-common.sh` at all.
+  - A NAS that already ran the old script holds a stale lock: remove it once
+    with `sudo rmdir /tmp/data-tier-backup.lock`.
+  - `docs/AUTOMATION.md` now covers marking both checkouts `safe.directory`.
+    The tasks run as root against user-owned checkouts, which Git refuses
+    ("dubious ownership"), while `sudo` runs by hand pass — so it only showed in
+    the task logs.
 - **NAS self-update agents failed silently under Task Scheduler (2026-09-13)** —
   a scheduled task runs with a bare `/usr/bin:/bin:/usr/sbin:/sbin`, which holds
   neither the Git Server package's `git` nor Container Manager's `docker`, so
