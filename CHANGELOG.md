@@ -42,15 +42,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **Résumé synced to the 2026 master résumé (2026-10-18)** — `src/content/resume.js`
   now mirrors `Adam_Aurelio_Resume_2026.docx` (the October 12 revision): new
-  summary (10+ years), four skill groups, regrouped experience bullets, and
-  community roles marked *former*. The revision dropped claims still awaiting
-  evidence, so the site drops them too:
+  summary (10+ years), four skill groups (JavaScript, React, Node.js, ORDS, and
+  the Copilot tools are no longer listed there), regrouped experience bullets,
+  and community roles marked *former* ("Coach" → "Former Head Coach"). The
+  revision dropped claims still awaiting evidence, so the site drops them too:
   - The ~80% provisioning, ~32 hours/week, and 3-weeks-to-under-5-days figures
-    are gone from the résumé and the Projects access-governance card.
-  - "Architected" → "Developed"; "central builder" / "adopted across the
-    enterprise" wording is softened on the résumé, Home, About, and Projects.
+    are removed from the résumé; the 3-week figure is also removed from the
+    Projects access-governance card.
+  - "Architected" → "Developed". The "central builder" and "adopted across the
+    enterprise" wording is removed from the résumé, Home, About, and Projects;
+    the Home card, About story, and both Projects blurbs are rewritten from the
+    résumé's bullets.
   - Certifications no longer carry a "valid through 2029" date.
   - Home and About say ten-plus years, matching the résumé.
+  - Internal project names in the docx (the access-manager, tax, solution-design,
+    and safety applications) are replaced with generic descriptions on the
+    public site; whether they may be shared externally is still unconfirmed.
+  - The Projects "UiPath Center of Excellence" card describes the CoE's CI/CD
+    and deployment work instead of founding the RPA practice.
+  - `docs/Resume Text.md` — a stale pre-2026 copy that carried a phone number —
+    is removed; `DEV_SETUP.md` and `HOW_TO_SETUP.md` point at
+    `src/content/resume.js`.
 - **Site foundation pass (2026-09-12)** — restructured so the résumé is one
   section of a personal site that can grow, without changing the stack:
   - **Content layer** — all page text moved to `src/content/*.js`; pages are

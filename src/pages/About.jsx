@@ -56,9 +56,9 @@ const About = () => {
             compliant. Lately I&apos;ve been pushing into full-stack React,
             Databricks, and cloud — and helping shape our company&apos;s
             spec-driven, AI-assisted development practice from the inside:
-            evaluating frameworks, demonstrating gated workflows with a human
-            in the loop, and authoring solution designs. Adopting AI the right
-            way, not just the fast way.
+            evaluating frameworks, demonstrating a gated workflow with a human
+            in the loop, and authoring a proposed solution design. Adopting AI
+            the right way, not just the fast way.
           </p>
           <p>
             Somewhere in there I became the person others come to when

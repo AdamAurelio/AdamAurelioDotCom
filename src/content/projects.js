@@ -25,7 +25,7 @@ export const projects = [
     name: "UiPath Center of Excellence",
     stack: ["UiPath", ".NET (C# / VB)", "Azure DevOps", "Docker"],
     blurb:
-      "Established the organization's RPA practice from the ground up: reusable automation frameworks, resilient bots with retry/idempotency patterns, and CI/CD pipelines so automations deploy and recover predictably instead of failing silently.",
+      "Built the CI/CD and deployment process for the organization's RPA Center of Excellence (2021–2022): a deployment pipeline with automated rollback, change control across affiliates, and standardized deployment documentation — plus resilient UiPath automations with retry and idempotency patterns.",
     tags: ["RPA", "DevOps", "Platform"],
   },
   {

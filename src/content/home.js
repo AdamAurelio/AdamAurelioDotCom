@@ -28,7 +28,7 @@ export const whatIDo = [
   },
   {
     title: "Spec-Driven Development",
-    body: "Helping shape my company's spec-driven, AI-assisted delivery practice — evaluating frameworks and demonstrating gated workflows that turn requirements into reviewed Azure DevOps work items.",
+    body: "Helping shape my company's spec-driven, AI-assisted delivery practice — evaluating frameworks and demonstrating a gated workflow that turns requirements into reviewed Azure DevOps work items.",
   },
 ];
 

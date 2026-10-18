@@ -1,5 +1,7 @@
 // Résumé content. Edit this file to update the résumé; src/pages/Resume.jsx is
 // only the layout. Keep bullets as plain strings so they print and index cleanly.
+// Mirrors the master résumé (Adam_Aurelio_Resume_2026.docx), except that internal
+// project names are replaced with generic descriptions for the public site.
 
 export const summary =
   "Software engineer with 10+ years of experience in enterprise automation, " +
@@ -45,9 +47,9 @@ export const experience = [
             title: "Access Governance & Automation",
             bullets: [
               "Developed access governance functionality integrating Python APIs with Oracle SQL for Fusion security management.",
-              "Promoted Oracle Fusion Access Manager shopping-cart and performance enhancements, enabling users to stage multiple access requests in one session.",
+              "Promoted access-management shopping-cart and performance enhancements, enabling users to stage multiple access requests in one session.",
               "Updated approval and provisioning-status logic, including exception handling and manager notification routing; promoted completion-package and role-mapping script changes to production.",
-              "Migrated a Use Tax Reversal UiPath automation from Windows-Legacy to Windows and restored operation following Fusion login changes.",
+              "Migrated a tax-accounting UiPath automation from Windows-Legacy to Windows and restored operation following Fusion login changes.",
             ],
           },
           {
@@ -55,15 +57,15 @@ export const experience = [
             bullets: [
               "Demonstrated a gated AI-assisted workflow that gathers requirements and creates and updates Azure DevOps work items through Azure CLI.",
               "Contributed to evaluation of spec-driven development frameworks and development of a business requirements agent, with work on approvals, solution documentation, and UAT test cases.",
-              "Authored the proposed COMET solution design covering Oracle APEX, PL/SQL services, Databricks integration, role-based permissions, requirements traceability, and UAT scenarios.",
+              "Authored a proposed solution design covering Oracle APEX, PL/SQL services, Databricks integration, role-based permissions, requirements traceability, and UAT scenarios.",
             ],
           },
           {
             title: "Application Modernization & Integration",
             bullets: [
-              "Developing an Oracle APEX Tax Calendar application intended to replace spreadsheet-based indirect-tax deadline tracking; captured requirements for category-specific statuses, recurrence, personal action views, and reviewer notifications.",
+              "Developing an Oracle APEX tax-calendar application intended to replace spreadsheet-based indirect-tax deadline tracking; captured requirements for category-specific statuses, recurrence, personal action views, and reviewer notifications.",
               "Contributed to modernization of a legacy PHP circuit-management application in Oracle APEX; demonstrated requirements capture, data-model recreation, backlog generation, and circuit-search and mapping features.",
-              "Supported MEC Safety Investigations application deployment by addressing Databricks configuration, workspace naming, and service-principal permission issues; completed a release pull request with security updates.",
+              "Supported a safety-investigations application deployment by addressing Databricks configuration, workspace naming, and service-principal permission issues; completed a release pull request with security updates.",
               "Designed and maintained Azure DevOps CI/CD pipelines and Docker developer tooling; built PL/SQL packages and .NET services for purchase-order, intercompany billing, and HR workflows.",
             ],
           },
