@@ -90,6 +90,9 @@ sudo env "PATH=$G:$PATH" git config --system --add safe.directory /volume1/docke
 sudo env "PATH=$G:$PATH" git config --system --add safe.directory /volume1/docker/adamaurelio-data-tier
 ```
 
+The system config lives with the Git package, so a package or DSM update can
+drop it — if "dubious ownership" reappears in a task log, run these again.
+
 ### Backups (the one thing Git can't rebuild)
 
 The website is reproducible from the repo; the database is not. Schedule a

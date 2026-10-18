@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - **Nightly data-tier backup ran once, then never again (2026-10-18)** —
   `data-tier-backup.sh` replaced the EXIT trap that `rc_acquire_lock` installs to
-  release its lock, then cleared it, so the lock directory outlived every
-  successful run. Each later run exited 0 with "Another run is in progress":
+  release its lock, then cleared it, so the lock directory outlived every run
+  that reached the dump. Each later run exited 0 with "Another run is in progress":
   Task Scheduler reported success while no dump was written.
   - `refresh-common.sh` gains `rc_release_lock`; the backup script's own traps
     call it, on success and on every failure path.

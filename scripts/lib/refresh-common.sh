@@ -105,11 +105,14 @@ rc_detect_compose() {
 # run exits here as if one were still in progress.
 # Arg: lock directory path.
 rc_acquire_lock() {
-  RC_LOCK_DIR="$1"
-  if ! mkdir "$RC_LOCK_DIR" 2>/dev/null; then
-    rc_log "Another run is in progress (lock: $RC_LOCK_DIR). Exiting."
+  local lock_dir="$1"
+  if ! mkdir "$lock_dir" 2>/dev/null; then
+    rc_log "Another run is in progress (lock: $lock_dir). Exiting."
     exit 0
   fi
+  # Set only once the lock is ours, so rc_release_lock can never remove a lock
+  # held by another run.
+  RC_LOCK_DIR="$lock_dir"
   trap rc_release_lock EXIT
 }
 
