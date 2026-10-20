@@ -26,6 +26,9 @@ const h2Class = "text-3xl font-bold text-navy-900 dark:text-white mb-6";
 const chipClass =
   "rounded-full bg-navy-100 dark:bg-navy-700 text-navy-700 dark:text-navy-200 text-sm px-3 py-1 print:border print:border-navy-300";
 
+// On paper: cards stay whole and tighter, and their icons drop out to save room.
+const printCard = "print:break-inside-avoid print:p-3";
+
 const Chips = ({ items, label }) => (
   <ul className="flex flex-wrap gap-2" aria-label={label}>
     {items.map((item) => (
@@ -37,7 +40,7 @@ const Chips = ({ items, label }) => (
 );
 
 const BulletList = ({ bullets }) => (
-  <ul className="space-y-2 text-navy-700 dark:text-navy-300 list-disc list-outside pl-5">
+  <ul className="space-y-2 print:space-y-1 text-navy-700 dark:text-navy-300 list-disc list-outside pl-5">
     {bullets.map((b) => (
       <li key={b}>{b}</li>
     ))}
@@ -45,7 +48,7 @@ const BulletList = ({ bullets }) => (
 );
 
 const BulletGroup = ({ title, icon, bullets, last }) => (
-  <div className={last ? "" : "mb-6"}>
+  <div className={last ? "" : "mb-6 print:mb-3"}>
     {title && (
       <h5 className="flex items-center gap-2 text-sm font-mono font-semibold uppercase tracking-[0.15em] text-gold-700 dark:text-gold-300 mb-2">
         <Icon name={icon} className="h-4 w-4 shrink-0" />
@@ -59,7 +62,7 @@ const BulletGroup = ({ title, icon, bullets, last }) => (
 // One stop on the career timeline: a briefcase badge sits on the rule drawn by
 // the <ol>'s left border.
 const Employer = ({ company, location, dates, roles }) => (
-  <li className="relative pl-10 print:pl-0">
+  <li className="relative pl-10 print:pl-0 print:break-inside-auto">
     <IconBadge
       name="briefcase"
       className="absolute -left-[1.4rem] top-0 ring-4 ring-white dark:ring-navy-900 print:hidden"
@@ -115,7 +118,7 @@ const Resume = () => {
         <Reveal
           as="header"
           immediate
-          className="mb-12 border-b border-navy-200 dark:border-navy-700 pb-8"
+          className="mb-12 border-b border-navy-200 dark:border-navy-700 pb-8 print:mb-6 print:pb-4"
         >
           <div className="flex flex-col sm:flex-row items-center gap-8">
             <img
@@ -123,7 +126,7 @@ const Resume = () => {
               alt={site.name}
               width="128"
               height="128"
-              className="w-32 h-32 object-cover rounded-full shadow-md ring-2 ring-gold-300 dark:ring-gold-500/50 shrink-0"
+              className="w-32 h-32 object-cover rounded-full shadow-md ring-2 ring-gold-300 dark:ring-gold-500/50 shrink-0 print:hidden"
             />
             <div className="flex-1">
               <div className="flex flex-wrap items-start justify-between gap-3">
@@ -185,13 +188,13 @@ const Resume = () => {
           </ul>
         </Reveal>
 
-        <Reveal as="section" className="mb-12">
+        <Reveal as="section" className="mb-12 print:mb-6">
           <h2 className={h2Class}>Core Skills</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 print:grid-cols-2 gap-6 print:gap-3">
             {skills.map(({ title, icon, items }) => (
-              <Card key={title} padding="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <IconBadge name={icon} />
+              <Card key={title} padding="p-6" className={printCard}>
+                <div className="flex items-center gap-3 mb-4 print:mb-2">
+                  <IconBadge name={icon} className="print:hidden" />
                   <h3 className="text-xl font-semibold text-navy-900 dark:text-white">{title}</h3>
                 </div>
                 <Chips items={items} label={title} />
@@ -200,21 +203,21 @@ const Resume = () => {
           </div>
         </Reveal>
 
-        <Reveal as="section" className="mb-12">
+        <Reveal as="section" className="mb-12 print:mb-6">
           <h2 className={h2Class}>Professional Experience</h2>
-          <ol className="ml-5 space-y-10 border-l-2 border-teal-600/30 dark:border-teal-400/30 print:ml-0 print:border-l-0">
+          <ol className="ml-5 space-y-10 print:space-y-6 border-l-2 border-teal-600/30 dark:border-teal-400/30 print:ml-0 print:border-l-0">
             {experience.map((employer) => (
               <Employer key={employer.company} {...employer} />
             ))}
           </ol>
         </Reveal>
 
-        <Reveal as="section" className="mb-12">
+        <Reveal as="section" className="mb-12 print:mb-6">
           <h2 className={h2Class}>Education &amp; Certifications</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 print:grid-cols-2 gap-6 print:gap-3">
             {education.map(({ school, location, degree }) => (
-              <Card key={school} padding="p-6" className="flex gap-4 items-start">
-                <IconBadge name="graduation-cap" />
+              <Card key={school} padding="p-6" className={`flex gap-4 items-start ${printCard}`}>
+                <IconBadge name="graduation-cap" className="print:hidden" />
                 <div>
                   <h3 className="text-xl font-bold text-navy-900 dark:text-white">{school}</h3>
                   <p className="text-navy-600 dark:text-navy-400">{location}</p>
@@ -222,8 +225,8 @@ const Resume = () => {
                 </div>
               </Card>
             ))}
-            <Card padding="p-6" className="flex gap-4 items-start">
-              <IconBadge name="award" />
+            <Card padding="p-6" className={`flex gap-4 items-start ${printCard}`}>
+              <IconBadge name="award" className="print:hidden" />
               <div>
                 <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-3">
                   Certifications
@@ -236,10 +239,10 @@ const Resume = () => {
 
         <Reveal as="section">
           <h2 className={h2Class}>Leadership &amp; Community</h2>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 print:grid-cols-3 gap-4 print:gap-3">
             {community.map(({ icon, text }) => (
-              <Card key={text} padding="p-5" className="flex flex-col gap-3">
-                <IconBadge name={icon} tone="gold" />
+              <Card key={text} padding="p-5" className={`flex flex-col gap-3 ${printCard}`}>
+                <IconBadge name={icon} tone="gold" className="print:hidden" />
                 <h3 className="font-bold text-navy-900 dark:text-white">{text}</h3>
               </Card>
             ))}

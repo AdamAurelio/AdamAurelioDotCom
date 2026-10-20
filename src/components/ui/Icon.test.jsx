@@ -8,6 +8,21 @@ import * as projects from "../../content/projects";
 import * as howIWork from "../../content/howIWork";
 import * as resume from "../../content/resume";
 
+// Pages and components that name icons inline rather than through content.
+const sources = import.meta.glob(["../../pages/*.jsx", "../**/*.jsx", "!../**/*.test.jsx"], {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+
+// Icon names written in source: <Icon name="…"> / <IconBadge name="…">, or
+// an `icon: "…"` field in a page-local list. Names are kebab-case, which keeps
+// class strings such as IconBadge's `icon: "h-5 w-5"` sizes out of the scan.
+const iconNamesInSource = (text) =>
+  [...text.matchAll(/<Icon(?:Badge)?\b[^>]*?\bname="([a-z0-9-]+)"|\bicon:\s*"([a-z0-9-]+)"/g)].map(
+    (m) => m[1] ?? m[2]
+  );
+
 // Every `icon` value anywhere in the content modules, however deeply nested.
 const iconNamesIn = (value) => {
   if (Array.isArray(value)) return value.flatMap(iconNamesIn);
@@ -37,6 +52,12 @@ describe("Icon", () => {
   it("knows every icon the site content names", () => {
     const used = iconNamesIn([home, about, projects, howIWork, resume]);
     expect(used.length).toBeGreaterThan(0);
+    expect(used.filter((name) => !icons[name])).toEqual([]);
+  });
+
+  it("knows every icon a page or component names inline", () => {
+    const used = Object.values(sources).flatMap(iconNamesInSource);
+    expect(used).toContain("briefcase"); // the scan is really reading the sources
     expect(used.filter((name) => !icons[name])).toEqual([]);
   });
 });

@@ -3,9 +3,9 @@
 // Horizontal page rhythm: one gutter, one set of widths. Pages pick a width by
 // name instead of repeating max-w/px classes.
 const widths = {
-  narrow: "max-w-2xl", // contact
-  prose: "max-w-3xl", // long-form reading: about, how-i-work
-  content: "max-w-5xl", // résumé sheet
+  narrow: "max-w-2xl",
+  prose: "max-w-3xl", // long-form reading: about
+  content: "max-w-5xl", // résumé sheet, how-i-work, contact
   wide: "max-w-6xl", // project grid
   full: "max-w-7xl", // home, header/footer
 };

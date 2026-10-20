@@ -13,8 +13,8 @@ The following inline SVG icons are path data from the Lucide icon set:
 
   sun, moon        src/components/ThemeToggle.jsx
   menu, x          src/components/Header.jsx
-  31 icons (v0.460.0, from lucide-static), including the linkedin and
-  github marks used beside profile links
+  30 icons (v0.460.0, from lucide-static), including line-art
+  renderings of the LinkedIn and GitHub marks used beside profile links
                    src/components/ui/icons.js
 
   https://lucide.dev  ·  https://github.com/lucide-icons/lucide
@@ -39,7 +39,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 
 --------------------------------------------------------------------------
-GitHub logo mark (trademark)
+GitHub and LinkedIn marks (trademarks)
 --------------------------------------------------------------------------
 
 src/components/Header.jsx renders the GitHub mark, a trademark of GitHub,
@@ -48,6 +48,11 @@ guidelines permit. It is not modified, and its use does not imply GitHub's
 sponsorship or endorsement.
 
   https://github.com/logos
+
+The Contact and Résumé pages show Lucide's line-art renderings of the
+GitHub and LinkedIn marks (LinkedIn is a trademark of LinkedIn
+Corporation) beside links to those profiles. They identify the linked
+service only and do not imply sponsorship or endorsement.
 
 
 --------------------------------------------------------------------------

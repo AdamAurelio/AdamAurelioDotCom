@@ -6,6 +6,7 @@ import {
   highlights,
   skills,
   experience,
+  education,
   certifications,
   community,
 } from "../content/resume";
@@ -20,15 +21,17 @@ describe("Resume", () => {
       ...skills.flatMap((s) => [s.title, ...s.items]),
       ...experience.flatMap((e) => [
         e.company,
+        e.location,
         e.dates,
         ...e.roles.flatMap((r) => [
           r.title,
           ...r.groups.flatMap((g) => [g.title, ...g.bullets].filter(Boolean)),
         ]),
       ]),
+      ...education.flatMap((ed) => [ed.school, ed.location, ed.degree]),
       ...certifications,
       ...community.map((c) => c.text),
-    ];
+    ].filter(Boolean);
     for (const line of lines) {
       expect(screen.getAllByText(line, { exact: true }).length).toBeGreaterThan(0);
     }

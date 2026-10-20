@@ -13,14 +13,14 @@ export const projects = [
     name: "Access governance",
     stack: ["Python", "Oracle SQL", "Oracle Fusion"],
     blurb:
-      "APIs and database logic behind Oracle Fusion access requests: a cart for multiple requests, speed-ups, and approval routing.",
+      "Worked on Oracle Fusion access requests: Python APIs and Oracle SQL, a multi-request cart, speed-ups, and approval routing.",
   },
   {
     icon: "sparkles",
     name: "Spec-driven, AI-assisted delivery",
     stack: ["OpenSpec", "SpecKit", "Azure DevOps"],
     blurb:
-      "Evaluating spec-driven frameworks, helping build a requirements agent, and demoing a gated workflow that turns requirements into work items.",
+      "Helping evaluate spec-driven frameworks and build a requirements agent; demoed a gated workflow that turns requirements into work items.",
   },
   {
     icon: "workflow",
@@ -39,7 +39,7 @@ export const projects = [
     icon: "rocket",
     name: "adamaurelio.com",
     stack: ["React", "AWS", "Terraform", "GitHub Actions"],
-    blurb: "This site. Infrastructure as code, with automated dev → QA → prod releases.",
+    blurb: "This site. Infrastructure as code, CI on every change, and a dev → QA → prod release path.",
     href: site.links.repo,
     hrefLabel: "View source",
   },

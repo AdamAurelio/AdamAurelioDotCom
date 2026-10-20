@@ -18,21 +18,21 @@ export const path = [
   },
   {
     icon: "code-xml",
-    when: "2015",
+    when: "Since 2015",
     title: "Software engineer",
-    body: "Started building what I used to support: PL/SQL, .NET, Oracle APEX, UiPath.",
+    body: "Building what I used to support: PL/SQL, .NET, Oracle APEX, UiPath.",
+  },
+  {
+    icon: "sparkles",
+    when: "Lately",
+    title: "Exploring",
+    body: "Databricks and AI-assisted engineering — done carefully.",
   },
   {
     icon: "users",
     when: "Today",
     title: "Team lead",
     body: "Leading five developers. Filled in as acting manager for a month.",
-  },
-  {
-    icon: "sparkles",
-    when: "Lately",
-    title: "Exploring",
-    body: "Databricks, React, and AI-assisted engineering — done carefully.",
   },
 ];
 
@@ -57,7 +57,8 @@ export const values = [
 export const communityIntro = "Faith, family, and community keep the work in perspective.";
 
 export const community = [
-  { icon: "shirt", name: "Iowa United", role: "Former head coach, Select 14U Girls" },
+  { icon: "shirt", name: "Youth soccer", role: "Coaching this season" },
+  { icon: "users", name: "Iowa United", role: "Former head coach, Select 14U Girls" },
   { icon: "hand-heart", name: "Iowa Asian Alliance", role: "Former director of volunteers" },
   { icon: "church", name: "Walnut Creek Community Church", role: "Former A/V team lead" },
 ];

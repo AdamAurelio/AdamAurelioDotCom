@@ -126,8 +126,9 @@
   h5 {
     break-after: avoid;
   }
-  li,
-  section {
+  /* Keep a bullet or card whole; whole sections may break, or one long
+     section would push everything after it onto a fresh page. */
+  li {
     break-inside: avoid;
   }
 }

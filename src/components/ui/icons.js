@@ -3,10 +3,6 @@
 // 24×24 stroke grid; src/components/ui/Icon.jsx renders them.
 
 export const icons = {
-  "arrow-right": [
-    ["path", { d: "M5 12h14" }],
-    ["path", { d: "m12 5 7 7-7 7" }],
-  ],
   "arrow-up-right": [
     ["path", { d: "M7 7h10v10" }],
     ["path", { d: "M7 17 17 7" }],

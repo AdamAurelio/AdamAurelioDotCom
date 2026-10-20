@@ -8,7 +8,7 @@ import PageHeader from "../components/ui/PageHeader";
 import IconBadge from "../components/ui/IconBadge";
 import { site } from "../content/site";
 
-const linkClass = "text-teal-700 dark:text-teal-300 hover:underline break-all";
+const linkClass = "text-teal-700 dark:text-teal-300 hover:underline";
 
 const channels = [
   {
@@ -56,7 +56,7 @@ const Contact = () => {
         lede="A role, a tough problem, or just comparing notes — I'd love to hear from you."
       />
 
-      <Reveal className="grid md:grid-cols-3 gap-6">
+      <Reveal className="grid lg:grid-cols-3 gap-6">
         {channels.map(({ label, icon, detail, note }) => (
           <Card key={label} padding="p-6" className="flex flex-col items-center text-center gap-3">
             <IconBadge name={icon} size="lg" />

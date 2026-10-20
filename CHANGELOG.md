@@ -22,7 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   stylesheet hid every `<header>` to remove the site chrome, which also hid the
   résumé's own header (and each page's title). The site header and footer
   already hide themselves with `print:hidden`, so the rule now only targets
-  `.skip-link` and `.no-print`.
+  `.skip-link` and `.no-print`. The printed résumé is now 3 Letter pages:
+  grids stay side by side, cards and bullets stay whole, sections may break,
+  and the photo and card icons stay on screen only (the master résumé has no
+  photo).
 - **Nightly data-tier backup ran once, then never again (2026-10-18)** —
   `data-tier-backup.sh` replaced the EXIT trap that `rc_acquire_lock` installs to
   release its lock, then cleared it, so the lock directory outlived every run
@@ -72,8 +75,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Résumé: same vetted wording (a test checks every line still renders), now
     with an at-a-glance stats strip, skill chips, a career timeline, and icon
     cards for education and community. The skills data is now arrays of items.
-  - No new claims: the Projects KPI card drops its unmeasured "instead of
-    month-end spreadsheets" outcome.
+  - No new claims: copy keeps the résumé's qualifiers ("worked on", "helping
+    evaluate", "since 2015"), and the Projects KPI card drops its unmeasured
+    "instead of month-end spreadsheets" outcome. About lists current youth
+    soccer coaching alongside the former roles.
 
 - **Résumé synced to the 2026 master résumé (2026-10-18)** — `src/content/resume.js`
   now mirrors `Adam_Aurelio_Resume_2026.docx` (the October 12 revision): new
