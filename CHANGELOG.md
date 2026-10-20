@@ -18,6 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > work before commit — per the ADAM model's AI-assistant standard._
 
 ### Fixed
+- **Printed résumé dropped its name, contact line, and summary** — the print
+  stylesheet hid every `<header>` to remove the site chrome, which also hid the
+  résumé's own header (and each page's title). The site header and footer
+  already hide themselves with `print:hidden`, so the rule now only targets
+  `.skip-link` and `.no-print`. The printed résumé is now 3 Letter pages:
+  grids stay side by side, cards and bullets stay whole, sections may break,
+  and the photo and card icons stay on screen only (the master résumé has no
+  photo).
 - **Nightly data-tier backup ran once, then never again (2026-10-18)** —
   `data-tier-backup.sh` replaced the EXIT trap that `rc_acquire_lock` installs to
   release its lock, then cleared it, so the lock directory outlived every run
@@ -55,6 +63,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     task's command matters.
 
 ### Changed
+- **Friendlier, more visual site (2026-10-20)** — every page reads in a warmer,
+  plainer voice with roughly half the words, and icons do more of the talking.
+  - `Icon` / `IconBadge` in `src/components/ui/` render Lucide line icons from
+    one data file (`icons.js`, ISC — see `NOTICE`); content files name icons,
+    pages place them. A unit test fails if content names an icon that
+    doesn't exist.
+  - Home: icon cards for "What I do", role chips, and "Life outside the code"
+    as icon tiles. About: a "My path" timeline replaces three paragraphs.
+    Projects, How I Work, and Contact: icon cards with one-line copy.
+  - Résumé: same vetted wording (a test checks every line still renders), now
+    with an at-a-glance stats strip, skill chips, a career timeline, and icon
+    cards for education and community. The skills data is now arrays of items.
+  - No new claims: copy keeps the résumé's qualifiers ("worked on", "helping
+    evaluate", "since 2015"), and the Projects KPI card drops its unmeasured
+    "instead of month-end spreadsheets" outcome. About lists current youth
+    soccer coaching alongside the former roles.
+
 - **Résumé synced to the 2026 master résumé (2026-10-18)** — `src/content/resume.js`
   now mirrors `Adam_Aurelio_Resume_2026.docx` (the October 12 revision): new
   summary (10+ years), four skill groups (JavaScript, React, Node.js, ORDS, and
