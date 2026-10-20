@@ -1,4 +1,4 @@
-// "How I Work" principles.
+// "How I Work" principles. Icon names refer to src/components/ui/icons.js.
 
 export const seoDescription =
   "The engineering principles behind Adam Aurelio's work: reliability by design, " +
@@ -6,33 +6,33 @@ export const seoDescription =
 
 export const principles = [
   {
-    n: "01",
-    title: "Reliability is a feature, not an afterthought",
-    body: "I assume everything fails eventually — networks, APIs, the happy path — and design for it up front: idempotent operations, sane retries, timeouts, and graceful fallbacks. The goal is automation you can trust unattended, not a demo that works once.",
+    icon: "life-buoy",
+    title: "Plan for failure",
+    body: "Things break. Retries, timeouts, and fallbacks come first.",
   },
   {
-    n: "02",
-    title: "Make the invisible visible",
-    body: "Audit trails, runbooks, dashboards, and honest logging. If an operator can't see what the system did and why, it isn't finished. Observability is how future-me (and the on-call teammate) stays sane.",
+    icon: "eye",
+    title: "Make it visible",
+    body: "Logs, audit trails, and dashboards, so anyone can see what happened.",
   },
   {
-    n: "03",
+    icon: "file-text",
     title: "Write it down",
-    body: "Requirements, decisions, and specs live in source control, not in someone's head. Context that's written down is context that survives a handoff, an absence, or a year of forgetting.",
+    body: "Specs and decisions live in source control, not in someone's head.",
   },
   {
-    n: "04",
-    title: "Automate the boring, guard the important",
-    body: "Repetitive, error-prone toil should be automated. High-stakes actions — granting access, touching production data — keep a human in the loop by design. Knowing which is which is most of the job.",
+    icon: "bot",
+    title: "Automate the boring",
+    body: "And keep a human in the loop for anything high-stakes.",
   },
   {
-    n: "05",
-    title: "Optimize for the team, not the hero",
-    body: "Standards, reviews, onboarding plans, and reusable patterns beat one person being indispensable. I'd rather ship a workflow ten people can run than a script only I understand.",
+    icon: "users",
+    title: "Team over hero",
+    body: "Shared standards beat one indispensable person.",
   },
   {
-    n: "06",
-    title: "Tell the truth about status",
-    body: "Shipped means shipped. A proof of concept is a proof of concept. Straight talk about what's done, what's blocked, and what's risky is the fastest way to earn a team's trust — and keep it.",
+    icon: "message-circle",
+    title: "Be honest about status",
+    body: "Shipped means shipped. A demo is a demo.",
   },
 ];

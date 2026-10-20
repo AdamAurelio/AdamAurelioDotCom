@@ -102,9 +102,9 @@
     print-color-adjust: exact;
   }
 
-  /* Hide site chrome and any element explicitly marked no-print. */
-  header,
-  footer,
+  /* Hide any element explicitly marked no-print. Site chrome (Header, Footer)
+     hides itself with print:hidden; a bare `header` selector here would also
+     hide page content such as the résumé's name and summary. */
   .skip-link,
   .no-print {
     display: none !important;
@@ -126,8 +126,9 @@
   h5 {
     break-after: avoid;
   }
-  li,
-  section {
+  /* Keep a bullet or card whole; whole sections may break, or one long
+     section would push everything after it onto a fresh page. */
+  li {
     break-inside: avoid;
   }
 }

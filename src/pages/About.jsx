@@ -4,8 +4,16 @@ import Container from "../components/ui/Container";
 import Card from "../components/ui/Card";
 import Section from "../components/ui/Section";
 import ButtonLink from "../components/ui/ButtonLink";
+import IconBadge from "../components/ui/IconBadge";
 import { site } from "../content/site";
-import { seoDescription, values, community } from "../content/about";
+import {
+  seoDescription,
+  intro,
+  path,
+  values,
+  communityIntro,
+  community,
+} from "../content/about";
 
 const About = () => {
   return (
@@ -30,71 +38,47 @@ const About = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-navy-900 dark:text-white mb-3">
             Engineer, leader, coach.
           </h1>
-          <p className="text-lg text-navy-600 dark:text-navy-300 leading-relaxed">
-            I&apos;m a software engineer in the Des Moines area who&apos;s happiest
-            turning something chaotic into something dependable — whether
-            that&apos;s a fragile manual process or a team finding its footing.
-          </p>
+          <p className="text-lg text-navy-600 dark:text-navy-300 leading-relaxed">{intro}</p>
         </div>
       </Reveal>
 
-      <Section kicker="My story" title="From help desk to shipping the platform">
-        <div className="space-y-4 text-lg text-navy-700 dark:text-navy-200 leading-relaxed">
-          <p>
-            I didn&apos;t start with a computer-science pedigree — I started on a
-            support desk, resolving the incidents nobody else wanted and learning
-            how real systems actually break. That view from the bottom of the
-            stack never left me. It&apos;s why I obsess over reliability, and why
-            I still think the best engineers are the ones who remember
-            there&apos;s a person on the other end of the error message.
-          </p>
-          <p>
-            Over ten-plus years I grew into building the systems I used to
-            support: PL/SQL and .NET services behind mission-critical business
-            processes, Oracle APEX applications, resilient RPA automations, and
-            the access-governance workflows that keep a regulated utility
-            compliant. Lately I&apos;ve been pushing into full-stack React,
-            Databricks, and cloud — and helping shape our company&apos;s
-            spec-driven, AI-assisted development practice from the inside:
-            evaluating frameworks, demonstrating a gated workflow with a human
-            in the loop, and authoring a proposed solution design. Adopting AI
-            the right way, not just the fast way.
-          </p>
-          <p>
-            Somewhere in there I became the person others come to when
-            something&apos;s stuck. I lead a small team of developers, I&apos;ve
-            stepped in as acting manager through a transition, and I&apos;ve
-            written more onboarding plans and incident runbooks than I can count.
-            I like that work. Systems are satisfying; people are the point.
-          </p>
-        </div>
+      <Section kicker="My path" title="From help desk to team lead">
+        <ol className="relative border-l-2 border-teal-600/30 dark:border-teal-400/30 ml-5 space-y-8">
+          {path.map(({ icon, when, title, body }) => (
+            <li key={title} className="relative pl-10">
+              <IconBadge
+                name={icon}
+                className="absolute -left-[1.4rem] top-0 ring-4 ring-navy-50 dark:ring-navy-950"
+              />
+              <p className="kicker mb-1">{when}</p>
+              <h3 className="text-xl font-bold text-navy-900 dark:text-white">{title}</h3>
+              <p className="text-navy-600 dark:text-navy-300">{body}</p>
+            </li>
+          ))}
+        </ol>
       </Section>
 
       <Section kicker="What I value" title="Three things I don't compromise on">
-        <div className="space-y-5">
-          {values.map(({ title, body }) => (
-            <Card key={title} accent="teal" padding="px-6 py-5">
-              <h3 className="text-xl font-bold text-navy-900 dark:text-white mb-1">{title}</h3>
+        <div className="grid sm:grid-cols-3 gap-5">
+          {values.map(({ icon, title, body }) => (
+            <Card key={title} padding="p-6">
+              <IconBadge name={icon} className="mb-4" />
+              <h3 className="text-lg font-bold text-navy-900 dark:text-white mb-1">{title}</h3>
               <p className="text-navy-600 dark:text-navy-300 leading-relaxed">{body}</p>
             </Card>
           ))}
         </div>
       </Section>
 
-      <Section kicker="Beyond the code" title="Where my time really goes">
-        <p className="text-lg text-navy-700 dark:text-navy-200 leading-relaxed mb-6">
-          The values above didn&apos;t come from a standup. They come from the
-          rest of my life — my faith, my family, and the communities I&apos;m
-          lucky to serve. These are the commitments that keep the work in
-          perspective.
-        </p>
-        <div className="space-y-4">
-          {community.map(({ role, body }) => (
-            <Card key={role} padding="px-5 py-4" className="flex gap-4 items-start">
-              <div className="mt-1.5 w-2.5 h-2.5 rounded-full bg-gold-500 shrink-0" />
+      <Section kicker="Beyond the code" title="Where my time goes">
+        <p className="text-lg text-navy-700 dark:text-navy-200 mb-6">{communityIntro}</p>
+        <div className="space-y-3">
+          {community.map(({ icon, name, role }) => (
+            <Card key={name} padding="px-5 py-4" className="flex gap-4 items-center">
+              <IconBadge name={icon} tone="gold" />
               <div>
-                <h3 className="font-bold text-navy-900 dark:text-white">{role}</h3>
-                <p className="text-navy-600 dark:text-navy-300">{body}</p>
+                <h3 className="font-bold text-navy-900 dark:text-white">{name}</h3>
+                <p className="text-navy-600 dark:text-navy-300">{role}</p>
               </div>
             </Card>
           ))}
@@ -103,13 +87,7 @@ const About = () => {
 
       {/* Closing */}
       <Reveal className="rounded-xl bg-navy-900 border border-gold-500/30 px-8 py-10 text-center">
-        <p className="font-serif text-2xl text-navy-50 mb-3">
-          If any of this resonates, let&apos;s talk.
-        </p>
-        <p className="text-navy-300 mb-6">
-          I&apos;m always up for a conversation about hard problems, good teams,
-          or building things that last.
-        </p>
+        <p className="font-serif text-2xl text-navy-50 mb-6">Want to talk shop?</p>
         <div className="flex flex-wrap gap-4 justify-center">
           <ButtonLink to="/contact" variant="gold">
             Say hello

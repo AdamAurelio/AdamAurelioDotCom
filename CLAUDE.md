@@ -27,7 +27,7 @@ consciously waived.
 | Add or reorder a page    | `src/routes.js` (manifest) + `src/pages/index.js` (lazy component) |
 | Site name, links, email  | `src/content/site.js` — never inline a URL or address elsewhere   |
 | Résumé / project text    | `src/content/*.js` — pages are templates over these               |
-| Shared UI                | `src/components/ui/` — `ButtonLink`, `Card`, `Section`, `PageHeader`, `Container` |
+| Shared UI                | `src/components/ui/` — `ButtonLink`, `Card`, `Section`, `PageHeader`, `Container`, `Icon` / `IconBadge` (Lucide data in `icons.js`) |
 | Site chrome              | `src/components/Layout.jsx` (skip link, scroll/focus reset), `Header.jsx`, `Footer.jsx` |
 | Analytics / monitoring   | `src/lib/analytics/`, `src/lib/monitoring.js` — both off by default, CSP-gated |
 | Decisions                | `docs/adr/` — one file per significant decision                   |

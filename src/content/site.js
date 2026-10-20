@@ -7,11 +7,11 @@ export const site = {
   location: "Des Moines, Iowa",
   locationShort: "Des Moines, IA area",
   baseUrl: "https://adamaurelio.com",
-  tagline: "I build dependable systems — and the teams that keep them running.",
+  tagline: "I build software that keeps working — and help teams do the same.",
   description:
-    "Adam Aurelio — software engineer in Des Moines, Iowa. I build dependable " +
-    "systems and the teams that keep them running: full-stack, automation, " +
-    "access governance, and spec-driven AI-assisted engineering.",
+    "Adam Aurelio — software engineer in Des Moines, Iowa. I build software that " +
+    "keeps working, and help teams do the same: automation, apps, integrations, " +
+    "and AI-assisted engineering.",
 
   // Split so the full address is never a contiguous literal in the bundle
   // (see src/components/EmailLink.jsx).
