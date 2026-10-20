@@ -5,39 +5,43 @@ import Seo from "../components/Seo";
 import Container from "../components/ui/Container";
 import Card from "../components/ui/Card";
 import PageHeader from "../components/ui/PageHeader";
+import IconBadge from "../components/ui/IconBadge";
 import { site } from "../content/site";
 
-const linkClass = "text-teal-700 dark:text-teal-300 hover:underline";
+const linkClass = "text-teal-700 dark:text-teal-300 hover:underline break-all";
 
 const channels = [
   {
     label: "Email",
+    icon: "mail",
     detail: <EmailLink />,
-    note: "Best for anything substantive — I read everything.",
+    note: "The best way to reach me.",
   },
   {
     label: "LinkedIn",
+    icon: "linkedin",
     detail: (
       <OutboundLink href={site.links.linkedin} label="contact-linkedin" className={linkClass}>
         {site.links.linkedinDisplay}
       </OutboundLink>
     ),
-    note: "Connect, or reach out about a role or collaboration.",
+    note: "Roles and collaborations.",
   },
   {
     label: "GitHub",
+    icon: "github",
     detail: (
       <OutboundLink href={site.links.github} label="contact-github" className={linkClass}>
         {site.links.githubDisplay}
       </OutboundLink>
     ),
-    note: "Code, this site, and the occasional experiment.",
+    note: "Code and side projects.",
   },
 ];
 
 const Contact = () => {
   return (
-    <Container width="narrow" className="py-16">
+    <Container width="content" className="py-16">
       <Seo
         title="Contact"
         path="/contact"
@@ -49,32 +53,18 @@ const Contact = () => {
         title="Let's talk"
         align="center"
         className="mb-12"
-        lede={`Whether it's a role, a hard problem, or just comparing notes on reliability and good teams — I'd genuinely like to hear from you. I'm based in the ${site.location} area and reply to real messages.`}
+        lede="A role, a tough problem, or just comparing notes — I'd love to hear from you."
       />
 
-      <Reveal className="space-y-4">
-        {channels.map(({ label, detail, note }) => (
-          <Card
-            key={label}
-            padding="px-6 py-5"
-            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1"
-          >
-            <div>
-              <p className="kicker mb-1">{label}</p>
-              <p className="text-lg text-navy-900 dark:text-white">{detail}</p>
-            </div>
-            <p className="text-sm text-navy-600 dark:text-navy-400 sm:text-right sm:max-w-[16rem]">
-              {note}
-            </p>
+      <Reveal className="grid md:grid-cols-3 gap-6">
+        {channels.map(({ label, icon, detail, note }) => (
+          <Card key={label} padding="p-6" className="flex flex-col items-center text-center gap-3">
+            <IconBadge name={icon} size="lg" />
+            <h2 className="text-xl font-bold text-navy-900 dark:text-white">{label}</h2>
+            <p className="text-navy-900 dark:text-white">{detail}</p>
+            <p className="text-sm text-navy-600 dark:text-navy-400">{note}</p>
           </Card>
         ))}
-      </Reveal>
-
-      <Reveal className="mt-10 text-center text-navy-600 dark:text-navy-400">
-        <p className="font-serif italic text-lg">
-          &ldquo;The best time to reach out is when you have something real to
-          say. The second best time is now.&rdquo;
-        </p>
       </Reveal>
     </Container>
   );

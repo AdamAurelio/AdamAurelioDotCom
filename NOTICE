@@ -13,7 +13,9 @@ The following inline SVG icons are path data from the Lucide icon set:
 
   sun, moon        src/components/ThemeToggle.jsx
   menu, x          src/components/Header.jsx
-  arrow-up-right   src/pages/Projects.jsx
+  31 icons (v0.460.0, from lucide-static), including the linkedin and
+  github marks used beside profile links
+                   src/components/ui/icons.js
 
   https://lucide.dev  ·  https://github.com/lucide-icons/lucide
 

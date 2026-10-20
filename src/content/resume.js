@@ -2,6 +2,7 @@
 // only the layout. Keep bullets as plain strings so they print and index cleanly.
 // Mirrors the master résumé (Adam_Aurelio_Resume_2026.docx), except that internal
 // project names are replaced with generic descriptions for the public site.
+// Icon names refer to src/components/ui/icons.js; they add visuals, not words.
 
 export const summary =
   "Software engineer with 10+ years of experience in enterprise automation, " +
@@ -13,22 +14,46 @@ export const seoDescription =
   "Résumé of Adam Aurelio — 10+ years of enterprise automation, application " +
   "development, and integrations, with recent work in AI-assisted engineering.";
 
+// At-a-glance numbers, each taken from a line of the résumé below.
+export const highlights = [
+  { value: "10+", label: "years of experience" },
+  { value: "5", label: "developers led" },
+  { value: "3", label: "CompTIA certifications" },
+];
+
 export const skills = [
   {
     title: "Languages",
-    body: "Python, C#, SQL/PL/SQL, PowerShell, VB.NET",
+    icon: "code-xml",
+    items: ["Python", "C#", "SQL/PL/SQL", "PowerShell", "VB.NET"],
   },
   {
     title: "Platforms",
-    body: "Oracle APEX, Oracle Fusion, UiPath, Databricks, Azure DevOps, Docker, AWS",
+    icon: "layers",
+    items: ["Oracle APEX", "Oracle Fusion", "UiPath", "Databricks", "Azure DevOps", "Docker", "AWS"],
   },
   {
     title: "Engineering",
-    body: "CI/CD, API integration, RPA orchestration, retry and idempotency patterns, spec-driven development, Azure CLI",
+    icon: "wrench",
+    items: [
+      "CI/CD",
+      "API integration",
+      "RPA orchestration",
+      "retry and idempotency patterns",
+      "spec-driven development",
+      "Azure CLI",
+    ],
   },
   {
     title: "Data & Operations",
-    body: "Oracle, SQL Server, deployment configuration, operational monitoring, incident runbooks",
+    icon: "database",
+    items: [
+      "Oracle",
+      "SQL Server",
+      "deployment configuration",
+      "operational monitoring",
+      "incident runbooks",
+    ],
   },
 ];
 
@@ -45,6 +70,7 @@ export const experience = [
         groups: [
           {
             title: "Access Governance & Automation",
+            icon: "shield-check",
             bullets: [
               "Developed access governance functionality integrating Python APIs with Oracle SQL for Fusion security management.",
               "Promoted access-management shopping-cart and performance enhancements, enabling users to stage multiple access requests in one session.",
@@ -54,6 +80,7 @@ export const experience = [
           },
           {
             title: "AI-Assisted Engineering & Solution Design",
+            icon: "sparkles",
             bullets: [
               "Demonstrated a gated AI-assisted workflow that gathers requirements and creates and updates Azure DevOps work items through Azure CLI.",
               "Contributed to evaluation of spec-driven development frameworks and development of a business requirements agent, with work on approvals, solution documentation, and UAT test cases.",
@@ -62,6 +89,7 @@ export const experience = [
           },
           {
             title: "Application Modernization & Integration",
+            icon: "blocks",
             bullets: [
               "Developing an Oracle APEX tax-calendar application intended to replace spreadsheet-based indirect-tax deadline tracking; captured requirements for category-specific statuses, recurrence, personal action views, and reviewer notifications.",
               "Contributed to modernization of a legacy PHP circuit-management application in Oracle APEX; demonstrated requirements capture, data-model recreation, backlog generation, and circuit-search and mapping features.",
@@ -71,6 +99,7 @@ export const experience = [
           },
           {
             title: "Technical Coordination & Knowledge Sharing",
+            icon: "users",
             bullets: [
               "Serve as team lead for five developers, facilitating daily standups and sprint planning.",
               "Served as acting manager for one month during a leadership transition, coordinating team activities and stakeholder status reporting.",
@@ -112,7 +141,7 @@ export const education = [
 export const certifications = ["CompTIA Security+", "CompTIA Network+", "CompTIA A+"];
 
 export const community = [
-  "Iowa United — Former Head Coach, Select 14UG",
-  "Iowa Asian Alliance — Former Director of Volunteers",
-  "Walnut Creek Community Church — Former Audio-Visual Team Lead",
+  { icon: "shirt", text: "Iowa United — Former Head Coach, Select 14UG" },
+  { icon: "hand-heart", text: "Iowa Asian Alliance — Former Director of Volunteers" },
+  { icon: "church", text: "Walnut Creek Community Church — Former Audio-Visual Team Lead" },
 ];

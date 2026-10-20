@@ -1,4 +1,5 @@
 // Project showcase. `href` is optional; when present the card links out.
+// Icon names refer to src/components/ui/icons.js.
 
 import { site } from "./site";
 
@@ -8,46 +9,37 @@ export const seoDescription =
 
 export const projects = [
   {
-    name: "Enterprise Access-Governance Platform",
-    stack: ["Python", "Oracle SQL", "REST APIs"],
+    icon: "shield-check",
+    name: "Access governance",
+    stack: ["Python", "Oracle SQL", "Oracle Fusion"],
     blurb:
-      "Access-governance functionality for Oracle Fusion security management, integrating Python APIs with Oracle SQL. Recent work includes a shopping cart that lets users stage multiple access requests in one session, performance enhancements, and approval and provisioning-status logic with exception handling and manager notification routing.",
-    tags: ["Automation", "Security", "Full-stack"],
+      "APIs and database logic behind Oracle Fusion access requests: a cart for multiple requests, speed-ups, and approval routing.",
   },
   {
-    name: "Spec-Driven Development Practice",
-    stack: ["OpenSpec", "SpecKit", "GitHub Copilot", "Copilot Studio"],
+    icon: "sparkles",
+    name: "Spec-driven, AI-assisted delivery",
+    stack: ["OpenSpec", "SpecKit", "Azure DevOps"],
     blurb:
-      "Contributing to my company's spec-driven, AI-assisted delivery practice: evaluating spec-driven development frameworks, helping develop a business requirements agent, and demonstrating a gated workflow that gathers requirements and creates and updates Azure DevOps work items through Azure CLI.",
-    tags: ["AI", "Process", "Enablement"],
+      "Evaluating spec-driven frameworks, helping build a requirements agent, and demoing a gated workflow that turns requirements into work items.",
   },
   {
+    icon: "workflow",
     name: "UiPath Center of Excellence",
-    stack: ["UiPath", ".NET (C# / VB)", "Azure DevOps", "Docker"],
+    stack: ["UiPath", ".NET", "Azure DevOps", "Docker"],
     blurb:
-      "Built the CI/CD and deployment process for the organization's RPA Center of Excellence (2021–2022): a deployment pipeline with automated rollback, change control across affiliates, and standardized deployment documentation — plus resilient UiPath automations with retry and idempotency patterns.",
-    tags: ["RPA", "DevOps", "Platform"],
+      "Built the CoE's CI/CD and deployment process (2021–2022): rollback-ready pipelines, change control across affiliates, and retry-safe bots.",
   },
   {
-    name: "Operational KPI Web Application",
+    icon: "chart-column",
+    name: "Operational KPI dashboards",
     stack: ["Oracle APEX", "PL/SQL"],
-    blurb:
-      "A full-stack PL/SQL application with dashboards for tracking operational KPIs and environmental-compliance reporting — giving stakeholders a live view of the metrics that matter instead of month-end spreadsheets.",
-    tags: ["Data", "Reporting", "Oracle"],
+    blurb: "Dashboards for operational KPIs and environmental-compliance reporting.",
   },
   {
+    icon: "rocket",
     name: "adamaurelio.com",
-    stack: [
-      "React 19",
-      "Vite",
-      "Tailwind",
-      "AWS S3 + CloudFront",
-      "Terraform",
-      "GitHub Actions",
-    ],
-    blurb:
-      "This website. A static React SPA with a fully automated, multi-environment CI/CD pipeline (dev / QA / prod), infrastructure defined as code with Terraform, and hardened security headers. Fast, cheap to run, and self-deploying.",
-    tags: ["Web", "IaC", "CI/CD"],
+    stack: ["React", "AWS", "Terraform", "GitHub Actions"],
+    blurb: "This site. Infrastructure as code, with automated dev → QA → prod releases.",
     href: site.links.repo,
     hrefLabel: "View source",
   },

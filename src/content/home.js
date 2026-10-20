@@ -1,34 +1,35 @@
 // Home page content. The page component is a template over this data.
+// Icon names refer to src/components/ui/icons.js.
 
 export const roles = [
-  "Software Engineer",
-  "Full-Stack",
-  "Automation & Reliability",
-  "Team Lead",
+  { label: "Software engineer", icon: "code-xml" },
+  { label: "Team lead", icon: "users" },
+  { label: "Youth soccer coach", icon: "shirt" },
 ];
 
 export const intro =
-  "Ten-plus years turning messy, high-stakes problems into automation, " +
-  "integrations, and applications people can trust. I care about the details " +
-  "most people never see — the retry that saves a 2 a.m. page, the audit trail " +
-  "that passes the review, the onboarding doc that ramps a teammate a week faster.";
+  "10+ years building automation, apps, and integrations for a regulated utility.";
 
 export const whatIDo = [
   {
-    title: "Full-Stack Development",
-    body: "React, Python, C#/.NET, and Oracle — from the data model up to the interface people actually use.",
+    icon: "code-xml",
+    title: "Full-stack apps",
+    body: "React, Python, C#/.NET, and Oracle — database to UI.",
   },
   {
-    title: "Automation & Reliability",
-    body: "Unattended workflows built to survive the real world: idempotent, retry-safe, and auditable. Automation you don't have to babysit.",
+    icon: "workflow",
+    title: "Automation",
+    body: "Unattended workflows that retry safely and leave a trail.",
   },
   {
-    title: "Access Governance & Security",
-    body: "Provisioning, approvals, and audit trails for regulated environments — where getting access right is a compliance requirement, not a nicety.",
+    icon: "shield-check",
+    title: "Access & security",
+    body: "Access requests, approvals, and provisioning in Oracle Fusion.",
   },
   {
-    title: "Spec-Driven Development",
-    body: "Helping shape my company's spec-driven, AI-assisted delivery practice — evaluating frameworks and demonstrating a gated workflow that turns requirements into reviewed Azure DevOps work items.",
+    icon: "sparkles",
+    title: "AI-assisted engineering",
+    body: "Spec-driven workflows with a human in the loop.",
   },
 ];
 
@@ -44,10 +45,11 @@ export const oneRule = {
 };
 
 export const beyond = {
-  kicker: "Beyond the code",
-  title: "I'm more than a stack of skills",
-  body:
-    "Off the clock I coach youth soccer, serve in my church and community, and " +
-    "spend my best hours with my family. The same things I value there — showing " +
-    "up, doing it right, lifting the people around me — are the things I bring to a team.",
+  title: "Life outside the code",
+  items: [
+    { icon: "shirt", label: "Youth soccer coach" },
+    { icon: "heart", label: "Family first" },
+    { icon: "church", label: "Faith" },
+    { icon: "hand-heart", label: "Community" },
+  ],
 };

@@ -1,36 +1,63 @@
-// About page content. The story paragraphs stay in src/pages/About.jsx because
-// they are prose with inline formatting; the structured lists live here.
+// About page content. Icon names refer to src/components/ui/icons.js.
 
 export const seoDescription =
-  "Engineer, leader, coach. Adam Aurelio's story — from help desk to shipping " +
-  "enterprise platforms, and the values behind the work.";
+  "Engineer, leader, coach. Adam Aurelio's path from help desk to team lead, " +
+  "and what he cares about.";
 
-export const values = [
+export const intro =
+  "I'm happiest turning chaos into something dependable — a fragile process " +
+  "or a team finding its feet.";
+
+// "My path", oldest first. Kept to what the résumé says.
+export const path = [
   {
-    title: "Do it right, even when no one's looking",
-    body: "The retry logic, the audit trail, the test nobody asked for. Quality lives in the details you don't get credit for — so I build like someone will have to maintain it at 2 a.m. (often that someone is me).",
+    icon: "headset",
+    when: "Before 2015",
+    title: "Help desk",
+    body: "Tier I/II support. Learned how real systems break.",
   },
   {
-    title: "Earn trust, then keep it",
-    body: "I've spent years in access governance and security, where trust is the whole job. I say what's done and what isn't, I flag risk early, and I don't dress up a demo as a deployment.",
+    icon: "code-xml",
+    when: "2015",
+    title: "Software engineer",
+    body: "Started building what I used to support: PL/SQL, .NET, Oracle APEX, UiPath.",
   },
   {
-    title: "Lift the people around you",
-    body: "The work I'm proudest of usually has someone else's name on the commit. Mentoring, onboarding, unblocking — a team that's better than the sum of its people is the real deliverable.",
+    icon: "users",
+    when: "Today",
+    title: "Team lead",
+    body: "Leading five developers. Filled in as acting manager for a month.",
+  },
+  {
+    icon: "sparkles",
+    when: "Lately",
+    title: "Exploring",
+    body: "Databricks, React, and AI-assisted engineering — done carefully.",
   },
 ];
 
+export const values = [
+  {
+    icon: "shield-check",
+    title: "Do it right",
+    body: "Retries, audit trails, and the test nobody asked for.",
+  },
+  {
+    icon: "handshake",
+    title: "Earn trust",
+    body: "Say what's done, flag risk early, never pass off a demo as a launch.",
+  },
+  {
+    icon: "users",
+    title: "Lift people up",
+    body: "Mentoring and unblocking. The team is the real deliverable.",
+  },
+];
+
+export const communityIntro = "Faith, family, and community keep the work in perspective.";
+
 export const community = [
-  {
-    role: "Former Head Coach — Iowa United Select 14U Girls",
-    body: "Teaching kids that effort and composure beat talent on a bad day.",
-  },
-  {
-    role: "Former Director of Volunteers — Iowa Asian Alliance",
-    body: "Organizing people around service and celebrating the community and heritage I come from.",
-  },
-  {
-    role: "Former A/V Team Lead — Walnut Creek Community Church",
-    body: "Faith and family are the foundation I build everything else on; leading the tech team was one small way I gave back.",
-  },
+  { icon: "shirt", name: "Iowa United", role: "Former head coach, Select 14U Girls" },
+  { icon: "hand-heart", name: "Iowa Asian Alliance", role: "Former director of volunteers" },
+  { icon: "church", name: "Walnut Creek Community Church", role: "Former A/V team lead" },
 ];
