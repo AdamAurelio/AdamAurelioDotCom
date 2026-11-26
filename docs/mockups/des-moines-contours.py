@@ -1,11 +1,11 @@
 """Contour lines of Des Moines, Iowa, for the mockup's topography background.
 
 Source: AWS Terrain Tiles (terrarium encoding). In the US that dataset is
-USGS 3DEP/NED elevation, which is public domain. Fetch the 20 zoom-12 tiles
+USGS 3DEP/NED elevation, which is public domain. Fetch the 45 zoom-12 tiles
 around downtown into a fresh directory first:
 
     mkdir tiles && cd tiles
-    for y in 1525 1526 1527 1528; do for x in 980 981 982 983 984; do
+    for y in $(seq 1523 1531); do for x in 980 981 982 983 984; do
       curl -sfo "12_${x}_${y}.png" \
         "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/12/${x}/${y}.png"
     done; done
@@ -13,7 +13,7 @@ around downtown into a fresh directory first:
 Then:  python3 -I des-moines-contours.py tiles out 10 4.5
 (10 m interval, 4.5 px Gaussian smoothing; the mockup uses these values.)
 Writes out/topo.json (SVG path data for regular and index contours, in a
-1000x600 window centred on downtown) and out/preview.png. Needs numpy + Pillow.
+1000x2000 window with downtown at 500,700) and out/preview.png. Needs numpy + Pillow.
 """
 import sys, math, json
 from collections import defaultdict
@@ -23,7 +23,7 @@ from PIL import Image, ImageDraw
 tiles_dir, out_dir = sys.argv[1], sys.argv[2]
 INTERVAL = float(sys.argv[3]) if len(sys.argv) > 3 else 5.0
 SIGMA = float(sys.argv[4]) if len(sys.argv) > 4 else 2.0
-Z, X0, X1, Y0, Y1 = 12, 980, 984, 1525, 1528
+Z, X0, X1, Y0, Y1 = 12, 980, 984, 1523, 1531
 W, H = (X1 - X0 + 1) * 256, (Y1 - Y0 + 1) * 256
 
 elev = np.zeros((H, W), np.float64)
@@ -51,7 +51,10 @@ def blur(a, s):
     return sum(k[i] * p[i:i + a.shape[0], :] for i in range(2 * r + 1))
 
 z = blur(elev, SIGMA)
-CX0, CY0, CX1, CY1 = 205, 164, 1205, 764  # 1000x600 window centred on downtown
+# A 1000x2000 window for the full-page background, downtown at (500, 700):
+# roughly behind "What I do" on a desktop-width page.
+CX0, CY0 = round(dx) - 500, round(dy) - 700
+CX1, CY1 = CX0 + 1000, CY0 + 2000
 z = z[CY0:CY1, CX0:CX1]
 W, H = CX1 - CX0, CY1 - CY0
 dx, dy = dx - CX0, dy - CY0
@@ -137,9 +140,9 @@ while lv <= hi:
     is_index = abs((lv / INTERVAL) % 5) < 1e-6
     for ch in contours(z, lv):
         closed = math.hypot(ch[0][0] - ch[-1][0], ch[0][1] - ch[-1][1]) < 1e-6
-        if length(ch) < 60: continue
+        if length(ch) < 80: continue
         if closed: ch = ch[:-1]
-        sm = rdp(chaikin(ch, closed), 0.6)
+        sm = rdp(chaikin(ch, closed), 0.9)
         (idx_paths if is_index else reg).append(to_path(sm, closed))
         preview.append((sm + ([sm[0]] if closed else []), is_index))
     lv += INTERVAL
