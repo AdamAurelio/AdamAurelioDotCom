@@ -17,6 +17,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > AI-generated code and docs are reviewed to the same standard as hand-written
 > work before commit — per the ADAM model's AI-assistant standard._
 
+### Changed
+- **New look: "light through glass"** (ADR-0008). Frosted-glass header, cards,
+  chips and stats over soft washes of dawn light, with fine film grain.
+  - Every page: a floating glass header with a small stained-glass logo mark,
+    one gold nav marker that rests on the current page and glides on hover, a
+    teal-to-gold reading-progress line, and a theme switch that ripples out
+    from the button (View Transitions; instant where unsupported). Faint
+    Des Moines contour lines (USGS 3DEP, public domain) sit behind the page,
+    and the footer rises as a rolling-hill horizon with an S·D·G sign-off.
+  - Cards spotlight the pointer; buttons sweep their fill in and nudge an
+    arrow. Only cards that are links still lift.
+  - Home: a gold ring draws around the portrait over a paper disc, with a
+    glass plaque showing the local time in Des Moines; Roman-numeral chapter
+    marks and masked headings; cards and stats arrive one at a time with
+    icons drawing in; the numbers roll like a utility meter; a highlighter
+    sweeps under "better".
+  - Reduced motion shows everything in its final state; reduced transparency
+    or no backdrop-filter support gets solid surfaces; print drops the
+    decoration. No new dependencies.
+- `CountUp` is replaced by `Odometer` (pure CSS, screen readers get the plain
+  value).
+
 ### Fixed
 - **Printed résumé dropped its name, contact line, and summary** — the print
   stylesheet hid every `<header>` to remove the site chrome, which also hid the

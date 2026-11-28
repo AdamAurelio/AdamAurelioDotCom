@@ -53,6 +53,20 @@ test.describe("smoke", () => {
     await expect.poll(() => page.evaluate(() => document.activeElement?.id)).toBe("main");
   });
 
+  // WCAG 1.4.10 reflow: at 320 CSS px nothing may force sideways scrolling.
+  // Decoration (the portrait ring, the washes) is the usual culprit.
+  for (const { path } of routes) {
+    test(`${path} reflows at 320px without horizontal scroll`, async ({ page }) => {
+      await page.setViewportSize({ width: 320, height: 640 });
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+      );
+      expect(overflow, `horizontal overflow on ${path}`).toBeLessThanOrEqual(0);
+    });
+  }
+
   test("the active nav link is marked with aria-current", async ({ page }) => {
     await page.goto("/projects");
     const primary = page.getByRole("navigation", { name: "Primary" });

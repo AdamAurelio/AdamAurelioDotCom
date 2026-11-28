@@ -13,6 +13,7 @@ The following inline SVG icons are path data from the Lucide icon set:
 
   sun, moon        src/components/ThemeToggle.jsx
   menu, x          src/components/Header.jsx
+  arrow-right      src/components/ui/ButtonLink.jsx
   30 icons (v0.460.0, from lucide-static), including line-art
   renderings of the LinkedIn and GitHub marks used beside profile links
                    src/components/ui/icons.js
@@ -36,6 +37,18 @@ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+
+--------------------------------------------------------------------------
+Des Moines contour lines (public domain)
+--------------------------------------------------------------------------
+
+public/dsm-topo.svg holds 10 m elevation contours around Des Moines, Iowa,
+traced from USGS 3D Elevation Program (3DEP) data, accessed through the
+AWS Terrain Tiles open dataset. USGS data is in the public domain.
+
+  https://www.usgs.gov/3d-elevation-program
+  https://registry.opendata.aws/terrain-tiles/
 
 
 --------------------------------------------------------------------------

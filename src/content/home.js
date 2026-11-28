@@ -41,6 +41,8 @@ export const numbers = [
 
 export const oneRule = {
   quote: "Leave it better than I found it.",
+  // The word the gold highlighter sweeps under. Must appear in `quote`.
+  highlight: "better",
   label: "My one rule",
 };
 

@@ -22,7 +22,7 @@ if (!window.matchMedia) {
   });
 }
 
-// jsdom lacks IntersectionObserver; Reveal/CountUp use it. No-op stub so
+// jsdom lacks IntersectionObserver; Reveal uses it. No-op stub so
 // components render without animating.
 class IntersectionObserverStub {
   observe() {}

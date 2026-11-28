@@ -91,7 +91,7 @@ const Resume = () => {
   return (
     <section
       id="resume"
-      className="py-12 bg-navy-100 dark:bg-navy-950 min-h-screen transition-colors"
+      className="pt-12 pb-28 -mb-16 bg-navy-100 dark:bg-navy-950 min-h-screen transition-colors"
     >
       <Seo
         title="Résumé"

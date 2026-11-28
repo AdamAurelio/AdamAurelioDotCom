@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { Link, NavLink } from "react-router";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router";
 import ThemeToggle from "./ThemeToggle";
-import Container from "./ui/Container";
+import BrandMark from "./BrandMark";
 import { navRoutes } from "../routes";
 import { site } from "../content/site";
 
-// Desktop links: an animated gold underline on hover, held open on the active
-// route. NavLink sets aria-current="page" on the active link for us.
+// Desktop links: one gold marker (the glider) rests under the active route and
+// glides to whichever link is hovered or focused. NavLink sets
+// aria-current="page" on the active link for us.
 const desktopLinkClass = ({ isActive }) =>
   [
     "relative inline-block font-medium transition-colors",
-    "after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-full after:origin-left after:bg-gold-500 dark:after:bg-gold-400 after:transition-transform after:duration-300",
     isActive
-      ? "text-teal-700 dark:text-teal-300 after:scale-x-100"
-      : "text-navy-700 dark:text-navy-300 hover:text-teal-700 dark:hover:text-teal-300 after:scale-x-0 hover:after:scale-x-100",
+      ? "text-teal-700 dark:text-teal-300"
+      : "text-navy-700 dark:text-navy-300 hover:text-teal-700 dark:hover:text-teal-300",
   ].join(" ");
 
 const mobileLinkClass = ({ isActive }) =>
@@ -59,26 +59,129 @@ const MenuIcon = ({ open }) => (
   </svg>
 );
 
+// Scroll state for the header: whether we've left the top (the glass
+// thickens) and how far down the page we are (the progress line). The
+// progress is written straight to a CSS variable so scrolling never
+// re-renders React.
+const useScrollState = (shellRef) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(y > 8);
+      shellRef.current?.style.setProperty("--p", max > 0 ? Math.min(1, y / max).toFixed(4) : "0");
+    };
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [shellRef]);
+
+  return scrolled;
+};
+
+// The nav glider: positions the marker under a link by writing CSS variables.
+// It rests on the active link and follows hover/focus. Appearing from nothing
+// it jumps into place instead of sliding in from the left edge.
+const useGlider = (navRef, pathname) => {
+  const move = useCallback(
+    (link) => {
+      const nav = navRef.current;
+      const glider = nav?.querySelector(".nav-glider");
+      if (!nav || !glider) return;
+      if (!link) {
+        glider.style.opacity = "0";
+        return;
+      }
+      const appearing = glider.style.opacity !== "1";
+      const nr = nav.getBoundingClientRect();
+      const lr = link.getBoundingClientRect();
+      if (appearing) glider.style.transition = "none";
+      nav.style.setProperty("--gx", `${lr.left - nr.left}px`);
+      nav.style.setProperty("--gw", `${lr.width}px`);
+      glider.style.opacity = "1";
+      if (appearing) {
+        void glider.offsetWidth; // commit the jump before re-enabling the slide
+        glider.style.transition = "";
+      }
+    },
+    [navRef]
+  );
+
+  const rest = useCallback(
+    () => move(navRef.current?.querySelector('[aria-current="page"]') ?? null),
+    [move, navRef]
+  );
+
+  useEffect(() => {
+    rest();
+    // Text metrics can change after a font swap; re-seat the marker then.
+    let live = true;
+    document.fonts?.ready.then(() => live && rest());
+    window.addEventListener("resize", rest);
+    return () => {
+      live = false;
+      window.removeEventListener("resize", rest);
+    };
+  }, [rest, pathname]);
+
+  const onOver = (e) => {
+    const link = e.target.closest?.("a");
+    if (link) move(link);
+  };
+  const onLeave = (e) => {
+    if (e.type === "blur" && navRef.current?.contains(e.relatedTarget)) return;
+    rest();
+  };
+
+  return { onOver, onLeave };
+};
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
+  const { pathname } = useLocation();
+  const shellRef = useRef(null);
+  const navRef = useRef(null);
+  const scrolled = useScrollState(shellRef);
+  const glider = useGlider(navRef, pathname);
 
   return (
-    <header className="print:hidden bg-navy-50/90 dark:bg-navy-950/90 backdrop-blur border-b border-navy-200 dark:border-navy-800 sticky top-0 z-50 transition-colors">
-      <Container>
-        <div className="flex items-center justify-between h-16">
-          <div className="font-serif text-2xl font-bold text-navy-900 dark:text-white">
-            <Link
-              to="/"
-              className="hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
-            >
-              {site.name}
-            </Link>
-          </div>
+    <header className="print:hidden sticky top-0 z-50 px-3 pt-3 md:px-6 md:pt-4 pointer-events-none">
+      <div ref={shellRef} className={`hdr-shell glass pointer-events-auto ${scrolled ? "is-scrolled" : ""}`}>
+        <div className="flex items-center justify-between h-14 pl-5 pr-3">
+          <Link
+            to="/"
+            className="inline-flex items-center font-serif text-2xl font-bold text-navy-900 dark:text-white hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
+          >
+            <BrandMark className="mr-[0.65rem] h-[22px] w-[17px] shrink-0" />
+            {site.name}
+          </Link>
 
           <div className="flex items-center gap-2 md:gap-6">
-            {/* Desktop nav */}
-            <nav className="hidden md:block" aria-label="Primary">
+            {/* Desktop nav. Pointer/focus handlers only steer the decorative
+                glider; the links themselves are ordinary NavLinks. */}
+            <nav
+              ref={navRef}
+              className="relative hidden md:block"
+              aria-label="Primary"
+              onPointerOver={glider.onOver}
+              onPointerLeave={glider.onLeave}
+              onFocus={glider.onOver}
+              onBlur={glider.onLeave}
+            >
               <ul className="flex space-x-8">
                 {navRoutes.map(({ path, label }) => (
                   <li key={path}>
@@ -88,6 +191,7 @@ const Header = () => {
                   </li>
                 ))}
               </ul>
+              <span className="nav-glider" style={{ opacity: 0 }} aria-hidden="true" />
             </nav>
 
             <a
@@ -115,44 +219,46 @@ const Header = () => {
             </button>
           </div>
         </div>
-      </Container>
 
-      {/* Mobile dropdown menu — animates height (grid-rows) + opacity. */}
-      <div
-        className={`md:hidden grid overflow-hidden transition-[grid-template-rows,opacity,visibility] duration-300 ease-out ${
-          menuOpen
-            ? "grid-rows-[1fr] opacity-100 visible"
-            : "grid-rows-[0fr] opacity-0 invisible"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <nav
-            id="mobile-menu"
-            aria-label="Primary, mobile"
-            className="border-t border-navy-200 dark:border-navy-800 px-4 py-3"
-          >
-            <ul className="space-y-1">
-              {navRoutes.map(({ path, label }) => (
-                <li key={path}>
-                  <NavLink to={path} onClick={closeMenu} className={mobileLinkClass}>
-                    {label}
-                  </NavLink>
+        {/* Mobile dropdown menu — animates height (grid-rows) + opacity. */}
+        <div
+          className={`md:hidden grid overflow-hidden transition-[grid-template-rows,opacity,visibility] duration-300 ease-out ${
+            menuOpen
+              ? "grid-rows-[1fr] opacity-100 visible"
+              : "grid-rows-[0fr] opacity-0 invisible"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <nav
+              id="mobile-menu"
+              aria-label="Primary, mobile"
+              className="border-t border-[color:var(--hairline)] px-4 py-3"
+            >
+              <ul className="space-y-1">
+                {navRoutes.map(({ path, label }) => (
+                  <li key={path}>
+                    <NavLink to={path} onClick={closeMenu} className={mobileLinkClass}>
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href={site.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeMenu}
+                    className={mobileLinkClass({ isActive: false })}
+                  >
+                    GitHub
+                  </a>
                 </li>
-              ))}
-              <li>
-                <a
-                  href={site.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                  className={mobileLinkClass({ isActive: false })}
-                >
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </nav>
+              </ul>
+            </nav>
+          </div>
         </div>
+
+        <span className="read-progress" aria-hidden="true" />
       </div>
     </header>
   );

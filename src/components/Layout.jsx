@@ -32,18 +32,32 @@ const Layout = () => {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-navy-50 dark:bg-navy-950 transition-colors">
+    <div className="relative min-h-screen flex flex-col overflow-x-clip">
+      {/* Decoration behind every page: soft washes of dawn light under the
+          glass header, and the real contour lines of Des Moines (downtown,
+          where the Des Moines and Raccoon rivers meet, sits behind Home's
+          "What I do"). Both are inert and hidden from assistive tech. */}
+      <div className="wash h-[60rem]" aria-hidden="true">
+        <i className="left-[-18%] top-[-30%] h-[46rem] w-[62rem] bg-[radial-gradient(closest-side,var(--w-teal),transparent)]" />
+        <i className="right-[-14%] top-[-6%] h-[52rem] w-[58rem] bg-[radial-gradient(closest-side,var(--w-gold),transparent)]" />
+        <i className="left-[22%] top-[38%] h-[30rem] w-[56rem] bg-[radial-gradient(closest-side,var(--w-blue),transparent)]" />
+      </div>
+      <div className="topo" aria-hidden="true">
+        <img src="/dsm-topo.svg" alt="" decoding="async" />
+      </div>
+
       <a href="#main" className="skip-link">
         Skip to content
       </a>
       <Header />
       {/* tabIndex=-1 makes <main> programmatically focusable (for the route
-          change above) without adding it to the tab order. */}
+          change above) without adding it to the tab order. The bottom padding
+          is the strip the footer's horizon overlaps. */}
       <main
         id="main"
         ref={mainRef}
         tabIndex={-1}
-        className="flex-grow outline-none"
+        className="relative z-[1] flex-grow pb-16 outline-none"
         data-app-ready="true"
       >
         <Suspense

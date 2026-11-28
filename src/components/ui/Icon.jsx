@@ -6,7 +6,10 @@ import { icons } from "./icons";
 // the site sits beside text that already says what it means, so it is hidden
 // from assistive tech. Size and colour come from className; the stroke follows
 // currentColor. An unknown name renders nothing rather than a broken shape.
-const Icon = ({ name, className = "h-5 w-5" }) => {
+//
+// `draw` normalises every stroke to pathLength=1 so the icon can draw in like
+// ink when its Reveal block arrives (see .ico-draw in src/styles/index.css).
+const Icon = ({ name, className = "h-5 w-5", draw = false }) => {
   const shapes = icons[name];
   if (!shapes) return null;
 
@@ -21,10 +24,10 @@ const Icon = ({ name, className = "h-5 w-5" }) => {
       strokeLinejoin="round"
       aria-hidden="true"
       focusable="false"
-      className={className}
+      className={draw ? `ico-draw ${className}` : className}
     >
       {/* Static data that never reorders, so the index is a stable key. */}
-      {shapes.map(([tag, attrs], i) => createElement(tag, { key: i, ...attrs }))}
+      {shapes.map(([tag, attrs], i) => createElement(tag, { key: i, ...attrs, ...(draw && { pathLength: 1 }) }))}
     </svg>
   );
 };

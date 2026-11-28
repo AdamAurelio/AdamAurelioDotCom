@@ -1,13 +1,22 @@
 /* eslint-disable react/prop-types */
 
-// The one card surface. Options:
-//   interactive  lifts on hover — for cards that are, or contain, a link
-//   accent       "teal" | "gold": a left rule instead of a full border, for
-//                list-like entries (experience, values, community)
+// The one card surface: frosted glass with a sheen, and a soft spotlight that
+// follows the pointer (.glass-card in src/styles/index.css). Options:
+//   interactive  also lifts on hover — for cards that are, or contain, a link
+//   accent       "teal" | "gold": a left rule, for list-like entries
+//                (experience, values, community)
 //   padding      override the default padding class
 const accents = {
-  teal: "border-l-4 border-teal-600 dark:border-teal-400 rounded-r-lg",
-  gold: "border-l-4 border-gold-500 rounded-r-lg",
+  teal: "border-l-4 border-l-teal-600 dark:border-l-teal-400 rounded-r-2xl",
+  gold: "border-l-4 border-l-gold-500 rounded-r-2xl",
+};
+
+// Pointer position, relative to the card, for the spotlight gradient.
+const trackPointer = (e) => {
+  const el = e.currentTarget;
+  const r = el.getBoundingClientRect();
+  el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  el.style.setProperty("--my", `${e.clientY - r.top}px`);
 };
 
 const Card = ({
@@ -18,15 +27,14 @@ const Card = ({
   className = "",
   children,
 }) => {
-  const border = accent
-    ? accents[accent]
-    : "border border-navy-200 dark:border-navy-700 rounded-xl";
-  const hover = interactive
-    ? "shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
-    : "";
+  const shape = accent ? accents[accent] : "rounded-2xl";
+  const hover = interactive ? "hover:shadow-lg hover:-translate-y-0.5" : "";
 
   return (
-    <Tag className={`bg-navy-50 dark:bg-navy-800 ${border} ${hover} ${padding} ${className}`}>
+    <Tag
+      onPointerMove={trackPointer}
+      className={`glass glass-card ${shape} ${hover} ${padding} ${className}`}
+    >
       {children}
     </Tag>
   );
